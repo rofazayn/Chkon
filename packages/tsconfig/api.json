@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
-  "display": "Server",
+  "display": "API",
   "extends": "./base.json",
   "compilerOptions": {
     "target": "ES2015",
