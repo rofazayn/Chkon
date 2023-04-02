@@ -6,7 +6,7 @@ import {
 import { ApolloServer } from 'apollo-server-express'
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
-import express from 'express'
+import express, { Request, Response } from 'express'
 import { applyMiddleware } from 'graphql-middleware'
 import http from 'http'
 import { JwtPayload, verify } from 'jsonwebtoken'
@@ -89,6 +89,7 @@ async function main() {
     cors: corsOptions,
   })
   app.use(authRoutes)
+
   await new Promise<void>((resolve) =>
     httpServer.listen({ port: PORT }, resolve)
   )

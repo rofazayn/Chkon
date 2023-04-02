@@ -24,7 +24,6 @@ import { Resolver } from 'did-resolver'
 import { getResolver as keyDidResolver } from 'key-did-resolver'
 import { DataSource } from 'typeorm'
 
-// const INFURA_PROJECT_ID = '9148edd953d6421f82d4e81214f282ac'
 const KMS_SECRET_KEY =
   '60f8b3c84ce6c553c0aa8f668137e98119abd8ed9e596e1921d2d211c5f0f4ef'
 
