@@ -11,10 +11,9 @@ import { v4 as uuidv4 } from 'uuid'
 
 @Resolver(User)
 class AuthResolver {
-  // add atleast one query to avoid schema error
   @Query(() => String)
   hello() {
-    return 'Hello from AuresX!'
+    return 'Hello from Chkon!'
   }
 
   @Query(() => User, { nullable: true })
@@ -142,12 +141,6 @@ class AuthResolver {
       }
     }
     return { accessToken: null, refreshToken: null }
-  }
-
-  @Mutation(() => Boolean)
-  async logout(@Ctx() { user: currentUser }: ApolloContext) {
-    currentUser = null
-    return true
   }
 }
 

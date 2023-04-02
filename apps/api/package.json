@@ -1,13 +1,13 @@
 {
   "name": "api",
   "version": "1.0.0",
-  "description": "API module for Chkon digital identity solution",
+  "description": "API module for Chkon digital identity solution.",
   "main": "build/index.js",
   "author": "Abderraouf Zine <rofazayn@gmail.com> (https://rofazayn.com)",
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev": "dotenv -e ../../.env.development -- nodemon --exec ts-node src/index.ts",
+    "dev": "dotenv -e ../../.env.local -- nodemon --exec ts-node src/index.ts",
     "build": "webpack",
     "serve": "NODE_ENV=\"production\" node build/index.js",
     "prisma:generate": "prisma generate"

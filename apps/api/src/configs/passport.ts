@@ -5,8 +5,7 @@ import prisma from './prisma-client'
 const opts: any = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
   secretOrKey: 'mysupersecretprivatekey',
-  // issuer: 'accounts.auresx.com',
-  // audience: 'auresx.com',
+  issuer: 'chkon.co',
 }
 
 passport.use(

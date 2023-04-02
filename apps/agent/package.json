@@ -2,6 +2,7 @@
   "name": "agent",
   "version": "1.0.0",
   "main": "dist/index.js",
+  "description": "Agent module for Chkon digital identity solution",
   "author": "Abderraouf Zine <rofazayn@gmail.com> (https://rofazayn.com)",
   "license": "MIT",
   "private": true,
