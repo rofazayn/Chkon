@@ -20,7 +20,6 @@ export default shield(
       login: allow,
       register: allow,
       refresh: allow,
-      logout: allow,
     },
   },
   {
