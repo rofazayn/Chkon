@@ -17,7 +17,6 @@ import {
   IconHash,
   IconLock,
   IconLogin,
-  IconUser,
 } from '@tabler/icons-react'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
@@ -137,7 +136,19 @@ const LoginForm = () => {
               </Stack>
 
               <Stack spacing={16} mt={24}>
-                <Button size='md' fullWidth rightIcon={<IconLogin />}>
+                <Button
+                  size='md'
+                  fullWidth
+                  rightIcon={<IconLogin />}
+                  sx={{
+                    paddingInline: 16,
+                    minHeight: 48,
+                    '& > div': {
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                    },
+                  }}
+                >
                   Connect to my account
                 </Button>
               </Stack>

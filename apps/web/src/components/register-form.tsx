@@ -17,7 +17,6 @@ import {
   IconFingerprint,
   IconHash,
   IconLock,
-  IconLogin,
   IconUser,
 } from '@tabler/icons-react'
 import { motion } from 'framer-motion'
@@ -136,7 +135,19 @@ const RegisterForm = () => {
               </Stack>
 
               <Stack spacing={16} mt={24}>
-                <Button size='md' fullWidth rightIcon={<IconFingerprint />}>
+                <Button
+                  size='md'
+                  fullWidth
+                  sx={{
+                    paddingInline: 16,
+                    minHeight: 48,
+                    '& > div': {
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                    },
+                  }}
+                  rightIcon={<IconFingerprint />}
+                >
                   Create your account
                 </Button>
               </Stack>

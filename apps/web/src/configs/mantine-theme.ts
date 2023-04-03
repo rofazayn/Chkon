@@ -16,8 +16,13 @@ const mantineTheme: MantineThemeOverride = {
     },
     Input: {
       styles: (_theme: any) => ({
-        input: { borderWidth: 3, height: 44 },
+        input: { borderWidth: 3, height: 42 },
       }),
+    },
+    Button: {
+      defaultProps: {
+        loaderPosition: 'right',
+      },
     },
   },
 }

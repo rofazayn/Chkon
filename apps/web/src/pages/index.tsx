@@ -1,6 +1,5 @@
 import { Box, Button, Center, Group, useMantineTheme } from '@mantine/core'
 import Head from 'next/head'
-import LoginForm from '../components/login-form'
 import Link from 'next/link'
 
 export default function Home() {
