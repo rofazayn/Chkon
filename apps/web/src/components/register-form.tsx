@@ -14,6 +14,7 @@ import {
 } from '@mantine/core'
 import {
   IconArrowBack,
+  IconFingerprint,
   IconHash,
   IconLock,
   IconLogin,
@@ -23,7 +24,7 @@ import { motion } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
 
-const LoginForm = () => {
+const RegisterForm = () => {
   const theme = useMantineTheme()
   return (
     <Box w='100%'>
@@ -32,7 +33,7 @@ const LoginForm = () => {
           initial={{ opacity: 0, scale: 0 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0 }}
-          key='login-form'
+          key='register-form'
         >
           <Center>
             <Box
@@ -66,7 +67,7 @@ const LoginForm = () => {
                     <Text size='xl' weight='bold' mb={-5}>
                       Chkon: E-ID
                     </Text>
-                    <Text color='dimmed'>Login to your account.</Text>
+                    <Text color='dimmed'>Create a new account.</Text>
                   </Flex>
                 </Flex>
                 <Box>
@@ -94,20 +95,26 @@ const LoginForm = () => {
                   required
                   withAsterisk={false}
                   type='text'
-                  placeholder='Enter your username'
+                  placeholder='Enter your full name'
+                  label='Full Name'
+                  variant='filled'
+                  description={
+                    <Text component='span'>
+                      You must enter your legal real name
+                    </Text>
+                  }
+                  rightSection={<IconUser size={20} style={{ opacity: 0.3 }} />}
+                />
+                <TextInput
+                  required
+                  withAsterisk={false}
+                  type='text'
+                  placeholder='Choose a username'
                   label='Username'
                   variant='filled'
                   description={
                     <Text component='span'>
-                      The username you used to register,{' '}
-                      <Anchor
-                        component={Link}
-                        href='/'
-                        color='none'
-                        weight='bold'
-                      >
-                        Forgot it?
-                      </Anchor>
+                      You will use this to login later
                     </Text>
                   }
                   rightSection={<IconHash size={20} style={{ opacity: 0.3 }} />}
@@ -116,20 +123,12 @@ const LoginForm = () => {
                   required
                   type='password'
                   withAsterisk={false}
-                  placeholder='Enter your password'
+                  placeholder='Choose a password'
                   label='Password'
                   variant='filled'
                   description={
                     <Text component='span'>
-                      The password you picked,{' '}
-                      <Anchor
-                        component={Link}
-                        href='/'
-                        color='none'
-                        weight='bold'
-                      >
-                        Forgot password?
-                      </Anchor>
+                      Must include digits and special characters
                     </Text>
                   }
                   rightSection={<IconLock size={20} style={{ opacity: 0.3 }} />}
@@ -137,22 +136,22 @@ const LoginForm = () => {
               </Stack>
 
               <Stack spacing={16} mt={24}>
-                <Button size='md' fullWidth rightIcon={<IconLogin />}>
-                  Connect to my account
+                <Button size='md' fullWidth rightIcon={<IconFingerprint />}>
+                  Create your account
                 </Button>
               </Stack>
             </Box>
           </Center>
           <Center mt={8}>
             <Text color='dimmed' size='sm'>
-              You don&apos;t have an account?{' '}
+              You already have an account?{' '}
               <Anchor
                 component={Link}
-                href='/auth/register'
+                href='/auth/login'
                 color='none'
                 weight='bold'
               >
-                Register
+                Login
               </Anchor>
             </Text>
           </Center>
@@ -162,4 +161,4 @@ const LoginForm = () => {
   )
 }
 
-export default LoginForm
+export default RegisterForm

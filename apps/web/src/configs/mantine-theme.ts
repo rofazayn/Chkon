@@ -16,7 +16,7 @@ const mantineTheme: MantineThemeOverride = {
     },
     Input: {
       styles: (_theme: any) => ({
-        input: { borderWidth: 3, height: 40 },
+        input: { borderWidth: 3, height: 44 },
       }),
     },
   },

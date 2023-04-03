@@ -10,6 +10,7 @@ import Head from 'next/head'
 import { useCallback, useEffect, useState } from 'react'
 import mantineTheme from '../configs/mantine-theme'
 import { rtlCache, emotionCache } from '../configs/emotion-cache'
+import { AnimatePresence } from 'framer-motion'
 
 export default function App(props: AppProps) {
   const { Component, pageProps } = props
@@ -70,7 +71,9 @@ export default function App(props: AppProps) {
                     : theme.colors.gray[0],
               })}
             >
-              <Component {...pageProps} />
+              <AnimatePresence mode='wait'>
+                <Component {...pageProps} />
+              </AnimatePresence>
             </Box>
           </MantineProvider>
         </div>
