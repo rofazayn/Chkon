@@ -1,24 +1,24 @@
 import { useMantineTheme } from '@mantine/core'
 import Head from 'next/head'
-import PageLayout from '../components/_layouts/page-layout'
-import HeroSection from '../components/hero-section'
+import AuthLayout from '../../components/_layouts/auth-layout'
+import LoginForm from '../../components/login-form'
 
-export default function Home() {
+export default function LoginPage() {
   const theme = useMantineTheme()
   return (
     <>
       <Head>
-        <title>Chkon.</title>
+        <title>Login to account - Chkon</title>
         <meta
           name='description'
-          content='Digital identity at your fingertips.'
+          content='Authenticate into your Chkon account.'
         />
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <PageLayout>
-        <HeroSection />
-      </PageLayout>
+      <AuthLayout>
+        <LoginForm />
+      </AuthLayout>
     </>
   )
 }
