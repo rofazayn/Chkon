@@ -1,6 +1,6 @@
 import { useMantineTheme } from '@mantine/core'
 import Head from 'next/head'
-import AuthLayout from '../../components/auth-layout'
+import AuthLayout from '../../components/_layouts/auth-layout'
 import RegisterForm from '../../components/register-form'
 
 export default function RegisterPage() {

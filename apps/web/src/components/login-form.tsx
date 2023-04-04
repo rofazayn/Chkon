@@ -9,7 +9,6 @@ import {
   Stack,
   Text,
   TextInput,
-  Tooltip,
   useMantineTheme,
 } from '@mantine/core'
 import {
@@ -28,9 +27,9 @@ const LoginForm = () => {
     <Box w='100%'>
       <Container size='xs'>
         <motion.div
-          initial={{ opacity: 0, scale: 0 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0 }}
+          initial={{ scale: 0.75 }}
+          animate={{ scale: 1 }}
+          exit={{ scale: 0.75 }}
           key='login-form'
         >
           <Center>
@@ -38,16 +37,16 @@ const LoginForm = () => {
               sx={{
                 width: '100%',
                 maxWidth: 440,
-                borderRadius: 16,
+                borderRadius: 6,
                 backgroundColor:
-                  theme.colorScheme === 'dark' ? theme.colors.dark[9] : 'white',
+                  theme.colorScheme === 'dark' ? theme.colors.dark[8] : 'white',
                 padding: 32,
                 paddingBottom: 40,
               }}
             >
               <Flex
                 direction={'row'}
-                align='center'
+                align='top'
                 justify='space-between'
                 gap={16}
                 mb={20}
@@ -69,22 +68,14 @@ const LoginForm = () => {
                   </Flex>
                 </Flex>
                 <Box>
-                  <Tooltip
-                    withArrow
-                    label='Go back home'
-                    color='gray'
-                    position='bottom'
-                    arrowSize={8}
+                  <ActionIcon
+                    variant='subtle'
+                    size='xl'
+                    component={Link}
+                    href='/'
                   >
-                    <ActionIcon
-                      variant='subtle'
-                      size='xl'
-                      component={Link}
-                      href='/'
-                    >
-                      <IconArrowBack size={24} style={{ opacity: 0.3 }} />
-                    </ActionIcon>
-                  </Tooltip>
+                    <IconArrowBack size={24} style={{ opacity: 0.3 }} />
+                  </ActionIcon>
                 </Box>
               </Flex>
 
@@ -137,7 +128,6 @@ const LoginForm = () => {
 
               <Stack spacing={16} mt={24}>
                 <Button
-                  size='md'
                   fullWidth
                   rightIcon={<IconLogin />}
                   sx={{
@@ -154,8 +144,8 @@ const LoginForm = () => {
               </Stack>
             </Box>
           </Center>
-          <Center mt={8}>
-            <Text color='dimmed' size='sm'>
+          <Center mt={12}>
+            <Text size='sm' sx={{ opacity: 0.6 }}>
               You don&apos;t have an account?{' '}
               <Anchor
                 component={Link}
