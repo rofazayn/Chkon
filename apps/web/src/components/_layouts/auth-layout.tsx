@@ -10,6 +10,8 @@ const AuthLayout = ({ children }: any) => {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
+        // paddingTop: 120,
+        // paddingBottom: 320,
       }}
     >
       {children}

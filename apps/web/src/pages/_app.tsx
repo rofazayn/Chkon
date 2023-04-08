@@ -73,7 +73,7 @@ export default function App(props: AppProps) {
                 backgroundColor:
                   theme.colorScheme === 'dark'
                     ? theme.fn.darken(theme.colors.violet[9], 0.9)
-                    : theme.fn.lighten(theme.colors.violet[0], 0.5),
+                    : theme.fn.lighten(theme.colors.violet[0], 0.25),
               })}
             >
               <AnimatePresence

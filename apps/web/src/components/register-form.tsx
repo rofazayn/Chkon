@@ -6,6 +6,9 @@ import {
   Center,
   Container,
   Flex,
+  PasswordInput,
+  Popover,
+  Progress,
   Stack,
   Text,
   TextInput,
@@ -13,6 +16,8 @@ import {
 } from '@mantine/core'
 import {
   IconArrowBack,
+  IconEye,
+  IconEyeOff,
   IconFingerprint,
   IconHash,
   IconLock,
@@ -21,9 +26,27 @@ import {
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useState } from 'react'
+import PasswordRequirement, {
+  getStrength,
+  requirements,
+} from './password-requirement'
 
 const RegisterForm = () => {
   const theme = useMantineTheme()
+
+  const [popoverOpened, setPopoverOpened] = useState(false)
+  const [value, setValue] = useState('')
+  const checks = requirements.map((requirement, index) => (
+    <PasswordRequirement
+      key={index}
+      label={requirement.label}
+      meets={requirement.re.test(value)}
+    />
+  ))
+  const strength = getStrength(value)
+  const color = strength === 100 ? 'teal' : strength > 50 ? 'yellow' : 'red'
+
   return (
     <Box w='100%'>
       <Container size='xs'>
@@ -76,7 +99,7 @@ const RegisterForm = () => {
                     component={Link}
                     href='/'
                   >
-                    <IconArrowBack size={24} style={{ opacity: 0.3 }} />
+                    <IconArrowBack size={24} style={{ opacity: 0.5 }} />
                   </ActionIcon>
                 </Box>
               </Flex>
@@ -94,7 +117,7 @@ const RegisterForm = () => {
                       You must enter your legal real name
                     </Text>
                   }
-                  rightSection={<IconUser size={20} style={{ opacity: 0.3 }} />}
+                  icon={<IconUser size={18} opacity={0.7} />}
                 />
                 <TextInput
                   required
@@ -108,22 +131,73 @@ const RegisterForm = () => {
                       You will use this to login later
                     </Text>
                   }
-                  rightSection={<IconHash size={20} style={{ opacity: 0.3 }} />}
+                  icon={<IconHash size={18} opacity={0.7} />}
                 />
-                <TextInput
-                  required
-                  type='password'
-                  withAsterisk={false}
-                  placeholder='Choose a password'
-                  label='Password'
-                  variant='filled'
-                  description={
-                    <Text component='span'>
-                      Must include digits and special characters
-                    </Text>
-                  }
-                  rightSection={<IconLock size={20} style={{ opacity: 0.3 }} />}
-                />
+                <Popover
+                  opened={popoverOpened && strength !== 100}
+                  position='bottom'
+                  width='target'
+                  transitionProps={{
+                    transition: 'fade',
+                    exitDuration: 1000,
+                    duration: 300,
+                  }}
+                  shadow='xl'
+                >
+                  <Popover.Target>
+                    <div
+                      onFocusCapture={() => setPopoverOpened(true)}
+                      onBlurCapture={() => setPopoverOpened(false)}
+                    >
+                      <PasswordInput
+                        required
+                        withAsterisk={false}
+                        placeholder='Choose a password'
+                        label='Password'
+                        variant='filled'
+                        description={
+                          <Text component='span'>
+                            Must include digits and special characters
+                          </Text>
+                        }
+                        visibilityToggleIcon={({ reveal, size }) =>
+                          reveal ? (
+                            <IconEyeOff size={18} style={{ opacity: 0.8 }} />
+                          ) : (
+                            <IconEye size={18} style={{ opacity: 0.8 }} />
+                          )
+                        }
+                        icon={<IconLock size={18} opacity={0.7} />}
+                        value={value}
+                        onChange={(event) =>
+                          setValue(event.currentTarget.value)
+                        }
+                      />
+                    </div>
+                  </Popover.Target>
+                  <Popover.Dropdown
+                    sx={{
+                      border: 'none',
+                      backgroundColor:
+                        theme.colorScheme === 'dark'
+                          ? theme.colors.dark[7]
+                          : 'white',
+                    }}
+                  >
+                    <Progress
+                      color={color}
+                      value={strength}
+                      size={8}
+                      mb='sm'
+                      radius='xs'
+                    />
+                    <PasswordRequirement
+                      label='Includes at least 6 characters'
+                      meets={value.length > 5}
+                    />
+                    {checks}
+                  </Popover.Dropdown>
+                </Popover>
               </Stack>
 
               <Stack spacing={16} mt={24}>
@@ -145,7 +219,7 @@ const RegisterForm = () => {
             </Box>
           </Center>
           <Center mt={12}>
-            <Text size='sm' sx={{ opacity: 0.6 }}>
+            <Text size='sm' sx={{ opacity: 0.5 }}>
               You already have an account?{' '}
               <Anchor
                 component={Link}

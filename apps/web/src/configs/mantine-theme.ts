@@ -7,19 +7,18 @@ const mantineTheme: MantineThemeOverride = {
   fontFamily: 'Work Sans, IBM Plex Sans Arabic, sans-serif',
   defaultRadius: 4,
   primaryColor: 'violet',
-  // lineHeight: 1,
   components: {
     Title: {
       defaultProps: {
         sx: {
-          lineHeight: 1.4,
+          lineHeight: 1.35,
         },
       },
     },
     Text: {
       defaultProps: {
         sx: {
-          lineHeight: 1.8,
+          lineHeight: 1.75,
         },
       },
     },

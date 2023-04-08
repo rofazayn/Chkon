@@ -46,7 +46,14 @@ const HeroSection = () => {
 
         <Title order={1}>Chkon E-ID: Empowering Digital Identity.</Title>
 
-        <Text mt={12} size='lg' color='dimmed' weight='500'>
+        <Text
+          mt={12}
+          size='lg'
+          sx={(theme) => ({
+            lineHeight: 1.66,
+          })}
+          color='gray.6'
+        >
           Experience the future of secure and seamless digital identity
           management with Chkon. Unleash the potential of self-sovereign
           identity, all at your fingertips.
