@@ -2,12 +2,15 @@ import { ApolloError } from 'apollo-server-core'
 import { compareSync, genSaltSync, hashSync } from 'bcrypt'
 import { verify } from 'jsonwebtoken'
 import { Arg, Ctx, Mutation, Query, Resolver } from 'type-graphql'
-import { JWT_SECRET } from '../../constants'
+import { v4 as uuidv4 } from 'uuid'
+import { JWT_PUB_KEY } from '../../constants'
 import { ApolloContext } from '../../types/context-types'
 import { AuthResponse, RefreshTokensResponse } from '../../types/response-types'
-import { createAccessToken, createRefreshToken } from '../../utils/jwt-tokens'
+import {
+  createAccessToken,
+  createRefreshToken,
+} from '../../utils/jwt-generator'
 import { User } from '../type-graphql'
-import { v4 as uuidv4 } from 'uuid'
 
 @Resolver(User)
 class AuthResolver {
@@ -42,7 +45,7 @@ class AuthResolver {
     const valid = compareSync(password, user.password)
     if (!valid) throw new ApolloError('invalid_password')
 
-    const accessToken = createAccessToken({
+    const newAccessToken = createAccessToken({
       id: user.id,
       email: user.email,
       name: user.name,
@@ -54,7 +57,7 @@ class AuthResolver {
     const newRefreshToken = createRefreshToken(user.id, refreshTokenGuid)
 
     return {
-      accessToken,
+      accessToken: newAccessToken,
       refreshToken: newRefreshToken,
       user,
     }
@@ -112,7 +115,7 @@ class AuthResolver {
     let refreshToken = (req.headers['x-refresh-token'] as string).split(' ')[1]
 
     if (refreshToken) {
-      const token = verify(refreshToken, JWT_SECRET) as {
+      const token = verify(refreshToken, JWT_PUB_KEY) as {
         userId: string
         guid: string
       }

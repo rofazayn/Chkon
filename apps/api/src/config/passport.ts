@@ -1,18 +1,23 @@
 import passport from 'passport'
-import { ExtractJwt, Strategy as JwtStrategy } from 'passport-jwt'
+import {
+  ExtractJwt,
+  Strategy as JwtStrategy,
+  StrategyOptions,
+} from 'passport-jwt'
+import { JWT_PUB_KEY } from '../constants'
 import prisma from './prisma-client'
 
-const opts: any = {
+const opts: StrategyOptions = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-  secretOrKey: 'mysupersecretprivatekey',
-  issuer: 'chkon.co',
+  secretOrKey: JWT_PUB_KEY,
+  algorithms: ['RS256'],
 }
 
 passport.use(
   new JwtStrategy(opts, async function (jwt_payload, done) {
     try {
       const user = await prisma.user.findFirst({
-        where: { email: jwt_payload.email },
+        where: { id: jwt_payload.id },
       })
 
       if (user) {
@@ -25,3 +30,5 @@ passport.use(
     }
   })
 )
+
+export default passport
