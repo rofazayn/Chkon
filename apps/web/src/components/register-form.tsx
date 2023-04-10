@@ -21,9 +21,9 @@ import {
   IconFingerprint,
   IconHash,
   IconLock,
+  IconMail,
   IconUser,
 } from '@tabler/icons-react'
-import { motion } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
@@ -116,12 +116,28 @@ const RegisterForm = () => {
               <TextInput
                 required
                 withAsterisk={false}
+                type='email'
+                placeholder="What's your email"
+                label='Email'
+                variant='filled'
+                description={
+                  <Text component='span'>
+                    We need this to verify your account
+                  </Text>
+                }
+                icon={<IconMail size={18} opacity={0.7} />}
+              />
+              <TextInput
+                required
+                withAsterisk={false}
                 type='text'
                 placeholder='Choose a username'
                 label='Username'
                 variant='filled'
                 description={
-                  <Text component='span'>You will use this to login later</Text>
+                  <Text component='span'>
+                    You will use this to login from now on
+                  </Text>
                 }
                 icon={<IconHash size={18} opacity={0.7} />}
               />
@@ -219,6 +235,8 @@ const RegisterForm = () => {
               href='/auth/login'
               color='none'
               weight='bold'
+              scroll={false}
+              replace
             >
               Login
             </Anchor>

@@ -169,7 +169,7 @@ function applyTypeClassEnhanceConfig<
 }
 
 const modelsInfo = {
-  User: ["id", "email", "name", "phoneNumber", "createdAt", "updatedAt"]
+  User: ["id", "username", "phoneNumber", "email", "name", "createdAt", "updatedAt"]
 };
 
 type ModelNames = keyof typeof models;
@@ -209,11 +209,11 @@ export function applyModelsEnhanceMap(modelsEnhanceMap: ModelsEnhanceMap) {
 
 const outputsInfo = {
   AggregateUser: ["_count", "_min", "_max"],
-  UserGroupBy: ["id", "email", "name", "password", "phoneNumber", "createdAt", "updatedAt", "_count", "_min", "_max"],
+  UserGroupBy: ["id", "username", "phoneNumber", "email", "name", "password", "createdAt", "updatedAt", "_count", "_min", "_max"],
   AffectedRowsOutput: ["count"],
-  UserCountAggregate: ["id", "email", "name", "password", "phoneNumber", "createdAt", "updatedAt", "_all"],
-  UserMinAggregate: ["id", "email", "name", "password", "phoneNumber", "createdAt", "updatedAt"],
-  UserMaxAggregate: ["id", "email", "name", "password", "phoneNumber", "createdAt", "updatedAt"]
+  UserCountAggregate: ["id", "username", "phoneNumber", "email", "name", "password", "createdAt", "updatedAt", "_all"],
+  UserMinAggregate: ["id", "username", "phoneNumber", "email", "name", "password", "createdAt", "updatedAt"],
+  UserMaxAggregate: ["id", "username", "phoneNumber", "email", "name", "password", "createdAt", "updatedAt"]
 };
 
 type OutputTypesNames = keyof typeof outputTypes;
@@ -254,21 +254,21 @@ export function applyOutputTypesEnhanceMap(
 }
 
 const inputsInfo = {
-  UserWhereInput: ["AND", "OR", "NOT", "id", "email", "name", "password", "phoneNumber", "createdAt", "updatedAt"],
-  UserOrderByWithRelationInput: ["id", "email", "name", "password", "phoneNumber", "createdAt", "updatedAt"],
-  UserWhereUniqueInput: ["id", "email"],
-  UserOrderByWithAggregationInput: ["id", "email", "name", "password", "phoneNumber", "createdAt", "updatedAt", "_count", "_max", "_min"],
-  UserScalarWhereWithAggregatesInput: ["AND", "OR", "NOT", "id", "email", "name", "password", "phoneNumber", "createdAt", "updatedAt"],
-  UserCreateInput: ["id", "email", "name", "password", "phoneNumber", "createdAt", "updatedAt"],
-  UserUpdateInput: ["email", "name", "password", "phoneNumber", "createdAt", "updatedAt"],
-  UserCreateManyInput: ["id", "email", "name", "password", "phoneNumber", "createdAt", "updatedAt"],
-  UserUpdateManyMutationInput: ["email", "name", "password", "phoneNumber", "createdAt", "updatedAt"],
+  UserWhereInput: ["AND", "OR", "NOT", "id", "username", "phoneNumber", "email", "name", "password", "createdAt", "updatedAt"],
+  UserOrderByWithRelationInput: ["id", "username", "phoneNumber", "email", "name", "password", "createdAt", "updatedAt"],
+  UserWhereUniqueInput: ["id", "username", "phoneNumber", "email"],
+  UserOrderByWithAggregationInput: ["id", "username", "phoneNumber", "email", "name", "password", "createdAt", "updatedAt", "_count", "_max", "_min"],
+  UserScalarWhereWithAggregatesInput: ["AND", "OR", "NOT", "id", "username", "phoneNumber", "email", "name", "password", "createdAt", "updatedAt"],
+  UserCreateInput: ["id", "username", "phoneNumber", "email", "name", "password", "createdAt", "updatedAt"],
+  UserUpdateInput: ["username", "phoneNumber", "email", "name", "password", "createdAt", "updatedAt"],
+  UserCreateManyInput: ["id", "username", "phoneNumber", "email", "name", "password", "createdAt", "updatedAt"],
+  UserUpdateManyMutationInput: ["username", "phoneNumber", "email", "name", "password", "createdAt", "updatedAt"],
   StringFilter: ["equals", "in", "notIn", "lt", "lte", "gt", "gte", "contains", "startsWith", "endsWith", "mode", "not"],
   StringNullableFilter: ["equals", "in", "notIn", "lt", "lte", "gt", "gte", "contains", "startsWith", "endsWith", "mode", "not", "isSet"],
   DateTimeNullableFilter: ["equals", "in", "notIn", "lt", "lte", "gt", "gte", "not", "isSet"],
-  UserCountOrderByAggregateInput: ["id", "email", "name", "password", "phoneNumber", "createdAt", "updatedAt"],
-  UserMaxOrderByAggregateInput: ["id", "email", "name", "password", "phoneNumber", "createdAt", "updatedAt"],
-  UserMinOrderByAggregateInput: ["id", "email", "name", "password", "phoneNumber", "createdAt", "updatedAt"],
+  UserCountOrderByAggregateInput: ["id", "username", "phoneNumber", "email", "name", "password", "createdAt", "updatedAt"],
+  UserMaxOrderByAggregateInput: ["id", "username", "phoneNumber", "email", "name", "password", "createdAt", "updatedAt"],
+  UserMinOrderByAggregateInput: ["id", "username", "phoneNumber", "email", "name", "password", "createdAt", "updatedAt"],
   StringWithAggregatesFilter: ["equals", "in", "notIn", "lt", "lte", "gt", "gte", "contains", "startsWith", "endsWith", "mode", "not", "_count", "_min", "_max"],
   StringNullableWithAggregatesFilter: ["equals", "in", "notIn", "lt", "lte", "gt", "gte", "contains", "startsWith", "endsWith", "mode", "not", "_count", "_min", "_max", "isSet"],
   DateTimeNullableWithAggregatesFilter: ["equals", "in", "notIn", "lt", "lte", "gt", "gte", "not", "_count", "_min", "_max", "isSet"],

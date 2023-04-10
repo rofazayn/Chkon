@@ -2,7 +2,7 @@ import { sign } from 'jsonwebtoken'
 import { JWT_PRIV_KEY } from '../constants'
 import { User } from '../graphql/type-graphql'
 
-export const createAccessToken = (payload: User) => {
+export const createAccessToken = (payload: { id: string }) => {
   if (!payload) return
   const accessToken = sign(payload, JWT_PRIV_KEY, {
     expiresIn: '5min',
@@ -12,9 +12,9 @@ export const createAccessToken = (payload: User) => {
   return accessToken
 }
 
-export const createRefreshToken = (userId: string, guid: string) => {
-  if (!userId) return
-  const refreshToken = sign({ userId, guid }, JWT_PRIV_KEY, {
+export const createRefreshToken = (id: string, guid: string) => {
+  if (!id) return
+  const refreshToken = sign({ id, guid }, JWT_PRIV_KEY, {
     expiresIn: '1d',
     algorithm: 'RS256',
   })

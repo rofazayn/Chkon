@@ -1,6 +1,10 @@
 import { Box } from '@mantine/core'
+import { motion } from 'framer-motion'
+import { useRouter } from 'next/router'
+import AnimateWrapper from '../animate-wrapper'
 
 const PageLayout = ({ children }: any) => {
+  const router = useRouter()
   return (
     <Box
       sx={{
@@ -12,7 +16,19 @@ const PageLayout = ({ children }: any) => {
         justifyContent: 'center',
       }}
     >
-      {children}
+      <AnimateWrapper>
+        <motion.div
+          key={router.asPath + '1'}
+          style={{
+            width: '100%',
+          }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+        >
+          {children}
+        </motion.div>
+      </AnimateWrapper>
     </Box>
   )
 }

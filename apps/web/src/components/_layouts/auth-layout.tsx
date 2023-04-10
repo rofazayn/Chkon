@@ -1,6 +1,10 @@
 import { Box } from '@mantine/core'
+import { motion } from 'framer-motion'
+import { useRouter } from 'next/router'
+import AnimateWrapper from '../animate-wrapper'
 
 const AuthLayout = ({ children }: any) => {
+  const router = useRouter()
   return (
     <Box
       sx={{
@@ -10,11 +14,21 @@ const AuthLayout = ({ children }: any) => {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        // paddingTop: 120,
-        // paddingBottom: 320,
       }}
     >
-      {children}
+      <AnimateWrapper>
+        <motion.div
+          key={router.asPath + '2'}
+          style={{
+            width: '100%',
+          }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+        >
+          {children}
+        </motion.div>
+      </AnimateWrapper>
     </Box>
   )
 }

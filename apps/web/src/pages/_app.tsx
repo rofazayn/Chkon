@@ -12,6 +12,9 @@ import { useCallback, useEffect, useState } from 'react'
 import { emotionCache, rtlCache } from '../configs/emotion-cache'
 import mantineTheme from '../configs/mantine-theme'
 import { useRouter } from 'next/router'
+import { ApolloProvider } from '@apollo/client'
+import apolloClient from '../configs/apollo-client'
+import AnimateWrapper from '../components/animate-wrapper'
 
 export default function App(props: AppProps) {
   const { Component, pageProps } = props
@@ -32,9 +35,6 @@ export default function App(props: AppProps) {
 
   const [rtl, _setRtl] = useState(false)
   const router = useRouter()
-  const onExitComplete = () => {
-    window.scrollTo({ top: 0 })
-  }
 
   return (
     <>
@@ -46,57 +46,47 @@ export default function App(props: AppProps) {
         />
       </Head>
 
-      <ColorSchemeProvider
-        colorScheme={colorScheme}
-        toggleColorScheme={toggleColorScheme}
-      >
-        <div dir={rtl ? 'rtl' : 'ltr'}>
-          <MantineProvider
-            withGlobalStyles
-            withNormalizeCSS
-            theme={{
-              ...mantineTheme,
-              colorScheme,
-              dir: rtl ? 'rtl' : 'ltr',
-            }}
-            emotionCache={rtl ? rtlCache : emotionCache}
-          >
-            <Box
-              sx={(theme) => ({
-                display: 'flex',
-                alignItems: 'stretch',
-                justifyContent: 'stretch',
-                flexDireciotn: 'column',
-                minHeight: '100vh',
-                width: '100%',
-                maxWidth: '100%',
-                backgroundColor:
-                  theme.colorScheme === 'dark'
-                    ? theme.fn.darken(theme.colors.violet[9], 0.9)
-                    : theme.fn.lighten(theme.colors.violet[0], 0.25),
-              })}
+      <ApolloProvider client={apolloClient}>
+        <ColorSchemeProvider
+          colorScheme={colorScheme}
+          toggleColorScheme={toggleColorScheme}
+        >
+          <div dir={rtl ? 'rtl' : 'ltr'}>
+            <MantineProvider
+              withGlobalStyles
+              withNormalizeCSS
+              theme={{
+                ...mantineTheme,
+                colorScheme,
+                dir: rtl ? 'rtl' : 'ltr',
+              }}
+              emotionCache={rtl ? rtlCache : emotionCache}
             >
-              <AnimatePresence
-                mode='wait'
-                initial={false}
-                onExitComplete={onExitComplete}
+              <Box
+                sx={(theme) => ({
+                  display: 'flex',
+                  alignItems: 'stretch',
+                  justifyContent: 'stretch',
+                  flexDireciotn: 'column',
+                  minHeight: '100vh',
+                  width: '100%',
+                  maxWidth: '100%',
+                  backgroundColor:
+                    theme.colorScheme === 'dark'
+                      ? theme.fn.darken(theme.colors.violet[9], 0.9)
+                      : theme.fn.lighten(theme.colors.violet[0], 0.25),
+                })}
               >
-                <motion.div
-                  key={router.route}
-                  style={{
-                    width: '100%',
-                  }}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                >
-                  <Component {...pageProps} />
-                </motion.div>
-              </AnimatePresence>
-            </Box>
-          </MantineProvider>
-        </div>
-      </ColorSchemeProvider>
+                <AnimateWrapper>
+                  <Box sx={{ width: '100%' }}>
+                    <Component {...pageProps} key={router.asPath} />
+                  </Box>
+                </AnimateWrapper>
+              </Box>
+            </MantineProvider>
+          </div>
+        </ColorSchemeProvider>
+      </ApolloProvider>
     </>
   )
 }

@@ -1,5 +1,5 @@
 import { Box, Text } from '@mantine/core'
-import { IconBulb, IconCheck, IconInfoCircle, IconX } from '@tabler/icons-react'
+import { IconBulb, IconCheck } from '@tabler/icons-react'
 
 function PasswordRequirement({
   meets,

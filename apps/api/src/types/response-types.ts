@@ -8,9 +8,6 @@ export class AuthResponse {
 
   @Field({ nullable: true })
   refreshToken?: string
-
-  @Field({ nullable: true })
-  user?: User
 }
 
 @ObjectType()

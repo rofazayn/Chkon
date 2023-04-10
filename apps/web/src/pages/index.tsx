@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Chkon.</title>
+        <title>Welcome to Chkon: D-ID</title>
         <meta
           name='description'
           content='Digital identity at your fingertips.'

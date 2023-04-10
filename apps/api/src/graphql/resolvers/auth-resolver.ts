@@ -31,14 +31,14 @@ class AuthResolver {
 
   @Mutation(() => AuthResponse)
   async login(
-    @Arg('email') email: string,
+    @Arg('username') username: string,
     @Arg('password') password: string,
     @Ctx() { prisma }: ApolloContext
   ) {
-    if (!email || !password) throw new ApolloError('missing login data')
+    if (!username || !password) throw new ApolloError('missing login data')
 
     const user = await prisma.user.findUnique({
-      where: { email: email },
+      where: { username: username },
     })
     if (!user) throw new ApolloError('invalid_username')
 
@@ -47,10 +47,6 @@ class AuthResolver {
 
     const newAccessToken = createAccessToken({
       id: user.id,
-      email: user.email,
-      name: user.name,
-      createdAt: user.createdAt,
-      updatedAt: user.updatedAt,
     })
 
     const refreshTokenGuid = uuidv4()
@@ -59,18 +55,18 @@ class AuthResolver {
     return {
       accessToken: newAccessToken,
       refreshToken: newRefreshToken,
-      user,
     }
   }
 
   @Mutation(() => AuthResponse)
   async register(
+    @Arg('name') name: string,
     @Arg('email') email: string,
     @Arg('password') password: string,
-    @Arg('name') name: string,
+    @Arg('username') username: string,
     @Ctx() { prisma }: ApolloContext
   ) {
-    if (!name || !email || !password)
+    if (!name || !email || !username || !password)
       throw new ApolloError('missing_credentials')
 
     const userExists = await prisma.user.findUnique({ where: { email } })
@@ -82,16 +78,12 @@ class AuthResolver {
 
     try {
       const user = await prisma.user.create({
-        data: { name, email, password: hashedPass },
+        data: { name, email, username, password: hashedPass },
       })
 
       if (user) {
         const accessToken = createAccessToken({
           id: user.id,
-          email: user.email,
-          name: user.name,
-          createdAt: user.createdAt,
-          updatedAt: user.updatedAt,
         })
 
         const refreshTokenGuid = uuidv4()
@@ -100,7 +92,6 @@ class AuthResolver {
         return {
           accessToken,
           refreshToken: newRefreshToken,
-          user,
         }
       }
 
@@ -131,10 +122,6 @@ class AuthResolver {
       if (user) {
         const accessToken = createAccessToken({
           id: user.id,
-          email: user.email,
-          name: user.name,
-          createdAt: user.createdAt,
-          updatedAt: user.updatedAt,
         })
 
         const refreshTokenGuid = uuidv4()
