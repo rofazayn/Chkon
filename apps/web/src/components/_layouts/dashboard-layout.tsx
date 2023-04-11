@@ -1,11 +1,19 @@
-import { Box, Loader, Stack, Text } from '@mantine/core'
+import {
+  Box,
+  Container,
+  Loader,
+  Stack,
+  Text,
+  useMantineTheme,
+} from '@mantine/core'
 import { motion } from 'framer-motion'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import DashboardNavbar from '../dashboard-navbar'
-import AnimateWrapper from '../animate-wrapper'
+import Topbar from '../topbar'
 
 const DashboardLayout = ({ children }: any) => {
+  const theme = useMantineTheme()
   const [authCheck, setAuthCheck] = useState<boolean>(false)
   const [phase, setPhase] = useState<number>(0)
   useEffect(() => {
@@ -84,20 +92,32 @@ const DashboardLayout = ({ children }: any) => {
           >
             <DashboardNavbar />
           </Box>
-          <Box sx={{ width: '100%', paddingBlock: 24, overflow: 'auto' }}>
-            <AnimateWrapper>
-              <motion.div
-                key={router.asPath + '3'}
-                style={{
+          <Box sx={{ width: '100%', marginBlock: 16 }}>
+            <Container size={'lg'}>
+              <Box
+                sx={{
                   width: '100%',
+                  position: 'relative',
                 }}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
               >
-                {children}
-              </motion.div>
-            </AnimateWrapper>
+                <Topbar />
+
+                <Box
+                  sx={{
+                    width: '100%',
+                    minHeight: 5000,
+                    backgroundColor:
+                      theme.colorScheme === 'dark'
+                        ? theme.colors.dark[8]
+                        : 'white',
+                    padding: 24,
+                    borderRadius: 6,
+                  }}
+                >
+                  {children}
+                </Box>
+              </Box>
+            </Container>
           </Box>
         </Box>
       )}

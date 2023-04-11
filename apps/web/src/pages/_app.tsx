@@ -1,3 +1,4 @@
+import { ApolloProvider } from '@apollo/client'
 import {
   Box,
   ColorScheme,
@@ -5,16 +6,13 @@ import {
   MantineProvider,
 } from '@mantine/core'
 import { useColorScheme } from '@mantine/hooks'
-import { AnimatePresence, motion } from 'framer-motion'
 import { AppProps } from 'next/app'
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 import { useCallback, useEffect, useState } from 'react'
+import apolloClient from '../configs/apollo-client'
 import { emotionCache, rtlCache } from '../configs/emotion-cache'
 import mantineTheme from '../configs/mantine-theme'
-import { useRouter } from 'next/router'
-import { ApolloProvider } from '@apollo/client'
-import apolloClient from '../configs/apollo-client'
-import AnimateWrapper from '../components/animate-wrapper'
 
 export default function App(props: AppProps) {
   const { Component, pageProps } = props
@@ -77,11 +75,9 @@ export default function App(props: AppProps) {
                       : theme.fn.lighten(theme.colors.violet[0], 0.25),
                 })}
               >
-                <AnimateWrapper>
-                  <Box sx={{ width: '100%' }}>
-                    <Component {...pageProps} key={router.asPath} />
-                  </Box>
-                </AnimateWrapper>
+                <Box sx={{ width: '100%' }}>
+                  <Component {...pageProps} />
+                </Box>
               </Box>
             </MantineProvider>
           </div>

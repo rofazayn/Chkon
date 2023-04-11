@@ -16,19 +16,7 @@ const PageLayout = ({ children }: any) => {
         justifyContent: 'center',
       }}
     >
-      <AnimateWrapper>
-        <motion.div
-          key={router.asPath + '1'}
-          style={{
-            width: '100%',
-          }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-        >
-          {children}
-        </motion.div>
-      </AnimateWrapper>
+      {children}
     </Box>
   )
 }

@@ -1,47 +1,164 @@
 import logoImage from '@/../public/assets/png/logo.png'
-import { Box, Group, Stack, Text, useMantineTheme } from '@mantine/core'
+import {
+  Box,
+  Button,
+  Divider,
+  Group,
+  Stack,
+  Text,
+  useMantineColorScheme,
+  useMantineTheme,
+} from '@mantine/core'
+import {
+  IconLogout,
+  IconMoon,
+  IconSettings,
+  IconSun,
+} from '@tabler/icons-react'
 import Image from 'next/image'
-import { DashboardLinks } from './dashboard-links'
 import Link from 'next/link'
+import { DashboardLinks } from './dashboard-links'
+import NavLink from './nav-link'
+import { useRouter } from 'next/router'
+import { useHover } from '@mantine/hooks'
 
 const DashboardNavbar = () => {
   const theme = useMantineTheme()
+  const { colorScheme, toggleColorScheme } = useMantineColorScheme()
+  const router = useRouter()
+  const { hovered, ref } = useHover<any>()
   return (
     <Box
       sx={{
         width: '100%',
-        height: '100%',
-        borderStartEndRadius: 8,
-        borderEndEndRadius: 8,
+        height: '100vh',
+        borderStartEndRadius: 6,
+        borderEndEndRadius: 6,
         backgroundColor:
           theme.colorScheme === 'dark' ? theme.colors.dark[8] : 'white',
         paddingInline: 24,
         paddingBlock: 32,
+        position: 'sticky',
+        top: 0,
       }}
     >
-      <Box>
-        <Group spacing={12} mb={36}>
-          <Box component={Link} href='/'>
-            <Image
-              src={logoImage}
-              alt='chkon logo'
-              width='48'
-              height='48'
-              placeholder='blur'
+      <Box
+        sx={{
+          display: 'flex',
+          height: '100%',
+          width: '100%',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+        }}
+      >
+        <Box>
+          <Group spacing={12} mb={36}>
+            <Box component={Link} href='/'>
+              <Image
+                src={logoImage}
+                alt='chkon logo'
+                width='48'
+                height='48'
+                placeholder='blur'
+              />
+            </Box>
+            <Stack spacing={4}>
+              <Text weight='bold' sx={{ lineHeight: 1 }}>
+                Chkon.
+              </Text>
+              <Text size='sm' sx={{ lineHeight: 1 }}>
+                Digital Identity
+              </Text>
+            </Stack>
+          </Group>
+
+          <Box>
+            <DashboardLinks />
+          </Box>
+        </Box>
+        <Box>
+          <Box>
+            <NavLink
+              item={{
+                link: '/dashboard/settings',
+                label: 'Settings',
+                labelExtended: 'Account Settings',
+                icon: IconSettings,
+              }}
             />
           </Box>
-          <Stack spacing={4}>
-            <Text weight='bold' sx={{ lineHeight: 1 }}>
-              Chkon.
+          <Box my={16}>
+            <Divider variant='dashed' />
+          </Box>
+          <Box>
+            <Text mb={16} size='sm' color='gray.6' sx={{ lineHeight: 1.6 }}>
+              Use the buttons below <br /> to toggle your color scheme
             </Text>
-            <Text size='sm' sx={{ lineHeight: 1 }}>
-              Digital Identity
-            </Text>
-          </Stack>
-        </Group>
-
-        <Box>
-          <DashboardLinks />
+            <Button.Group sx={{ width: '100%' }}>
+              <Button
+                variant='light'
+                onClick={() => toggleColorScheme()}
+                fullWidth
+                leftIcon={<IconSun size={20} />}
+                color={colorScheme === 'light' ? 'violet' : 'gray'}
+                sx={{
+                  paddingInline: 16,
+                  minHeight: 40,
+                  '& > div': {
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                  },
+                }}
+              >
+                Light mode
+              </Button>
+              <Button
+                variant='light'
+                onClick={() => toggleColorScheme()}
+                fullWidth
+                rightIcon={<IconMoon size={20} />}
+                color={colorScheme === 'dark' ? 'violet' : 'gray'}
+                sx={{
+                  paddingInline: 16,
+                  minHeight: 40,
+                  '& > div': {
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                  },
+                }}
+              >
+                Dark mode
+              </Button>
+            </Button.Group>
+          </Box>
+          <Box my={16}>
+            <Divider variant='dashed' />
+          </Box>
+          <Text mb={16} size='sm' sx={{ lineHeight: 1.6 }} color='gray.6'>
+            Don&apos;t forget to logout of your
+            <br />
+            account when you are done!
+          </Text>
+          <Box>
+            <Button
+              variant='light'
+              ref={ref}
+              color={hovered ? 'red' : 'gray'}
+              fullWidth
+              rightIcon={<IconLogout size={20} />}
+              onClick={() => router.push('/')}
+              sx={{
+                paddingInline: 16,
+                minHeight: 48,
+                '& > div': {
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                },
+              }}
+            >
+              Logout of your account
+            </Button>
+          </Box>
         </Box>
       </Box>
     </Box>

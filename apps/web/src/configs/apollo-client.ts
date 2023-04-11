@@ -18,9 +18,10 @@ import {
 export const refreshStatusVar = makeVar<string>('stale')
 
 const NODE_ENV = process.env.NODE_ENV! || 'development'
-const serverEndpoint: string = `${
-  NODE_ENV === 'development' ? 'http://localhost:4000' : 'https://api.chkon.co'
-}`
+// const serverEndpoint: string = `${
+//   NODE_ENV === 'development' ? 'http://localhost:4000' : 'https://api.chkon.co'
+// }`
+const serverEndpoint: string = `http://localhost:4000`
 
 const httpLink = createHttpLink({
   uri: serverEndpoint + '/graphql',

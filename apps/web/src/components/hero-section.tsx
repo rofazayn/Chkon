@@ -77,7 +77,6 @@ const HeroSection = () => {
             component={Link}
             href='/auth/register'
             leftIcon={<IconFingerprint />}
-            scroll={false}
           >
             Create an account
           </Button>
@@ -89,7 +88,6 @@ const HeroSection = () => {
             href='/auth/login'
             variant='light'
             rightIcon={<IconLogin />}
-            scroll={false}
           >
             Connect to Chkon
           </Button>

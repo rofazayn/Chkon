@@ -2,7 +2,8 @@ import { Box, Stack } from '@mantine/core'
 import {
   IconAnchor,
   IconBuildingArch,
-  IconHome,
+  IconHome2,
+  IconHomeDot,
   IconIdBadge,
   IconIdBadge2,
   IconSettings,
@@ -11,35 +12,35 @@ import NavLink from './nav-link'
 
 const data = [
   {
-    link: '/app',
+    link: '/dashboard',
     label: 'Home',
     labelExtended: 'Dashboard Home',
-    icon: IconHome,
+    icon: IconHomeDot,
   },
   {
-    link: '/app/dids',
+    link: '/dashboard/issuers',
+    label: 'issuers',
+    labelExtended: 'Trusted Issuers List',
+    icon: IconBuildingArch,
+  },
+  {
+    link: '/dashboard/dids',
     label: 'dids',
     labelExtended: 'Decentralized Identifiers',
     icon: IconAnchor,
   },
+
   {
-    link: '/app/presentations',
+    link: '/dashboard/presentations',
     label: 'presentations',
     labelExtended: 'Verifiable Presentations',
     icon: IconIdBadge,
   },
   {
-    link: '/app/credentials',
+    link: '/dashboard/credentials',
     label: 'credentials',
     labelExtended: 'Verifiable Credentials',
     icon: IconIdBadge2,
-  },
-
-  {
-    link: '/app/issuers',
-    label: 'issuers',
-    labelExtended: 'List of Issuers',
-    icon: IconBuildingArch,
   },
 ]
 
@@ -50,14 +51,14 @@ export function DashboardLinks({
 }) {
   return (
     <Box>
-      <Stack spacing={3}>
+      <Stack spacing={4}>
         {data.map((item: any, id) => (
           <NavLink item={item} key={id} />
         ))}
         {withSettings && (
           <NavLink
             item={{
-              link: '/app/settings',
+              link: '/dashboard/settings',
               label: 'Settings',
               labelExtended: 'Account Settings',
               icon: IconSettings,

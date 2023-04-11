@@ -235,7 +235,6 @@ const RegisterForm = () => {
               href='/auth/login'
               color='none'
               weight='bold'
-              scroll={false}
               replace
             >
               Login

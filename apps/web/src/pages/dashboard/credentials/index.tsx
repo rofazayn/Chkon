@@ -1,12 +1,12 @@
 import { Text } from '@mantine/core'
 import DashboardLayout from '../../../components/_layouts/dashboard-layout'
 
-const DIDSHome = () => {
+const VerifiableCredentialsHome = () => {
   return (
     <DashboardLayout>
-      <Text>Dids</Text>
+      <Text>Verifiable Credentials</Text>
     </DashboardLayout>
   )
 }
 
-export default DIDSHome
+export default VerifiableCredentialsHome

@@ -16,19 +16,7 @@ const AuthLayout = ({ children }: any) => {
         justifyContent: 'center',
       }}
     >
-      <AnimateWrapper>
-        <motion.div
-          key={router.asPath + '2'}
-          style={{
-            width: '100%',
-          }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-        >
-          {children}
-        </motion.div>
-      </AnimateWrapper>
+      <Box sx={{ width: '100%' }}>{children}</Box>
     </Box>
   )
 }

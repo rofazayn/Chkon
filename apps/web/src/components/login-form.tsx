@@ -48,7 +48,7 @@ const LoginForm = () => {
                 const { accessToken, refreshToken } = loginResponse.data.login
                 setAccessToken(accessToken)
                 setRefreshToken(refreshToken)
-                router.replace('/app')
+                router.replace('/dashboard')
               }
             } catch (error) {
               console.log(error)
@@ -203,7 +203,6 @@ const LoginForm = () => {
                     color='none'
                     weight='bold'
                     replace
-                    scroll={false}
                   >
                     Register
                   </Anchor>

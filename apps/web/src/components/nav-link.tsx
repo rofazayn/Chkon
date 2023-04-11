@@ -79,11 +79,10 @@ function NavLink({ item }: any) {
       <Text
         variant='unstyled'
         component={Link}
-        scroll={false}
         href={item.link}
         className={cx(classes.link, {
           [classes.linkActive]:
-            (router.pathname === '/app/' || router.pathname === '/app') &&
+            (router.pathname === '/app/' || router.pathname === '/dashboard') &&
             item.label === 'Home'
               ? true
               : router.pathname.includes(item.label.toLowerCase()),
