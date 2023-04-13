@@ -15,6 +15,16 @@ export class User {
   @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
+  username!: string;
+
+  @TypeGraphQL.Field(_type => String, {
+    nullable: true
+  })
+  phoneNumber?: string | null;
+
+  @TypeGraphQL.Field(_type => String, {
+    nullable: false
+  })
   email!: string;
 
   @TypeGraphQL.Field(_type => String, {
@@ -23,11 +33,6 @@ export class User {
   name!: string;
 
   password?: string;
-
-  @TypeGraphQL.Field(_type => String, {
-    nullable: true
-  })
-  phoneNumber?: string | null;
 
   @TypeGraphQL.Field(_type => Date, {
     nullable: true

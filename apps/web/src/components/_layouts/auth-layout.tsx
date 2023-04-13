@@ -1,6 +1,10 @@
 import { Box } from '@mantine/core'
+import { motion } from 'framer-motion'
+import { useRouter } from 'next/router'
+import AnimateWrapper from '../animate-wrapper'
 
 const AuthLayout = ({ children }: any) => {
+  const router = useRouter()
   return (
     <Box
       sx={{
@@ -12,7 +16,7 @@ const AuthLayout = ({ children }: any) => {
         justifyContent: 'center',
       }}
     >
-      {children}
+      <Box sx={{ width: '100%' }}>{children}</Box>
     </Box>
   )
 }

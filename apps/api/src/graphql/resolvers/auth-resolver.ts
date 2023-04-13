@@ -2,12 +2,15 @@ import { ApolloError } from 'apollo-server-core'
 import { compareSync, genSaltSync, hashSync } from 'bcrypt'
 import { verify } from 'jsonwebtoken'
 import { Arg, Ctx, Mutation, Query, Resolver } from 'type-graphql'
-import { JWT_SECRET } from '../../constants'
+import { v4 as uuidv4 } from 'uuid'
+import { JWT_PUB_KEY } from '../../constants'
 import { ApolloContext } from '../../types/context-types'
 import { AuthResponse, RefreshTokensResponse } from '../../types/response-types'
-import { createAccessToken, createRefreshToken } from '../../utils/jwt-tokens'
+import {
+  createAccessToken,
+  createRefreshToken,
+} from '../../utils/jwt-generator'
 import { User } from '../type-graphql'
-import { v4 as uuidv4 } from 'uuid'
 
 @Resolver(User)
 class AuthResolver {
@@ -28,46 +31,42 @@ class AuthResolver {
 
   @Mutation(() => AuthResponse)
   async login(
-    @Arg('email') email: string,
+    @Arg('username') username: string,
     @Arg('password') password: string,
     @Ctx() { prisma }: ApolloContext
   ) {
-    if (!email || !password) throw new ApolloError('missing login data')
+    if (!username || !password) throw new ApolloError('missing login data')
 
     const user = await prisma.user.findUnique({
-      where: { email: email },
+      where: { username: username },
     })
     if (!user) throw new ApolloError('invalid_username')
 
     const valid = compareSync(password, user.password)
     if (!valid) throw new ApolloError('invalid_password')
 
-    const accessToken = createAccessToken({
+    const newAccessToken = createAccessToken({
       id: user.id,
-      email: user.email,
-      name: user.name,
-      createdAt: user.createdAt,
-      updatedAt: user.updatedAt,
     })
 
     const refreshTokenGuid = uuidv4()
     const newRefreshToken = createRefreshToken(user.id, refreshTokenGuid)
 
     return {
-      accessToken,
+      accessToken: newAccessToken,
       refreshToken: newRefreshToken,
-      user,
     }
   }
 
   @Mutation(() => AuthResponse)
   async register(
+    @Arg('name') name: string,
     @Arg('email') email: string,
     @Arg('password') password: string,
-    @Arg('name') name: string,
+    @Arg('username') username: string,
     @Ctx() { prisma }: ApolloContext
   ) {
-    if (!name || !email || !password)
+    if (!name || !email || !username || !password)
       throw new ApolloError('missing_credentials')
 
     const userExists = await prisma.user.findUnique({ where: { email } })
@@ -79,16 +78,12 @@ class AuthResolver {
 
     try {
       const user = await prisma.user.create({
-        data: { name, email, password: hashedPass },
+        data: { name, email, username, password: hashedPass },
       })
 
       if (user) {
         const accessToken = createAccessToken({
           id: user.id,
-          email: user.email,
-          name: user.name,
-          createdAt: user.createdAt,
-          updatedAt: user.updatedAt,
         })
 
         const refreshTokenGuid = uuidv4()
@@ -97,7 +92,6 @@ class AuthResolver {
         return {
           accessToken,
           refreshToken: newRefreshToken,
-          user,
         }
       }
 
@@ -112,7 +106,7 @@ class AuthResolver {
     let refreshToken = (req.headers['x-refresh-token'] as string).split(' ')[1]
 
     if (refreshToken) {
-      const token = verify(refreshToken, JWT_SECRET) as {
+      const token = verify(refreshToken, JWT_PUB_KEY) as {
         userId: string
         guid: string
       }
@@ -128,10 +122,6 @@ class AuthResolver {
       if (user) {
         const accessToken = createAccessToken({
           id: user.id,
-          email: user.email,
-          name: user.name,
-          createdAt: user.createdAt,
-          updatedAt: user.updatedAt,
         })
 
         const refreshTokenGuid = uuidv4()

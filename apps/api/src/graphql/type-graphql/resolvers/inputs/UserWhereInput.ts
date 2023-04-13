@@ -33,17 +33,22 @@ export class UserWhereInput {
   @TypeGraphQL.Field(_type => StringFilter, {
     nullable: true
   })
+  username?: StringFilter | undefined;
+
+  @TypeGraphQL.Field(_type => StringNullableFilter, {
+    nullable: true
+  })
+  phoneNumber?: StringNullableFilter | undefined;
+
+  @TypeGraphQL.Field(_type => StringFilter, {
+    nullable: true
+  })
   email?: StringFilter | undefined;
 
   @TypeGraphQL.Field(_type => StringFilter, {
     nullable: true
   })
   name?: StringFilter | undefined;
-
-  @TypeGraphQL.Field(_type => StringNullableFilter, {
-    nullable: true
-  })
-  phoneNumber?: StringNullableFilter | undefined;
 
   @TypeGraphQL.Field(_type => DateTimeNullableFilter, {
     nullable: true

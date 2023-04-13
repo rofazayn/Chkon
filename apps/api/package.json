@@ -10,7 +10,8 @@
     "dev": "dotenv -e ../../.env.local -- nodemon --exec ts-node src/index.ts",
     "build": "webpack",
     "serve": "NODE_ENV=\"production\" node build/index.js",
-    "prisma:generate": "prisma generate"
+    "gen:prisma": "prisma generate",
+    "gen:keys": "ts-node src/utils/keypair-generator.ts"
   },
   "dependencies": {
     "@prisma/client": "4.3.0",

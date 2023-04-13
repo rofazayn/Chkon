@@ -15,17 +15,22 @@ export class UserCreateInput {
   @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
+  username!: string;
+
+  @TypeGraphQL.Field(_type => String, {
+    nullable: true
+  })
+  phoneNumber?: string | undefined;
+
+  @TypeGraphQL.Field(_type => String, {
+    nullable: false
+  })
   email!: string;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
   name!: string;
-
-  @TypeGraphQL.Field(_type => String, {
-    nullable: true
-  })
-  phoneNumber?: string | undefined;
 
   @TypeGraphQL.Field(_type => Date, {
     nullable: true

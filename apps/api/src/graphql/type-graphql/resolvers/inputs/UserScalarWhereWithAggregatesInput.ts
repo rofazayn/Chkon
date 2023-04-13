@@ -33,17 +33,22 @@ export class UserScalarWhereWithAggregatesInput {
   @TypeGraphQL.Field(_type => StringWithAggregatesFilter, {
     nullable: true
   })
+  username?: StringWithAggregatesFilter | undefined;
+
+  @TypeGraphQL.Field(_type => StringNullableWithAggregatesFilter, {
+    nullable: true
+  })
+  phoneNumber?: StringNullableWithAggregatesFilter | undefined;
+
+  @TypeGraphQL.Field(_type => StringWithAggregatesFilter, {
+    nullable: true
+  })
   email?: StringWithAggregatesFilter | undefined;
 
   @TypeGraphQL.Field(_type => StringWithAggregatesFilter, {
     nullable: true
   })
   name?: StringWithAggregatesFilter | undefined;
-
-  @TypeGraphQL.Field(_type => StringNullableWithAggregatesFilter, {
-    nullable: true
-  })
-  phoneNumber?: StringNullableWithAggregatesFilter | undefined;
 
   @TypeGraphQL.Field(_type => DateTimeNullableWithAggregatesFilter, {
     nullable: true
