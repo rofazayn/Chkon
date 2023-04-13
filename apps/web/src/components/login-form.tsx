@@ -121,6 +121,7 @@ const LoginForm = () => {
                       name='username'
                       value={values.username}
                       onChange={handleChange}
+                      onBlur={handleBlur}
                       withAsterisk={false}
                       placeholder='Enter username or email'
                       label='Identifier'
@@ -148,6 +149,7 @@ const LoginForm = () => {
                       name='password'
                       value={values.password}
                       onChange={handleChange}
+                      onBlur={handleBlur}
                       withAsterisk={false}
                       placeholder='Enter your password'
                       label='Password'

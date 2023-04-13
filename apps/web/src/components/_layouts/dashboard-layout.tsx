@@ -93,7 +93,7 @@ const DashboardLayout = ({ children }: any) => {
             <DashboardNavbar />
           </Box>
           <Box sx={{ width: '100%', marginBlock: 16 }}>
-            <Container size={'lg'}>
+            <Container fluid sx={{ maxWidth: 1440 }}>
               <Box
                 sx={{
                   width: '100%',

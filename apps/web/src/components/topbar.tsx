@@ -5,18 +5,9 @@ import {
   Box,
   Breadcrumbs,
   Group,
-  Text,
   useMantineTheme,
 } from '@mantine/core'
-import {
-  IconAntenna,
-  IconApi,
-  IconBell,
-  IconBolt,
-  IconBorderOuter,
-  IconRoute,
-  IconRouter,
-} from '@tabler/icons-react'
+import { IconAntenna, IconBell } from '@tabler/icons-react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
@@ -82,19 +73,19 @@ const Topbar = () => {
         backgroundColor:
           theme.colorScheme === 'dark' ? theme.colors.dark[8] : 'white',
         paddingInline: 24,
-        paddingBlock: 16,
+        paddingBlock: 24,
         borderRadius: 6,
         // borderTopLeftRadius: 6,
         // borderTopRightRadius: 6,
-        position: 'sticky',
+        // position: 'sticky',
         top: 0,
         zIndex: 100,
         marginBottom: 16,
-        borderBottom: `1px solid ${
-          theme.colorScheme === 'dark'
-            ? theme.colors.dark[7]
-            : theme.colors.gray[0]
-        }`,
+        // borderBottom: `1px solid ${
+        //   theme.colorScheme === 'dark'
+        //     ? theme.colors.dark[7]
+        //     : theme.colors.gray[1]
+        // }`,
       }}
     >
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -106,11 +97,16 @@ const Topbar = () => {
         ) : null}
       </Box>
       <Box>
-        <Group spacing={8}>
+        <Group spacing={12}>
           <ActionIcon variant='subtle' size='lg'>
             <IconBell size={20} />
           </ActionIcon>
-          <Avatar radius={6} size={48}>
+          <Avatar
+            variant='gradient'
+            gradient={{ from: 'violet.5', to: 'cyan.5', deg: 220 }}
+            radius={12}
+            size={40}
+          >
             AZ
           </Avatar>
         </Group>

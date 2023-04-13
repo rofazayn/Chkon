@@ -9,18 +9,13 @@ import {
   useMantineColorScheme,
   useMantineTheme,
 } from '@mantine/core'
-import {
-  IconLogout,
-  IconMoon,
-  IconSettings,
-  IconSun,
-} from '@tabler/icons-react'
+import { useHover } from '@mantine/hooks'
+import { IconMoon, IconPower, IconSettings, IconSun } from '@tabler/icons-react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { DashboardLinks } from './dashboard-links'
 import NavLink from './nav-link'
-import { useRouter } from 'next/router'
-import { useHover } from '@mantine/hooks'
 
 const DashboardNavbar = () => {
   const theme = useMantineTheme()
@@ -99,7 +94,7 @@ const DashboardNavbar = () => {
                 variant='light'
                 onClick={() => toggleColorScheme()}
                 fullWidth
-                leftIcon={<IconSun size={20} />}
+                leftIcon={<IconSun size={18} />}
                 color={colorScheme === 'light' ? 'violet' : 'gray'}
                 sx={{
                   paddingInline: 16,
@@ -116,7 +111,7 @@ const DashboardNavbar = () => {
                 variant='light'
                 onClick={() => toggleColorScheme()}
                 fullWidth
-                rightIcon={<IconMoon size={20} />}
+                rightIcon={<IconMoon size={18} />}
                 color={colorScheme === 'dark' ? 'violet' : 'gray'}
                 sx={{
                   paddingInline: 16,
@@ -145,9 +140,10 @@ const DashboardNavbar = () => {
               ref={ref}
               color={hovered ? 'red' : 'gray'}
               fullWidth
-              rightIcon={<IconLogout size={20} />}
+              rightIcon={<IconPower size={20} color={theme.colors.red[5]} />}
               onClick={() => router.push('/')}
               sx={{
+                color: theme.colors.red[5],
                 paddingInline: 16,
                 minHeight: 48,
                 '& > div': {
