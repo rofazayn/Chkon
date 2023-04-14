@@ -14,6 +14,7 @@ export default shield(
   {
     Query: {
       '*': isAuthenticated,
+      getKey: allow,
     },
     Mutation: {
       '*': isAuthenticated,

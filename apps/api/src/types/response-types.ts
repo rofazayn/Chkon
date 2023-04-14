@@ -1,5 +1,4 @@
 import { Field, ObjectType } from 'type-graphql'
-import { User } from '../graphql/type-graphql'
 
 @ObjectType()
 export class AuthResponse {
@@ -17,4 +16,10 @@ export class RefreshTokensResponse {
 
   @Field({ nullable: true })
   refreshToken?: string
+}
+
+@ObjectType()
+export class PublicKeyResponse {
+  @Field({ nullable: false })
+  publicKey!: string
 }

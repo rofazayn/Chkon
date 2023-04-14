@@ -14,10 +14,14 @@ import { IconMoon, IconPower, IconSettings, IconSun } from '@tabler/icons-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { useContext } from 'react'
+import { AuthContext } from '../contexts/auth-context'
 import { DashboardLinks } from './dashboard-links'
 import NavLink from './nav-link'
+import { useAuth } from '../hooks/useAuth'
 
 const DashboardNavbar = () => {
+  const { logout } = useAuth()
   const theme = useMantineTheme()
   const { colorScheme, toggleColorScheme } = useMantineColorScheme()
   const router = useRouter()
@@ -141,7 +145,9 @@ const DashboardNavbar = () => {
               color={hovered ? 'red' : 'gray'}
               fullWidth
               rightIcon={<IconPower size={20} color={theme.colors.red[5]} />}
-              onClick={() => router.push('/')}
+              onClick={() => {
+                logout()
+              }}
               sx={{
                 color: theme.colors.red[5],
                 paddingInline: 16,

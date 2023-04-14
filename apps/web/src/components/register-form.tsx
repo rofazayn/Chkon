@@ -24,33 +24,32 @@ import {
   IconMail,
   IconUser,
 } from '@tabler/icons-react'
+import { Formik, useFormikContext } from 'formik'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { useRegisterMutation } from '../generated/graphql'
+import { useAuth } from '../hooks/useAuth'
+import { setAccessToken, setRefreshToken } from '../utils/jwt-operations'
 import PasswordRequirement, {
   getStrength,
   requirements,
 } from './password-requirement'
-import { Formik } from 'formik'
-import { setAccessToken, setRefreshToken } from '../utils/jwt-operations'
-import { useRouter } from 'next/router'
-import { useRegisterMutation } from '../generated/graphql'
 
 const RegisterForm = () => {
   const theme = useMantineTheme()
-
+  const { setIsAuthenticated, setIsCheckingAuth } = useAuth()
   const [popoverOpened, setPopoverOpened] = useState(false)
-  const [value, setValue] = useState('')
+
   const checks = requirements.map((requirement, index) => (
     <PasswordRequirement
       key={index}
       label={requirement.label}
-      meets={requirement.re.test(value)}
+      meets={requirement.re.test('adasdasdasd')}
     />
   ))
-  const strength = getStrength(value)
+  const strength = getStrength('adasdasdasd')
   const color = strength === 100 ? 'teal' : strength > 50 ? 'yellow' : 'red'
-  const router = useRouter()
   const [registerMutation] = useRegisterMutation()
 
   return (
@@ -80,7 +79,8 @@ const RegisterForm = () => {
                   loginResponse.data.register
                 setAccessToken(accessToken)
                 setRefreshToken(refreshToken)
-                router.replace('/dashboard')
+                setIsAuthenticated(true)
+                setIsCheckingAuth(false)
               }
             } catch (error) {
               console.log(error)
@@ -263,7 +263,7 @@ const RegisterForm = () => {
                         />
                         <PasswordRequirement
                           label='Includes at least 6 characters'
-                          meets={value.length > 5}
+                          meets={values.password.length > 5}
                         />
                         {checks}
                       </Popover.Dropdown>
