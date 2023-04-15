@@ -1,10 +1,19 @@
 import { Box } from '@mantine/core'
-import { motion } from 'framer-motion'
-import { useRouter } from 'next/router'
-import AnimateWrapper from '../animate-wrapper'
+import useAuth from '../../hooks/useAuth'
+import AuthCheckOverlay from '../auth-check-overlay'
+import AuthLoadingOverlay from '../auth-loading-overlay'
 
 const AuthLayout = ({ children }: any) => {
-  const router = useRouter()
+  const { isAuthenticated, isCheckingAuth } = useAuth()
+
+  if (isCheckingAuth) {
+    return <AuthCheckOverlay />
+  }
+
+  if (isAuthenticated) {
+    return <AuthLoadingOverlay />
+  }
+
   return (
     <Box
       sx={{

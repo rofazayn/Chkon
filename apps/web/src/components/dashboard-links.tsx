@@ -2,7 +2,6 @@ import { Box, Stack } from '@mantine/core'
 import {
   IconAnchor,
   IconBuildingArch,
-  IconHome2,
   IconHomeDot,
   IconIdBadge,
   IconIdBadge2,

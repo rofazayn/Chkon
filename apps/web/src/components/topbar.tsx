@@ -11,10 +11,12 @@ import { IconAntenna, IconBell } from '@tabler/icons-react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
+import useUser from '../hooks/useUser'
 
 const Topbar = () => {
   const theme = useMantineTheme()
   const router = useRouter()
+  const { user } = useUser()
 
   const [breadcrumbs, setBreadcrumbs] = useState<any>()
   const [items, setItems] = useState<[]>([])
@@ -75,17 +77,9 @@ const Topbar = () => {
         paddingInline: 24,
         paddingBlock: 24,
         borderRadius: 6,
-        // borderTopLeftRadius: 6,
-        // borderTopRightRadius: 6,
-        // position: 'sticky',
         top: 0,
         zIndex: 100,
         marginBottom: 16,
-        // borderBottom: `1px solid ${
-        //   theme.colorScheme === 'dark'
-        //     ? theme.colors.dark[7]
-        //     : theme.colors.gray[1]
-        // }`,
       }}
     >
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -107,7 +101,7 @@ const Topbar = () => {
             radius={12}
             size={40}
           >
-            AZ
+            {user?.name[0]}
           </Avatar>
         </Group>
       </Box>

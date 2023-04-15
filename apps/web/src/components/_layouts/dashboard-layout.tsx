@@ -1,42 +1,21 @@
-import {
-  Box,
-  Container,
-  Loader,
-  Stack,
-  Text,
-  useMantineTheme,
-} from '@mantine/core'
-import { motion } from 'framer-motion'
-import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+import { Box, Container, useMantineTheme } from '@mantine/core'
+import useAuth from '../../hooks/useAuth'
+import AuthCheckOverlay from '../auth-check-overlay'
+import AuthLoadingOverlay from '../auth-loading-overlay'
 import DashboardNavbar from '../dashboard-navbar'
 import Topbar from '../topbar'
 
 const DashboardLayout = ({ children }: any) => {
   const theme = useMantineTheme()
-  const [authCheck, setAuthCheck] = useState<boolean>(false)
-  const [phase, setPhase] = useState<number>(0)
-  useEffect(() => {
-    if (phase === 0) {
-      setTimeout(() => setPhase(1), 1500)
-    } else if (phase === 1) {
-      setTimeout(() => setPhase(2), 900)
-    } else {
-      setTimeout(() => setAuthCheck(false), 1700)
-    }
-  }, [authCheck, phase])
+  const { isAuthenticated, isCheckingAuth } = useAuth()
+  const {} = useAuth()
 
-  const statusMessages = [
-    'Validating credentials...',
-    'Authenticating...',
-    'Welcome back!',
-  ]
+  if (isCheckingAuth) {
+    return <AuthCheckOverlay />
+  }
 
-  const router = useRouter()
-
-  const variants = {
-    hidden: { opacity: 0.5 },
-    visible: { opacity: 1 },
+  if (!isAuthenticated) {
+    return <AuthLoadingOverlay />
   }
 
   return (
@@ -50,77 +29,53 @@ const DashboardLayout = ({ children }: any) => {
         justifyContent: 'center',
       }}
     >
-      {authCheck ? (
-        <Box>
-          <Stack align='center'>
-            <Loader variant='bars' size='sm' />
-
-            <motion.div
-              key='auth-loader'
-              initial='hidden'
-              animate='visible'
-              exit='hidden'
-              variants={variants}
-              transition={{
-                repeat: Infinity,
-                repeatDelay: 0,
-                duration: 1,
-                repeatType: 'reverse',
-              }}
-            >
-              <Text size='sm'>{statusMessages[phase]}</Text>
-            </motion.div>
-          </Stack>
-        </Box>
-      ) : (
+      <Box
+        sx={{
+          width: '100%',
+          height: '100%',
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'stretch',
+          justifyContent: 'stretch',
+        }}
+      >
         <Box
           sx={{
+            maxWidth: 320,
             width: '100%',
-            height: '100%',
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'stretch',
-            justifyContent: 'stretch',
+            minWidth: 320,
           }}
         >
-          <Box
-            sx={{
-              maxWidth: 320,
-              width: '100%',
-              minWidth: 320,
-            }}
-          >
-            <DashboardNavbar />
-          </Box>
-          <Box sx={{ width: '100%', marginBlock: 16 }}>
-            <Container fluid sx={{ maxWidth: 1440 }}>
+          <DashboardNavbar />
+        </Box>
+        <Box sx={{ width: '100%', marginBlock: 16 }}>
+          <Container fluid sx={{ maxWidth: 1440 }}>
+            <Box
+              sx={{
+                width: '100%',
+                position: 'relative',
+              }}
+            >
+              <Topbar />
+
               <Box
                 sx={{
                   width: '100%',
-                  position: 'relative',
+                  minHeight: 5000,
+                  backgroundColor:
+                    theme.colorScheme === 'dark'
+                      ? theme.colors.dark[8]
+                      : 'white',
+                  padding: 24,
+                  borderRadius: 6,
                 }}
               >
-                <Topbar />
-
-                <Box
-                  sx={{
-                    width: '100%',
-                    minHeight: 5000,
-                    backgroundColor:
-                      theme.colorScheme === 'dark'
-                        ? theme.colors.dark[8]
-                        : 'white',
-                    padding: 24,
-                    borderRadius: 6,
-                  }}
-                >
-                  {children}
-                </Box>
+                {children}
               </Box>
-            </Container>
-          </Box>
+            </Box>
+          </Container>
         </Box>
-      )}
+      </Box>
     </Box>
   )
 }

@@ -1,6 +1,5 @@
 import { sign } from 'jsonwebtoken'
 import { JWT_PRIV_KEY } from '../constants'
-import { User } from '../graphql/type-graphql'
 
 export const createAccessToken = (payload: { id: string }) => {
   if (!payload) return

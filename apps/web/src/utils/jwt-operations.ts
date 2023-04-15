@@ -10,8 +10,8 @@ export const setAccessToken = (token: string | null = null): void => {
 }
 
 export const getAccessToken = (): string | null => {
-  const token = localStorage.getItem('access_token')
-  if (token) return token
+  const token = localStorage.getItem('access_token') || ''
+  if (!checkTokenExpiry(token) && checkTokenFormat(token)) return token
   return null
 }
 
@@ -24,8 +24,8 @@ export const setRefreshToken = (token: string | null = null): void => {
 }
 
 export const getRefreshToken = (): string | null => {
-  const token = localStorage.getItem('refresh_token')
-  if (token) return token
+  const token = localStorage.getItem('refresh_token') || ''
+  if (!checkTokenExpiry(token) && checkTokenFormat(token)) return token
   return null
 }
 

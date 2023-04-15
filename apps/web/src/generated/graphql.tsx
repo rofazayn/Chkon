@@ -252,10 +252,16 @@ export type NullableStringFieldUpdateOperationsInput = {
   unset?: InputMaybe<Scalars['Boolean']>;
 };
 
+export type PublicKeyResponse = {
+  __typename?: 'PublicKeyResponse';
+  publicKey: Scalars['String'];
+};
+
 export type Query = {
   __typename?: 'Query';
   aggregateUser: AggregateUser;
   findFirstUser?: Maybe<User>;
+  getKey: PublicKeyResponse;
   groupByUser: Array<UserGroupBy>;
   hello: Scalars['String'];
   profile?: Maybe<User>;
@@ -611,6 +617,16 @@ export type RegisterMutationVariables = Exact<{
 
 export type RegisterMutation = { __typename?: 'Mutation', register: { __typename?: 'AuthResponse', accessToken?: string | null, refreshToken?: string | null } };
 
+export type GetKeyQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetKeyQuery = { __typename?: 'Query', getKey: { __typename?: 'PublicKeyResponse', publicKey: string } };
+
+export type ProfileQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ProfileQuery = { __typename?: 'Query', profile?: { __typename?: 'User', id: string, username: string, phoneNumber?: string | null, email: string, name: string, createdAt?: any | null, updatedAt?: any | null } | null };
+
 
 export const LoginDocument = gql`
     mutation Login($password: String!, $username: String!) {
@@ -684,3 +700,77 @@ export function useRegisterMutation(baseOptions?: Apollo.MutationHookOptions<Reg
 export type RegisterMutationHookResult = ReturnType<typeof useRegisterMutation>;
 export type RegisterMutationResult = Apollo.MutationResult<RegisterMutation>;
 export type RegisterMutationOptions = Apollo.BaseMutationOptions<RegisterMutation, RegisterMutationVariables>;
+export const GetKeyDocument = gql`
+    query GetKey {
+  getKey {
+    publicKey
+  }
+}
+    `;
+
+/**
+ * __useGetKeyQuery__
+ *
+ * To run a query within a React component, call `useGetKeyQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetKeyQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetKeyQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetKeyQuery(baseOptions?: Apollo.QueryHookOptions<GetKeyQuery, GetKeyQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetKeyQuery, GetKeyQueryVariables>(GetKeyDocument, options);
+      }
+export function useGetKeyLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetKeyQuery, GetKeyQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetKeyQuery, GetKeyQueryVariables>(GetKeyDocument, options);
+        }
+export type GetKeyQueryHookResult = ReturnType<typeof useGetKeyQuery>;
+export type GetKeyLazyQueryHookResult = ReturnType<typeof useGetKeyLazyQuery>;
+export type GetKeyQueryResult = Apollo.QueryResult<GetKeyQuery, GetKeyQueryVariables>;
+export const ProfileDocument = gql`
+    query Profile {
+  profile {
+    id
+    username
+    phoneNumber
+    email
+    name
+    createdAt
+    updatedAt
+  }
+}
+    `;
+
+/**
+ * __useProfileQuery__
+ *
+ * To run a query within a React component, call `useProfileQuery` and pass it any options that fit your needs.
+ * When your component renders, `useProfileQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useProfileQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useProfileQuery(baseOptions?: Apollo.QueryHookOptions<ProfileQuery, ProfileQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ProfileQuery, ProfileQueryVariables>(ProfileDocument, options);
+      }
+export function useProfileLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ProfileQuery, ProfileQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ProfileQuery, ProfileQueryVariables>(ProfileDocument, options);
+        }
+export type ProfileQueryHookResult = ReturnType<typeof useProfileQuery>;
+export type ProfileLazyQueryHookResult = ReturnType<typeof useProfileLazyQuery>;
+export type ProfileQueryResult = Apollo.QueryResult<ProfileQuery, ProfileQueryVariables>;
