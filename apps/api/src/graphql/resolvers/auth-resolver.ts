@@ -5,18 +5,12 @@ import { Arg, Ctx, Mutation, Query, Resolver } from 'type-graphql'
 import { v4 as uuidv4 } from 'uuid'
 import { JWT_PUB_KEY } from '../../constants'
 import { ApolloContext } from '../../types/context-types'
-import {
-  AuthResponse,
-  PublicKeyResponse,
-  RefreshTokensResponse,
-} from '../../types/response-types'
+import { AuthResponse, RefreshTokensResponse } from '../../types/response-types'
 import {
   createAccessToken,
   createRefreshToken,
 } from '../../utils/jwt-generator'
 import { User } from '../type-graphql'
-import path from 'path'
-import fs from 'fs'
 
 @Resolver(User)
 class AuthResolver {
@@ -33,18 +27,6 @@ class AuthResolver {
     } catch {
       throw new ApolloError('something went wrong')
     }
-  }
-
-  @Query(() => PublicKeyResponse)
-  async getKey(): Promise<any> {
-    const publicKey: string | null = fs.readFileSync(
-      path.join(__dirname, '..', '..', 'keys', 'id_rsa_pub.pem'),
-      'utf-8'
-    )
-
-    console.log('first', publicKey)
-
-    return { publicKey: publicKey || '' }
   }
 
   @Mutation(() => AuthResponse)

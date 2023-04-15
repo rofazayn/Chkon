@@ -24,12 +24,12 @@ import {
   IconMail,
   IconUser,
 } from '@tabler/icons-react'
-import { Formik, useFormik, useFormikContext } from 'formik'
+import { useFormik } from 'formik'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useEffect, useRef, useState } from 'react'
+import { useState } from 'react'
 import { useRegisterMutation } from '../generated/graphql'
-import { useAuth } from '../hooks/useAuth'
+import useAuth from '../hooks/useAuth'
 import { setAccessToken, setRefreshToken } from '../utils/jwt-operations'
 import PasswordRequirement, {
   getStrength,

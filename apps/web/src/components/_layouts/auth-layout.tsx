@@ -1,5 +1,5 @@
 import { Box } from '@mantine/core'
-import { useAuth } from '../../hooks/useAuth'
+import useAuth from '../../hooks/useAuth'
 import AuthCheckOverlay from '../auth-check-overlay'
 import AuthLoadingOverlay from '../auth-loading-overlay'
 

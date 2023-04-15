@@ -13,18 +13,14 @@ import { useHover } from '@mantine/hooks'
 import { IconMoon, IconPower, IconSettings, IconSun } from '@tabler/icons-react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
-import { useContext } from 'react'
-import { AuthContext } from '../contexts/auth-context'
+import useAuth from '../hooks/useAuth'
 import { DashboardLinks } from './dashboard-links'
 import NavLink from './nav-link'
-import { useAuth } from '../hooks/useAuth'
 
 const DashboardNavbar = () => {
   const { logout } = useAuth()
   const theme = useMantineTheme()
   const { colorScheme, toggleColorScheme } = useMantineColorScheme()
-  const router = useRouter()
   const { hovered, ref } = useHover<any>()
   return (
     <Box

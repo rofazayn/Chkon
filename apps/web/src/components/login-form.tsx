@@ -21,7 +21,7 @@ import { Formik } from 'formik'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useLoginMutation } from '../generated/graphql'
-import { useAuth } from '../hooks/useAuth'
+import useAuth from '../hooks/useAuth'
 import { setAccessToken, setRefreshToken } from '../utils/jwt-operations'
 
 const LoginForm = () => {

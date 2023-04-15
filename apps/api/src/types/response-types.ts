@@ -17,9 +17,3 @@ export class RefreshTokensResponse {
   @Field({ nullable: true })
   refreshToken?: string
 }
-
-@ObjectType()
-export class PublicKeyResponse {
-  @Field({ nullable: false })
-  publicKey!: string
-}

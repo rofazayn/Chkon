@@ -14,6 +14,7 @@ import apolloClient from '../configs/apollo-client'
 import { emotionCache, rtlCache } from '../configs/emotion-cache'
 import mantineTheme from '../configs/mantine-theme'
 import { AuthProvider } from '../contexts/auth-context'
+import { UserProvider } from '../contexts/user-context'
 
 export default function App(props: AppProps) {
   const { Component, pageProps } = props
@@ -47,44 +48,46 @@ export default function App(props: AppProps) {
 
       <ApolloProvider client={apolloClient}>
         <AuthProvider>
-          <ColorSchemeProvider
-            colorScheme={colorScheme}
-            toggleColorScheme={toggleColorScheme}
-          >
-            <div dir={rtl ? 'rtl' : 'ltr'}>
-              <MantineProvider
-                withGlobalStyles
-                withNormalizeCSS
-                theme={{
-                  ...mantineTheme,
-                  colorScheme,
-                  dir: rtl ? 'rtl' : 'ltr',
-                }}
-                emotionCache={rtl ? rtlCache : emotionCache}
-              >
-                <Box
-                  sx={(theme) => ({
-                    display: 'flex',
-                    alignItems: 'stretch',
-                    justifyContent: 'stretch',
-                    flexDireciotn: 'column',
-                    minHeight: '100vh',
-                    width: '100%',
-                    maxWidth: '100%',
-                    backgroundColor:
-                      theme.colorScheme === 'dark'
-                        ? // ? theme.fn.darken(theme.colors.violet[9], 0.92)
-                          theme.fn.darken(theme.colors.dark[8], 0.3)
-                        : theme.fn.lighten(theme.colors.violet[0], 0.6),
-                  })}
+          <UserProvider>
+            <ColorSchemeProvider
+              colorScheme={colorScheme}
+              toggleColorScheme={toggleColorScheme}
+            >
+              <div dir={rtl ? 'rtl' : 'ltr'}>
+                <MantineProvider
+                  withGlobalStyles
+                  withNormalizeCSS
+                  theme={{
+                    ...mantineTheme,
+                    colorScheme,
+                    dir: rtl ? 'rtl' : 'ltr',
+                  }}
+                  emotionCache={rtl ? rtlCache : emotionCache}
                 >
-                  <Box sx={{ width: '100%' }}>
-                    <Component {...pageProps} />
+                  <Box
+                    sx={(theme) => ({
+                      display: 'flex',
+                      alignItems: 'stretch',
+                      justifyContent: 'stretch',
+                      flexDireciotn: 'column',
+                      minHeight: '100vh',
+                      width: '100%',
+                      maxWidth: '100%',
+                      backgroundColor:
+                        theme.colorScheme === 'dark'
+                          ? // ? theme.fn.darken(theme.colors.violet[9], 0.92)
+                            theme.fn.darken(theme.colors.dark[8], 0.3)
+                          : theme.fn.lighten(theme.colors.violet[0], 0.6),
+                    })}
+                  >
+                    <Box sx={{ width: '100%' }}>
+                      <Component {...pageProps} />
+                    </Box>
                   </Box>
-                </Box>
-              </MantineProvider>
-            </div>
-          </ColorSchemeProvider>
+                </MantineProvider>
+              </div>
+            </ColorSchemeProvider>
+          </UserProvider>
         </AuthProvider>
       </ApolloProvider>
     </>
