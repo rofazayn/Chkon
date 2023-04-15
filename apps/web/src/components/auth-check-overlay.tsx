@@ -12,17 +12,11 @@ const AuthCheckOverlay = () => {
 
   useEffect(() => {
     if (phase === 0) {
-      setTimeout(() => setPhase(1), 1500)
-    } else if (phase === 1) {
-      setTimeout(() => setPhase(2), 900)
+      setTimeout(() => setPhase(1), 2000)
     }
   }, [isCheckingAuth, phase])
 
-  const statusMessages = [
-    'Checking credentials...',
-    'Trying to authenticate...',
-    'Please be patient...',
-  ]
+  const statusMessages = ['Performing checks...', 'Please be patient...']
 
   const variants = {
     hidden: { opacity: 0.5 },
