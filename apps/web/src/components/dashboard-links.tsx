@@ -1,12 +1,5 @@
 import { Box, Stack } from '@mantine/core'
-import {
-  IconAnchor,
-  IconBuildingArch,
-  IconHomeDot,
-  IconIdBadge,
-  IconIdBadge2,
-  IconSettings,
-} from '@tabler/icons-react'
+import { IconHome, IconSettings } from '@tabler/icons-react'
 import NavLink from './nav-link'
 
 const data = [
@@ -14,33 +7,33 @@ const data = [
     link: '/dashboard',
     label: 'Home',
     labelExtended: 'Dashboard Home',
-    icon: IconHomeDot,
+    icon: IconHome,
   },
-  {
-    link: '/dashboard/issuers',
-    label: 'issuers',
-    labelExtended: 'Trusted Issuers List',
-    icon: IconBuildingArch,
-  },
-  {
-    link: '/dashboard/dids',
-    label: 'dids',
-    labelExtended: 'Decentralized Identifiers',
-    icon: IconAnchor,
-  },
+  // {
+  //   link: '/dashboard/issuers',
+  //   label: 'issuers',
+  //   labelExtended: 'Trusted Issuers List',
+  //   icon: IconBuildingArch,
+  // },
+  // {
+  //   link: '/dashboard/dids',
+  //   label: 'dids',
+  //   labelExtended: 'Decentralized Identifiers',
+  //   icon: IconAnchor,
+  // },
 
-  {
-    link: '/dashboard/presentations',
-    label: 'presentations',
-    labelExtended: 'Verifiable Presentations',
-    icon: IconIdBadge,
-  },
-  {
-    link: '/dashboard/credentials',
-    label: 'credentials',
-    labelExtended: 'Verifiable Credentials',
-    icon: IconIdBadge2,
-  },
+  // {
+  //   link: '/dashboard/presentations',
+  //   label: 'presentations',
+  //   labelExtended: 'Verifiable Presentations',
+  //   icon: IconIdBadge,
+  // },
+  // {
+  //   link: '/dashboard/credentials',
+  //   label: 'credentials',
+  //   labelExtended: 'Verifiable Credentials',
+  //   icon: IconIdBadge2,
+  // },
 ]
 
 export function DashboardLinks({

@@ -1,4 +1,4 @@
-import { Box, Container, useMantineTheme } from '@mantine/core'
+import { Box, Container, Group, Text, useMantineTheme } from '@mantine/core'
 import useAuth from '../../hooks/useAuth'
 import AuthCheckOverlay from '../auth-check-overlay'
 import AuthLoadingOverlay from '../auth-loading-overlay'
@@ -48,7 +48,7 @@ const DashboardLayout = ({ children }: any) => {
         >
           <DashboardNavbar />
         </Box>
-        <Box sx={{ width: '100%', marginBlock: 16 }}>
+        <Box sx={{ width: '100%', marginBottom: 16 }}>
           <Container fluid sx={{ maxWidth: 1440 }}>
             <Box
               sx={{
@@ -71,6 +71,29 @@ const DashboardLayout = ({ children }: any) => {
                 }}
               >
                 {children}
+              </Box>
+              <Box
+                mt={12}
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                }}
+              >
+                <Text size='xs' color='dimmed'>
+                  Chkon&trade;, Property of AuresX SPAS
+                </Text>
+                <Group spacing={8}>
+                  <Text size='xs' color='dimmed'>
+                    Privacy Policy
+                  </Text>
+                  <Text size='xs' color='dimmed'>
+                    Cookies
+                  </Text>
+                  <Text size='xs' color='dimmed'>
+                    Conditions
+                  </Text>
+                </Group>
               </Box>
             </Box>
           </Container>
