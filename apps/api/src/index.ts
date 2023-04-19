@@ -22,7 +22,6 @@ import authRoutes from './routes/auth-routes'
 import { ApolloContext } from './types/context-types'
 
 const app = express()
-console.log(NODE_ENV)
 
 const corsOptions = {
   origin: '*',
