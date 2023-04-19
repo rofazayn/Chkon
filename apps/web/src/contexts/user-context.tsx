@@ -21,8 +21,6 @@ export const UserProvider = ({ children }: any) => {
     }
   }, [fetchProfile, isAuthenticated])
 
-  console.log(user)
-
   return (
     <UserContext.Provider value={{ user }}>{children}</UserContext.Provider>
   )
