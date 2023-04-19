@@ -16,12 +16,15 @@ import {
   IconExternalLink,
   IconFingerprint,
   IconLogin,
+  IconRocket,
 } from '@tabler/icons-react'
 import Image from 'next/image'
 import Link from 'next/link'
+import useAuth from '../hooks/useAuth'
 
 const HeroSection = () => {
   const { colorScheme, toggleColorScheme } = useMantineColorScheme()
+  const { isAuthenticated, isCheckingAuth } = useAuth()
   return (
     <Container size='xs'>
       <Box py={64}>
@@ -72,26 +75,50 @@ const HeroSection = () => {
           privacy. Discover the perfect blend of convenience and security with
           Chkon as we reshape the future of digital identity management.
         </Text>
-        <Group spacing={16} mt={32}>
-          <Button
-            component={Link}
-            href='/auth/register'
-            leftIcon={<IconFingerprint />}
-          >
-            Create an account
-          </Button>
-          <Text component='span' size='sm' color='dimmed'>
-            or
-          </Text>
-          <Button
-            component={Link}
-            href='/auth/login'
-            variant='light'
-            rightIcon={<IconLogin />}
-          >
-            Connect to Chkon
-          </Button>
-        </Group>
+        {!isCheckingAuth && !isAuthenticated ? (
+          <Group spacing={16} mt={32}>
+            <Button
+              component={Link}
+              href='/auth/register'
+              leftIcon={<IconFingerprint />}
+            >
+              Create an account
+            </Button>
+            <Text component='span' size='sm' color='dimmed'>
+              or
+            </Text>
+            <Button
+              component={Link}
+              href='/auth/login'
+              variant='light'
+              rightIcon={<IconLogin />}
+            >
+              Connect to Chkon
+            </Button>
+          </Group>
+        ) : isCheckingAuth ? (
+          <Box mt={32}>
+            <Button
+              component={Link}
+              href='/auth/register'
+              loading
+              // // loaderPosition='left'
+              // leftIcon={<IconFingerprint />}
+            >
+              Performing checks...
+            </Button>
+          </Box>
+        ) : (
+          <Box mt={32}>
+            <Button
+              component={Link}
+              href='/dashboard'
+              rightIcon={<IconRocket />}
+            >
+              Navigate to dashboard
+            </Button>
+          </Box>
+        )}
         <Divider mt={80} mb={24} maw={120} />
         <Stack spacing={0}>
           <Text size='sm'>

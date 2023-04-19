@@ -18,12 +18,6 @@ export const AuthProvider = ({ children }: any) => {
   const [isCheckingAuth, setIsCheckingAuth] = useState<boolean>(true)
   const [lastRequestedURL, setLastRequestedURL] = useState<string | null>(null)
 
-  // useEffect(() => {
-  //   if (router.pathname.startsWith('/dashboard')) {
-  //     setLastRequestedURL(router.pathname)
-  //   }
-  // }, [router.pathname])
-
   useEffect(() => {
     if (
       isAuthenticated &&

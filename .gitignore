@@ -40,3 +40,4 @@ yarn-error.log*
 
 # other
 notes.txt
+apps/api/src/graphql/type-graphql
