@@ -76,10 +76,12 @@ const Topbar = () => {
           theme.colorScheme === 'dark' ? theme.colors.dark[8] : 'white',
         paddingInline: 24,
         paddingBlock: 24,
-        borderRadius: 6,
-        top: 0,
+        borderBottomRightRadius: 6,
+        borderBottomLeftRadius: 6,
         zIndex: 100,
         marginBottom: 16,
+        // position: 'sticky',
+        // top: 0,
       }}
     >
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
