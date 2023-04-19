@@ -20,6 +20,7 @@ const Topbar = () => {
 
   const [breadcrumbs, setBreadcrumbs] = useState<any>()
   const [items, setItems] = useState<[]>([])
+  console.log(router.isFallback)
   useEffect(() => {
     const pathWithoutQuery = router.asPath.split('?')[0]
     let pathArray = pathWithoutQuery.split('/')

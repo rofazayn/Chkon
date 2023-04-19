@@ -8,7 +8,6 @@ import Topbar from '../topbar'
 const DashboardLayout = ({ children }: any) => {
   const theme = useMantineTheme()
   const { isAuthenticated, isCheckingAuth } = useAuth()
-  const {} = useAuth()
 
   if (isCheckingAuth) {
     return <AuthCheckOverlay />
