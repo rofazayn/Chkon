@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 
-const useStyles = createStyles((theme, _params, getRef) => {
+const useStyles = createStyles((theme, _params, _getRef) => {
   return {
     link: {
       display: 'flex',
@@ -15,7 +15,7 @@ const useStyles = createStyles((theme, _params, getRef) => {
           ? theme.colors.dark[1]
           : theme.colors.gray[7],
       padding: `12px`,
-      borderRadius: 4,
+      borderRadius: 7,
       fontWeight: 500,
       transitionProperty: 'color, background-color',
       transition: 'ease-in-out 200ms',

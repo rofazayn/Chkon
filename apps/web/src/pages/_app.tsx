@@ -76,8 +76,8 @@ export default function App(props: AppProps) {
                       backgroundColor:
                         theme.colorScheme === 'dark'
                           ? // ? theme.fn.darken(theme.colors.violet[9], 0.92)
-                            theme.fn.darken(theme.colors.dark[8], 0.3)
-                          : theme.fn.lighten(theme.colors.violet[0], 0.6),
+                            theme.fn.darken(theme.colors.dark[8], 0.4)
+                          : theme.fn.lighten(theme.colors.violet[0], 0.4),
                     })}
                   >
                     <Box sx={{ width: '100%' }}>

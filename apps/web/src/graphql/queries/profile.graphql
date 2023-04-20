@@ -5,6 +5,8 @@ query Profile {
     phoneNumber
     email
     name
+    logoUrl
+    verified
     createdAt
     updatedAt
   }

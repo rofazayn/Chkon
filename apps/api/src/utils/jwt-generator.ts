@@ -4,7 +4,7 @@ import { JWT_PRIV_KEY } from '../constants'
 export const createAccessToken = (payload: { id: string }) => {
   if (!payload) return
   const accessToken = sign(payload, JWT_PRIV_KEY, {
-    expiresIn: '5min',
+    expiresIn: '1h',
     algorithm: 'RS256',
   })
 

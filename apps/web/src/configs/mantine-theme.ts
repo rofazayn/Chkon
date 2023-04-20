@@ -5,7 +5,7 @@ const mantineTheme: MantineThemeOverride = {
     fontFamily: 'Epilogue, Merriweather Sans, IBM Plex Sans Arabic, serif',
   },
   fontFamily: 'Work Sans, IBM Plex Sans Arabic, sans-serif',
-  defaultRadius: 4,
+  defaultRadius: 7,
   primaryColor: 'violet',
   components: {
     Title: {
@@ -25,7 +25,7 @@ const mantineTheme: MantineThemeOverride = {
     Divider: {
       defaultProps: {
         sx: {
-          opacity: 0.6,
+          opacity: 0.4,
         },
       },
     },

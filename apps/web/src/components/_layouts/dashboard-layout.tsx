@@ -1,4 +1,5 @@
 import { Box, Container, Group, Text, useMantineTheme } from '@mantine/core'
+import { Notifications } from '@mantine/notifications'
 import useAuth from '../../hooks/useAuth'
 import AuthCheckOverlay from '../auth-check-overlay'
 import AuthLoadingOverlay from '../auth-loading-overlay'
@@ -28,6 +29,7 @@ const DashboardLayout = ({ children }: any) => {
         justifyContent: 'center',
       }}
     >
+      <Notifications position='bottom-center' limit={3} />
       <Box
         sx={{
           width: '100%',
@@ -60,13 +62,13 @@ const DashboardLayout = ({ children }: any) => {
               <Box
                 sx={{
                   width: '100%',
-                  minHeight: 5000,
+                  minHeight: '91vh',
                   backgroundColor:
                     theme.colorScheme === 'dark'
                       ? theme.colors.dark[8]
                       : 'white',
                   padding: 24,
-                  borderRadius: 6,
+                  borderRadius: 12,
                 }}
               >
                 {children}

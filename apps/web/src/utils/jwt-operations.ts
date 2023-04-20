@@ -25,8 +25,9 @@ export const setRefreshToken = (token: string | null = null): void => {
 
 export const getRefreshToken = (): string | null => {
   const token = localStorage.getItem('refresh_token') || ''
-  if (!checkTokenExpiry(token) && checkTokenFormat(token)) return token
-  return null
+  // if (!checkTokenExpiry(token) && checkTokenFormat(token)) return token
+  // return null
+  return token
 }
 
 export const checkTokenExpiry = (token?: string): boolean => {
