@@ -19,7 +19,7 @@ const Topbar = () => {
   const { user } = useUser()
 
   const [breadcrumbs, setBreadcrumbs] = useState<any>()
-  const [items, setItems] = useState<[]>([])
+  const [items, setItems] = useState<any[]>([])
   useEffect(() => {
     const pathWithoutQuery = router.asPath.split('?')[0]
     let pathArray = pathWithoutQuery.split('/')
@@ -76,9 +76,11 @@ const Topbar = () => {
           theme.colorScheme === 'dark' ? theme.colors.dark[8] : 'white',
         paddingInline: 24,
         paddingBlock: 24,
-        borderBottomRightRadius: 6,
-        borderBottomLeftRadius: 6,
+        borderRadius: 12,
+        // borderBottomRightRadius: 12,
+        // borderBottomLeftRadius: 12,
         zIndex: 100,
+        // marginTop: 16,
         marginBottom: 16,
         // position: 'sticky',
         // top: 0,

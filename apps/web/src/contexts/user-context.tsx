@@ -1,10 +1,12 @@
 import { createContext, useCallback, useEffect, useState } from 'react'
 import useAuth from '../hooks/useAuth'
 import { useProfileQuery } from '../generated/graphql'
+import { useRouter } from 'next/router'
 
 export const UserContext = createContext({} as any)
 export const UserProvider = ({ children }: any) => {
-  const { isAuthenticated } = useAuth()
+  const router = useRouter()
+  const { isAuthenticated, isCheckingAuth } = useAuth()
   const [user, setUser] = useState<any>(null)
   const profileQuery = useProfileQuery({ skip: !isAuthenticated })
 
@@ -14,6 +16,18 @@ export const UserProvider = ({ children }: any) => {
       setUser(profileQuery.data.profile)
     }
   }, [profileQuery])
+
+  useEffect(() => {
+    if (
+      isAuthenticated &&
+      !isCheckingAuth &&
+      user &&
+      !user?.verified &&
+      router.pathname !== '/dashboard/verification'
+    ) {
+      router.replace('/dashboard/verification')
+    }
+  }, [user, router, isAuthenticated, isCheckingAuth])
 
   useEffect(() => {
     if (isAuthenticated) {

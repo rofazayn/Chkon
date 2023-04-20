@@ -7,6 +7,7 @@ import {
 import { useProfileQuery } from '../generated/graphql'
 import { setRefreshToken } from '../utils/jwt-operations'
 import { useRouter } from 'next/router'
+import useUser from '../hooks/useUser'
 
 export const AuthContext = createContext({} as any)
 export const AuthProvider = ({ children }: any) => {
@@ -17,6 +18,7 @@ export const AuthProvider = ({ children }: any) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false)
   const [isCheckingAuth, setIsCheckingAuth] = useState<boolean>(true)
   const [lastRequestedURL, setLastRequestedURL] = useState<string | null>(null)
+  const { user } = useUser()
 
   useEffect(() => {
     if (
@@ -24,7 +26,11 @@ export const AuthProvider = ({ children }: any) => {
       !isCheckingAuth &&
       router.pathname.startsWith('/auth')
     ) {
-      router.replace(lastRequestedURL || '/dashboard')
+      if (user?.verified) {
+        router.replace(lastRequestedURL || '/dashboard')
+      } else {
+        router.replace('/dashboard/verification')
+      }
     } else if (
       !isAuthenticated &&
       !isCheckingAuth &&

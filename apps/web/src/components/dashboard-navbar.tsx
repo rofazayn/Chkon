@@ -27,10 +27,11 @@ const DashboardNavbar = () => {
       sx={{
         width: '100%',
         height: '100vh',
-        borderStartEndRadius: 6,
-        borderEndEndRadius: 6,
+        borderStartEndRadius: 12,
+        borderEndEndRadius: 12,
         backgroundColor:
           theme.colorScheme === 'dark' ? theme.colors.dark[8] : 'white',
+
         paddingInline: 24,
         paddingBlock: 32,
         position: 'sticky',
@@ -47,7 +48,7 @@ const DashboardNavbar = () => {
         }}
       >
         <Box>
-          <Group spacing={12} mb={36}>
+          <Group spacing={12} mb={28}>
             <Box component={Link} href='/'>
               <Image
                 src={logoImage}
@@ -66,6 +67,8 @@ const DashboardNavbar = () => {
               </Text>
             </Stack>
           </Group>
+
+          <Divider my={16} variant='dashed' />
 
           <Box>
             <DashboardLinks />
@@ -94,7 +97,7 @@ const DashboardNavbar = () => {
                 variant='light'
                 onClick={() => toggleColorScheme()}
                 fullWidth
-                leftIcon={<IconSun size={18} />}
+                rightIcon={<IconSun size={18} />}
                 color={colorScheme === 'light' ? 'violet' : 'gray'}
                 sx={{
                   paddingInline: 16,
@@ -105,7 +108,7 @@ const DashboardNavbar = () => {
                   },
                 }}
               >
-                Light mode
+                Light
               </Button>
               <Button
                 variant='light'
@@ -122,7 +125,7 @@ const DashboardNavbar = () => {
                   },
                 }}
               >
-                Dark mode
+                Dark
               </Button>
             </Button.Group>
           </Box>

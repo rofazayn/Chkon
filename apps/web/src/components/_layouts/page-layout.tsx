@@ -1,10 +1,6 @@
 import { Box } from '@mantine/core'
-import { motion } from 'framer-motion'
-import { useRouter } from 'next/router'
-import AnimateWrapper from '../animate-wrapper'
 
 const PageLayout = ({ children }: any) => {
-  const router = useRouter()
   return (
     <Box
       sx={{

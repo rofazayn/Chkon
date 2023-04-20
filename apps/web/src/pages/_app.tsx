@@ -39,7 +39,7 @@ export default function App(props: AppProps) {
   return (
     <>
       <Head>
-        <title>Chkon - Digital Identity</title>
+        <title>Chkon: E-ID</title>
         <meta
           name='viewport'
           content='minimum-scale=1, initial-scale=1, width=device-width'
@@ -76,8 +76,8 @@ export default function App(props: AppProps) {
                       backgroundColor:
                         theme.colorScheme === 'dark'
                           ? // ? theme.fn.darken(theme.colors.violet[9], 0.92)
-                            theme.fn.darken(theme.colors.dark[8], 0.3)
-                          : theme.fn.lighten(theme.colors.violet[0], 0.6),
+                            theme.fn.darken(theme.colors.dark[8], 0.4)
+                          : theme.fn.lighten(theme.colors.violet[0], 0.4),
                     })}
                   >
                     <Box sx={{ width: '100%' }}>

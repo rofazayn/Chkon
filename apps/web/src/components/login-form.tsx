@@ -71,7 +71,7 @@ const LoginForm = () => {
                   sx={{
                     width: '100%',
                     maxWidth: 440,
-                    borderRadius: 6,
+                    borderRadius: 8,
                     backgroundColor:
                       theme.colorScheme === 'dark'
                         ? theme.colors.dark[8]
