@@ -33,14 +33,14 @@ model User {
 
 model Organization {
   id                    String                @id @default(auto()) @map("_id") @db.ObjectId
-  name                  String                @default("Unknown Issuer")
+  name                  String                @default("Unnamed Organization")
   description           String?
   logoUrl               String?
-  verified              Boolean               @default(false)
-  receivedPresentations Presentation[]
+  status                String                @default("unverified")
   issuedCredentials     Credential[]
-  presentationRequests  PresentationRequest[]
+  receivedPresentations Presentation[]
   credentialRequests    CredentialRequest[]
+  presentationRequests  PresentationRequest[]
   memberships           OrganizationMember[]
   createdAt             DateTime?             @default(now())
   updatedAt             DateTime?             @updatedAt
@@ -50,34 +50,30 @@ model OrganizationMember {
   id                   String                @id @default(auto()) @map("_id") @db.ObjectId
   user                 User?                 @relation(fields: [userId], references: [id])
   userId               String?               @db.ObjectId
-  canRequest           Boolean               @default(false)
-  canIssue             Boolean               @default(false)
+  role                 String?               @default("member")
   blocked              Boolean               @default(false)
-  issuedCredentials    Credential[]
-  presentationRequests PresentationRequest[]
   organization         Organization          @relation(fields: [organizationId], references: [id])
   organizationId       String                @db.ObjectId
+  presentationRequests PresentationRequest[]
   createdAt            DateTime?             @default(now())
   updatedAt            DateTime?             @updatedAt
 }
 
 model Credential {
-  id             String             @id @default(auto()) @map("_id") @db.ObjectId
-  type           String
-  payload        Json
-  issuerConsent  Boolean            @default(false)
-  holderConsent  Boolean            @default(false)
-  user           User               @relation(fields: [userId], references: [id])
-  userId         String             @db.ObjectId
-  organization   Organization       @relation(fields: [organizationId], references: [id])
-  organizationId String             @db.ObjectId
-  issuer         OrganizationMember @relation(fields: [issuerId], references: [id])
-  issuerId       String             @db.ObjectId
-  request        CredentialRequest? @relation(fields: [requestId], references: [id])
-  requestId      String?            @unique @db.ObjectId
-  expiryDate     DateTime           @db.Timestamp
-  createdAt      DateTime           @default(now())
-  updatedAt      DateTime           @updatedAt
+  id            String             @id @default(auto()) @map("_id") @db.ObjectId
+  type          String
+  payload       Json
+  issuerConsent Boolean            @default(false)
+  holderConsent Boolean            @default(false)
+  user          User               @relation(fields: [userId], references: [id])
+  userId        String             @db.ObjectId
+  issuer        Organization       @relation(fields: [issuerId], references: [id])
+  issuerId      String             @db.ObjectId
+  request       CredentialRequest? @relation(fields: [requestId], references: [id])
+  requestId     String?            @unique @db.ObjectId
+  expiryDate    DateTime           @db.Timestamp
+  createdAt     DateTime           @default(now())
+  updatedAt     DateTime           @updatedAt
 }
 
 model Presentation {
@@ -106,8 +102,7 @@ model CredentialRequest {
   credentialType String
   attributes     Json
   credential     Credential?
-  completed      Boolean      @default(false)
-  valid          Boolean      @default(false)
+  status         String       @default("requested")
   createdAt      DateTime     @default(now())
   updatedAt      DateTime     @updatedAt
 }
@@ -123,8 +118,7 @@ model PresentationRequest {
   credentialType       String
   attributes           Json
   presentation         Presentation?
-  completed            Boolean            @default(false)
-  valid                Boolean            @default(false)
+  status               String             @default("requested")
   createdAt            DateTime           @default(now())
   updatedAt            DateTime           @updatedAt
 }

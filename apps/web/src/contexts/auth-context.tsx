@@ -26,11 +26,7 @@ export const AuthProvider = ({ children }: any) => {
       !isCheckingAuth &&
       router.pathname.startsWith('/auth')
     ) {
-      if (user?.verified) {
-        router.replace(lastRequestedURL || '/dashboard')
-      } else {
-        router.replace('/dashboard/verification')
-      }
+      router.replace(lastRequestedURL || '/dashboard')
     } else if (
       !isAuthenticated &&
       !isCheckingAuth &&
@@ -38,11 +34,11 @@ export const AuthProvider = ({ children }: any) => {
     ) {
       router.replace('/auth/login')
     }
-  }, [router, isAuthenticated, isCheckingAuth, lastRequestedURL])
+  }, [user, router, isAuthenticated, isCheckingAuth, lastRequestedURL])
 
   useEffect(() => {
     if (isAuthenticated && lastRequestedURL) {
-      router.push(lastRequestedURL)
+      router.replace(lastRequestedURL)
       setLastRequestedURL(null)
     }
   }, [isAuthenticated, lastRequestedURL, router])

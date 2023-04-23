@@ -9,10 +9,16 @@ import {
   useMantineTheme,
 } from '@mantine/core'
 import { notifications } from '@mantine/notifications'
-import { IconCheck, IconChecks, IconUpload } from '@tabler/icons-react'
+import {
+  IconBulb,
+  IconCheck,
+  IconChecks,
+  IconUpload,
+} from '@tabler/icons-react'
 import DashboardLayout from '../../../components/_layouts/dashboard-layout'
 import { useUpdateOneUserMutation } from '../../../generated/graphql'
 import useUser from '../../../hooks/useUser'
+import Link from 'next/link'
 
 const UserVerification = () => {
   const { user } = useUser()
@@ -47,7 +53,7 @@ const UserVerification = () => {
   return (
     <DashboardLayout>
       <Stack
-        spacing={8}
+        spacing={6}
         sx={{
           maxWidth: 520,
         }}
@@ -80,10 +86,23 @@ const UserVerification = () => {
             </Box>
           </>
         ) : (
-          <Group>
-            <IconChecks color={theme.colors.green[5]} />
-            <Text color='dimmed'>Your account was successfully verified!</Text>
-          </Group>
+          <Stack spacing={2}>
+            <Group spacing={8}>
+              <IconChecks color={theme.colors.green[5]} size={18} />
+              <Text color='dimmed'>
+                Your account was successfully verified!
+              </Text>
+            </Group>
+            <Group spacing={8}>
+              <IconBulb color={theme.colors.yellow[5]} size={18} />
+              <Text color='dimmed'>
+                You can now use the platform by{' '}
+                <Text component={Link} href='/dashboard' underline>
+                  clicking here!
+                </Text>
+              </Text>
+            </Group>
+          </Stack>
         )}
       </Stack>
     </DashboardLayout>
