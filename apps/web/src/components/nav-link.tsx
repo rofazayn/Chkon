@@ -17,8 +17,8 @@ const useStyles = createStyles((theme, _params, _getRef) => {
       padding: `12px`,
       borderRadius: 7,
       fontWeight: 500,
-      transitionProperty: 'color, background-color',
-      transition: 'ease-in-out 200ms',
+      // transitionProperty: 'color, background-color',
+      // transition: 'ease-in-out 200ms',
       lineHeight: 1,
 
       '&:hover': {
@@ -43,7 +43,7 @@ const useStyles = createStyles((theme, _params, _getRef) => {
           : theme.colors.gray[7],
       marginInlineEnd: 12,
       // transitionProperty: 'stroke fill path',
-      transition: 'ease-in-out 200ms',
+      // transition: 'ease-in-out 200ms',
     },
 
     linkActive: {
