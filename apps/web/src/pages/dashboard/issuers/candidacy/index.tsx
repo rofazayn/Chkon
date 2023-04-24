@@ -39,7 +39,7 @@ const OrganizationCandidacy = () => {
             name,
             description,
             memberships: {
-              create: [{ user: { connect: { id: user.id } }, role: 'admin' }],
+              create: [{ user: { connect: { id: user?.id } }, role: 'admin' }],
             },
           },
         },
@@ -99,10 +99,12 @@ const OrganizationCandidacy = () => {
               setValues((prev) => ({ ...prev, description: e.target.value }))
             }
           />
-          <Box mt={16}>
+          <Box mt={12}>
             <Button
               onClick={handleApplyCandidacy}
               rightIcon={<IconWorldPlus size={18} />}
+              variant='light'
+              loading={loading}
             >
               Apply for candidacy
             </Button>

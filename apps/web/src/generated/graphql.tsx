@@ -4727,6 +4727,25 @@ export type UpdateOneUserMutationVariables = Exact<{
 
 export type UpdateOneUserMutation = { __typename?: 'Mutation', updateOneUser?: { __typename?: 'User', id: string, username: string, phoneNumber?: string | null, email: string, name: string, logoUrl?: string | null, verified: boolean, createdAt?: any | null, updatedAt?: any | null } | null };
 
+export type OrganizationQueryVariables = Exact<{
+  where: OrganizationWhereUniqueInput;
+}>;
+
+
+export type OrganizationQuery = { __typename?: 'Query', organization?: { __typename?: 'Organization', id: string, name: string, description?: string | null, logoUrl?: string | null, status: string, createdAt?: any | null, updatedAt?: any | null } | null };
+
+export type OrganizationsQueryVariables = Exact<{
+  where?: InputMaybe<OrganizationWhereInput>;
+  orderBy?: InputMaybe<Array<OrganizationOrderByWithRelationInput> | OrganizationOrderByWithRelationInput>;
+  cursor?: InputMaybe<OrganizationWhereUniqueInput>;
+  take?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  distinct?: InputMaybe<Array<OrganizationScalarFieldEnum> | OrganizationScalarFieldEnum>;
+}>;
+
+
+export type OrganizationsQuery = { __typename?: 'Query', organizations: Array<{ __typename?: 'Organization', id: string, name: string, description?: string | null, logoUrl?: string | null, status: string, createdAt?: any | null, updatedAt?: any | null }> };
+
 export type ProfileQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -4886,6 +4905,100 @@ export function useUpdateOneUserMutation(baseOptions?: Apollo.MutationHookOption
 export type UpdateOneUserMutationHookResult = ReturnType<typeof useUpdateOneUserMutation>;
 export type UpdateOneUserMutationResult = Apollo.MutationResult<UpdateOneUserMutation>;
 export type UpdateOneUserMutationOptions = Apollo.BaseMutationOptions<UpdateOneUserMutation, UpdateOneUserMutationVariables>;
+export const OrganizationDocument = gql`
+    query Organization($where: OrganizationWhereUniqueInput!) {
+  organization(where: $where) {
+    id
+    name
+    description
+    logoUrl
+    status
+    createdAt
+    updatedAt
+  }
+}
+    `;
+
+/**
+ * __useOrganizationQuery__
+ *
+ * To run a query within a React component, call `useOrganizationQuery` and pass it any options that fit your needs.
+ * When your component renders, `useOrganizationQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useOrganizationQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useOrganizationQuery(baseOptions: Apollo.QueryHookOptions<OrganizationQuery, OrganizationQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<OrganizationQuery, OrganizationQueryVariables>(OrganizationDocument, options);
+      }
+export function useOrganizationLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<OrganizationQuery, OrganizationQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<OrganizationQuery, OrganizationQueryVariables>(OrganizationDocument, options);
+        }
+export type OrganizationQueryHookResult = ReturnType<typeof useOrganizationQuery>;
+export type OrganizationLazyQueryHookResult = ReturnType<typeof useOrganizationLazyQuery>;
+export type OrganizationQueryResult = Apollo.QueryResult<OrganizationQuery, OrganizationQueryVariables>;
+export const OrganizationsDocument = gql`
+    query Organizations($where: OrganizationWhereInput, $orderBy: [OrganizationOrderByWithRelationInput!], $cursor: OrganizationWhereUniqueInput, $take: Int, $skip: Int, $distinct: [OrganizationScalarFieldEnum!]) {
+  organizations(
+    where: $where
+    orderBy: $orderBy
+    cursor: $cursor
+    take: $take
+    skip: $skip
+    distinct: $distinct
+  ) {
+    id
+    name
+    description
+    logoUrl
+    status
+    createdAt
+    updatedAt
+  }
+}
+    `;
+
+/**
+ * __useOrganizationsQuery__
+ *
+ * To run a query within a React component, call `useOrganizationsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useOrganizationsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useOrganizationsQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *      orderBy: // value for 'orderBy'
+ *      cursor: // value for 'cursor'
+ *      take: // value for 'take'
+ *      skip: // value for 'skip'
+ *      distinct: // value for 'distinct'
+ *   },
+ * });
+ */
+export function useOrganizationsQuery(baseOptions?: Apollo.QueryHookOptions<OrganizationsQuery, OrganizationsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<OrganizationsQuery, OrganizationsQueryVariables>(OrganizationsDocument, options);
+      }
+export function useOrganizationsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<OrganizationsQuery, OrganizationsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<OrganizationsQuery, OrganizationsQueryVariables>(OrganizationsDocument, options);
+        }
+export type OrganizationsQueryHookResult = ReturnType<typeof useOrganizationsQuery>;
+export type OrganizationsLazyQueryHookResult = ReturnType<typeof useOrganizationsLazyQuery>;
+export type OrganizationsQueryResult = Apollo.QueryResult<OrganizationsQuery, OrganizationsQueryVariables>;
 export const ProfileDocument = gql`
     query Profile {
   profile {

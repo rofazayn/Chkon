@@ -5,7 +5,6 @@ import {
   Group,
   Stack,
   Text,
-  rem,
   useMantineTheme,
 } from '@mantine/core'
 import { notifications } from '@mantine/notifications'
@@ -15,13 +14,15 @@ import {
   IconChecks,
   IconUpload,
 } from '@tabler/icons-react'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
 import DashboardLayout from '../../../components/_layouts/dashboard-layout'
 import { useUpdateOneUserMutation } from '../../../generated/graphql'
 import useUser from '../../../hooks/useUser'
-import Link from 'next/link'
 
 const UserVerification = () => {
   const { user } = useUser()
+  const router = useRouter()
   const theme = useMantineTheme()
   const [updateOneUserMutation, { loading }] = useUpdateOneUserMutation()
 
@@ -33,7 +34,7 @@ const UserVerification = () => {
             verified: { set: true },
           },
           where: {
-            username: user.username,
+            username: user?.username,
           },
         },
       })
@@ -44,9 +45,10 @@ const UserVerification = () => {
           message:
             'Your identity was verified successfully, you can now use the application.',
           icon: <IconCheck />,
-          color: 'green',
+          color: 'violet',
           autoClose: 5000,
         })
+        router.push('/dashboard')
       }
     } catch {}
   }
@@ -75,11 +77,12 @@ const UserVerification = () => {
               variant='filled'
               accept='.pdf,.png,.jpeg,.jpg'
             />
-            <Box mt={16}>
+            <Box mt={12}>
               <Button
                 rightIcon={<IconCheck size={18} />}
                 onClick={handleVerifyUser}
                 loading={loading}
+                variant='light'
               >
                 Verify my account
               </Button>
