@@ -1,0 +1,11 @@
+query Organization($where: OrganizationWhereUniqueInput!) {
+  organization(where: $where) {
+    id
+    name
+    description
+    logoUrl
+    status
+    createdAt
+    updatedAt
+  }
+}

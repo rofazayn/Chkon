@@ -18,7 +18,7 @@ const mantineTheme: MantineThemeOverride = {
     Text: {
       defaultProps: {
         sx: {
-          lineHeight: 1.75,
+          lineHeight: 1.65,
         },
       },
     },

@@ -1,0 +1,25 @@
+query Organizations(
+  $where: OrganizationWhereInput
+  $orderBy: [OrganizationOrderByWithRelationInput!]
+  $cursor: OrganizationWhereUniqueInput
+  $take: Int
+  $skip: Int
+  $distinct: [OrganizationScalarFieldEnum!]
+) {
+  organizations(
+    where: $where
+    orderBy: $orderBy
+    cursor: $cursor
+    take: $take
+    skip: $skip
+    distinct: $distinct
+  ) {
+    id
+    name
+    description
+    logoUrl
+    status
+    createdAt
+    updatedAt
+  }
+}

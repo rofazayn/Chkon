@@ -1,5 +1,4 @@
 import { Box, Container, Group, Text, useMantineTheme } from '@mantine/core'
-import { Notifications } from '@mantine/notifications'
 import useAuth from '../../hooks/useAuth'
 import AuthCheckOverlay from '../auth-check-overlay'
 import AuthLoadingOverlay from '../auth-loading-overlay'
@@ -29,7 +28,6 @@ const DashboardLayout = ({ children }: any) => {
         justifyContent: 'center',
       }}
     >
-      <Notifications position='bottom-center' limit={3} />
       <Box
         sx={{
           width: '100%',

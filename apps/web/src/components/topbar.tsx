@@ -44,7 +44,7 @@ const Topbar = () => {
   useEffect(() => {
     if (breadcrumbs) {
       setItems(
-        breadcrumbs.map((item: any, index: number) => (
+        breadcrumbs.slice(0, 3).map((item: any, index: number) => (
           <Anchor
             component={Link}
             href={item.href}
