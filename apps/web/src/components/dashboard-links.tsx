@@ -1,6 +1,5 @@
 import { Box, Stack } from '@mantine/core'
 import {
-  IconAnchor,
   IconBuildingArch,
   IconHome,
   IconIdBadge,
@@ -24,13 +23,6 @@ const data = [
     labelExtended: 'Trusted Issuers List',
     icon: IconBuildingArch,
   },
-  {
-    link: '/dashboard/dids',
-    label: 'dids',
-    labelExtended: 'Decentralized Identifiers',
-    icon: IconAnchor,
-  },
-
   {
     link: '/dashboard/presentations',
     label: 'presentations',
@@ -67,14 +59,16 @@ export function DashboardLinks({
           />
         )}
         {withSettings && (
-          <NavLink
-            item={{
-              link: '/dashboard/settings',
-              label: 'Settings',
-              labelExtended: 'Account Settings',
-              icon: IconSettings,
-            }}
-          />
+          <>
+            <NavLink
+              item={{
+                link: '/dashboard/settings',
+                label: 'Settings',
+                labelExtended: 'Account Settings',
+                icon: IconSettings,
+              }}
+            />
+          </>
         )}
       </Stack>
     </Box>

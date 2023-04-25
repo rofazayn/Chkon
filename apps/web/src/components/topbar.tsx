@@ -4,10 +4,12 @@ import {
   Avatar,
   Box,
   Breadcrumbs,
+  Flex,
   Group,
+  Indicator,
   useMantineTheme,
 } from '@mantine/core'
-import { IconAntenna, IconBell } from '@tabler/icons-react'
+import { IconAntenna, IconBell, IconCheck } from '@tabler/icons-react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
@@ -44,7 +46,7 @@ const Topbar = () => {
   useEffect(() => {
     if (breadcrumbs) {
       setItems(
-        breadcrumbs.slice(0, 3).map((item: any, index: number) => (
+        breadcrumbs.slice(0, 2).map((item: any, index: number) => (
           <Anchor
             component={Link}
             href={item.href}
@@ -99,14 +101,22 @@ const Topbar = () => {
           <ActionIcon variant='subtle' size='lg'>
             <IconBell size={20} />
           </ActionIcon>
-          <Avatar
-            variant='gradient'
-            gradient={{ from: 'violet.5', to: 'cyan.5', deg: 220 }}
-            radius={12}
-            size={40}
+          <Indicator
+            position='bottom-end'
+            color={user?.verified ? 'green' : 'red'}
+            withBorder
+            size={16}
+            offset={3}
           >
-            {user?.name[0]}
-          </Avatar>
+            <Avatar
+              variant='gradient'
+              gradient={{ from: 'violet.5', to: 'cyan.5', deg: 220 }}
+              radius={12}
+              size={40}
+            >
+              {user?.name[0]}
+            </Avatar>
+          </Indicator>
         </Group>
       </Box>
     </Box>

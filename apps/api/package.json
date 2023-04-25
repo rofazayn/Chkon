@@ -11,7 +11,8 @@
     "build": "webpack",
     "serve": "NODE_ENV=\"production\" node build/index.js",
     "gen:prisma": "prisma generate",
-    "gen:keys": "ts-node src/utils/keypair-generator.ts"
+    "gen:keys": "ts-node src/utils/keypair-generator.ts",
+    "create:credential-types": "ts-node src/utils/create-credential-types.ts"
   },
   "dependencies": {
     "@prisma/client": "4.3.0",
