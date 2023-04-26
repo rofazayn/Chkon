@@ -20,7 +20,7 @@ const data = [
   {
     link: '/dashboard/issuers',
     label: 'issuers',
-    labelExtended: 'Trusted Issuers List',
+    labelExtended: 'Browse verified issuers',
     icon: IconBuildingArch,
   },
   {

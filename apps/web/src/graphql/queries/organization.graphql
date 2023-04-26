@@ -5,6 +5,15 @@ query Organization($where: OrganizationWhereUniqueInput!) {
     description
     logoUrl
     status
+    allowedCredentialTypes {
+      id
+      name
+      typename
+      attributes
+      createdAt
+      updatedAt
+      allowedOrganizationsIds
+    }
     createdAt
     updatedAt
   }

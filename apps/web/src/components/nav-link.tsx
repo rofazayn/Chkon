@@ -85,7 +85,9 @@ function NavLink({ item }: any) {
             (router.pathname === '/app/' || router.pathname === '/dashboard') &&
             item.label === 'Home'
               ? true
-              : router.pathname.includes(item.label.toLowerCase()),
+              : router.pathname.split('/').length > 2
+              ? router.pathname.split('/')[2].includes(item.label.toLowerCase())
+              : false,
         })}
         key={item.label}
         onClick={(_event) => {

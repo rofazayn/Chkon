@@ -34,20 +34,23 @@ model User {
 }
 
 model Organization {
-  id                    String                @id @default(auto()) @map("_id") @db.ObjectId
-  name                  String                @default("Unnamed Organization")
-  description           String?
-  logoUrl               String?
-  status                String                @default("unverified")
-  issuedCredentials     Credential[]
-  receivedPresentations Presentation[]
-  credentialRequests    CredentialRequest[]
-  presentationRequests  PresentationRequest[]
-  memberships           OrganizationMember[]
-  usersWhoTrust         User[]                @relation(fields: [usersWhoTrustIds], references: [id])
-  usersWhoTrustIds      String[]              @db.ObjectId
-  createdAt             DateTime?             @default(now())
-  updatedAt             DateTime?             @updatedAt
+  id                        String                @id @default(auto()) @map("_id") @db.ObjectId
+  name                      String                @default("Unnamed Organization")
+  description               String?
+  logoUrl                   String?
+  status                    String                @default("unverified")
+  issuedCredentials         Credential[]
+  receivedPresentations     Presentation[]
+  credentialRequests        CredentialRequest[]
+  presentationRequests      PresentationRequest[]
+  memberships               OrganizationMember[]
+  allowedCredentialTypes    CredentialType[]      @relation(fields: [allowedCredentialTypesIds], references: [id])
+  allowedCredentialTypesIds String[]              @db.ObjectId
+
+  usersWhoTrust    User[]    @relation(fields: [usersWhoTrustIds], references: [id])
+  usersWhoTrustIds String[]  @db.ObjectId
+  createdAt        DateTime? @default(now())
+  updatedAt        DateTime? @updatedAt
 }
 
 model OrganizationMember {
@@ -64,12 +67,15 @@ model OrganizationMember {
 }
 
 model CredentialType {
-  id          String       @id @default(auto()) @map("_id") @db.ObjectId
-  name        String       @unique
-  attributes  Json[]
-  credentials Credential[]
-  createdAt   DateTime?    @default(now())
-  updatedAt   DateTime?    @updatedAt
+  id                      String         @id @default(auto()) @map("_id") @db.ObjectId
+  name                    String         @unique
+  typename                String         @unique
+  attributes              Json[]
+  credentials             Credential[]
+  createdAt               DateTime?      @default(now())
+  updatedAt               DateTime?      @updatedAt
+  allowedOrganizations    Organization[] @relation(fields: [allowedOrganizationsIds], references: [id])
+  allowedOrganizationsIds String[]       @db.ObjectId
 }
 
 model Credential {

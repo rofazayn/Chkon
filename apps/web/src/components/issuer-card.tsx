@@ -9,6 +9,7 @@ import {
 } from '@mantine/core'
 import { IconHeartPlus, IconSeeding, IconWorld } from '@tabler/icons-react'
 import useUI from '../hooks/useUI'
+import Link from 'next/link'
 
 const IssuerCard = ({ org }: any) => {
   const theme = useMantineTheme()
@@ -43,7 +44,12 @@ const IssuerCard = ({ org }: any) => {
           }}
         >
           <Box>
-            <Text weight='bold' size='md'>
+            <Text
+              weight='bold'
+              size='md'
+              component={Link}
+              href={`/dashboard/issuers/${org.id}/`}
+            >
               {org.name}
             </Text>
           </Box>
@@ -59,6 +65,8 @@ const IssuerCard = ({ org }: any) => {
             variant='light'
             size='xs'
             rightIcon={<IconSeeding size={16} />}
+            component={Link}
+            href={`/dashboard/issuers/${org.id}/request-credential`}
           >
             Request credentials
           </Button>
