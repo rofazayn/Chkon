@@ -10,7 +10,13 @@ import {
   useMantineTheme,
 } from '@mantine/core'
 import { useHover } from '@mantine/hooks'
-import { IconMoon, IconPower, IconSettings, IconSun } from '@tabler/icons-react'
+import {
+  IconMoon,
+  IconPower,
+  IconSettings,
+  IconSun,
+  IconWorld,
+} from '@tabler/icons-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import useAuth from '../hooks/useAuth'
@@ -75,7 +81,15 @@ const DashboardNavbar = () => {
           </Box>
         </Box>
         <Box>
-          <Box>
+          <Stack spacing={4}>
+            <NavLink
+              item={{
+                link: '/dashboard/organizations',
+                label: 'Organizations',
+                labelExtended: 'Organizations Control',
+                icon: IconWorld,
+              }}
+            />
             <NavLink
               item={{
                 link: '/dashboard/settings',
@@ -84,7 +98,7 @@ const DashboardNavbar = () => {
                 icon: IconSettings,
               }}
             />
-          </Box>
+          </Stack>
           <Box my={16}>
             <Divider variant='dashed' />
           </Box>

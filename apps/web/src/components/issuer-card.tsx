@@ -7,15 +7,14 @@ import {
   Text,
   useMantineTheme,
 } from '@mantine/core'
-import { IconHomeCog, IconSettingsCog, IconWorld } from '@tabler/icons-react'
+import { IconHeartPlus, IconSeeding, IconWorld } from '@tabler/icons-react'
 import useUI from '../hooks/useUI'
-import { useRouter } from 'next/router'
+import Link from 'next/link'
 
-const OrganizationCard = ({ org }: any) => {
+const IssuerCard = ({ org }: any) => {
   const theme = useMantineTheme()
   const { colors } = theme
   const { bgColor } = useUI()
-  const router = useRouter()
 
   return (
     <Flex
@@ -45,7 +44,12 @@ const OrganizationCard = ({ org }: any) => {
           }}
         >
           <Box>
-            <Text weight='bold' size='md'>
+            <Text
+              weight='bold'
+              size='md'
+              component={Link}
+              href={`/dashboard/issuers/${org.id}/`}
+            >
               {org.name}
             </Text>
           </Box>
@@ -60,10 +64,19 @@ const OrganizationCard = ({ org }: any) => {
           <Button
             variant='light'
             size='xs'
-            rightIcon={<IconHomeCog size={16} />}
-            onClick={() => router.push(`/dashboard/organizations/${org?.id}/`)}
+            rightIcon={<IconSeeding size={16} />}
+            component={Link}
+            href={`/dashboard/issuers/${org.id}/request-credential`}
           >
-            Go to control panel
+            Request credentials
+          </Button>
+          <Button
+            variant='subtle'
+            rightIcon={<IconHeartPlus size={16} />}
+            size='xs'
+            color='pink'
+          >
+            Add to trusted
           </Button>
         </Group>
       </Box>
@@ -71,4 +84,4 @@ const OrganizationCard = ({ org }: any) => {
   )
 }
 
-export default OrganizationCard
+export default IssuerCard

@@ -44,6 +44,11 @@ const mantineTheme: MantineThemeOverride = {
         loaderPosition: 'right',
       },
     },
+    Badge: {
+      defaultProps: {
+        radius: 6,
+      },
+    },
   },
 }
 

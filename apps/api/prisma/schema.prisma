@@ -13,37 +13,44 @@ generator typegraphql {
 }
 
 model User {
-  id                   String                @id @default(auto()) @map("_id") @db.ObjectId
-  username             String                @unique
-  phoneNumber          String?               @unique
-  email                String                @unique
-  name                 String
-  logoUrl              String?
-  verified             Boolean               @default(false)
+  id                      String                @id @default(auto()) @map("_id") @db.ObjectId
+  username                String                @unique
+  phoneNumber             String?               @unique
+  email                   String                @unique
+  name                    String
+  logoUrl                 String?
+  verified                Boolean               @default(false)
   /// @TypeGraphQL.omit(output: true, input: true)
-  password             String
-  credentials          Credential[]
-  presentations        Presentation[]
-  presentationRequests PresentationRequest[]
-  credentialRequests   CredentialRequest[]
-  memberships          OrganizationMember[]
-  createdAt            DateTime?             @default(now())
-  updatedAt            DateTime?             @updatedAt
+  password                String
+  credentials             Credential[]
+  presentations           Presentation[]
+  presentationRequests    PresentationRequest[]
+  credentialRequests      CredentialRequest[]
+  memberships             OrganizationMember[]
+  trustedOrganizations    Organization[]        @relation(fields: [trustedOrganizationsIds], references: [id])
+  trustedOrganizationsIds String[]              @db.ObjectId
+  createdAt               DateTime?             @default(now())
+  updatedAt               DateTime?             @updatedAt
 }
 
 model Organization {
-  id                    String                @id @default(auto()) @map("_id") @db.ObjectId
-  name                  String                @default("Unnamed Organization")
-  description           String?
-  logoUrl               String?
-  status                String                @default("unverified")
-  issuedCredentials     Credential[]
-  receivedPresentations Presentation[]
-  credentialRequests    CredentialRequest[]
-  presentationRequests  PresentationRequest[]
-  memberships           OrganizationMember[]
-  createdAt             DateTime?             @default(now())
-  updatedAt             DateTime?             @updatedAt
+  id                        String                @id @default(auto()) @map("_id") @db.ObjectId
+  name                      String                @default("Unnamed Organization")
+  description               String?
+  logoUrl                   String?
+  status                    String                @default("unverified")
+  issuedCredentials         Credential[]
+  receivedPresentations     Presentation[]
+  credentialRequests        CredentialRequest[]
+  presentationRequests      PresentationRequest[]
+  memberships               OrganizationMember[]
+  allowedCredentialTypes    CredentialType[]      @relation(fields: [allowedCredentialTypesIds], references: [id])
+  allowedCredentialTypesIds String[]              @db.ObjectId
+
+  usersWhoTrust    User[]    @relation(fields: [usersWhoTrustIds], references: [id])
+  usersWhoTrustIds String[]  @db.ObjectId
+  createdAt        DateTime? @default(now())
+  updatedAt        DateTime? @updatedAt
 }
 
 model OrganizationMember {
@@ -59,9 +66,22 @@ model OrganizationMember {
   updatedAt            DateTime?             @updatedAt
 }
 
+model CredentialType {
+  id                      String         @id @default(auto()) @map("_id") @db.ObjectId
+  name                    String         @unique
+  typename                String         @unique
+  attributes              Json[]
+  credentials             Credential[]
+  createdAt               DateTime?      @default(now())
+  updatedAt               DateTime?      @updatedAt
+  allowedOrganizations    Organization[] @relation(fields: [allowedOrganizationsIds], references: [id])
+  allowedOrganizationsIds String[]       @db.ObjectId
+}
+
 model Credential {
   id            String             @id @default(auto()) @map("_id") @db.ObjectId
-  type          String
+  type          CredentialType     @relation(fields: [typeId], references: [id])
+  typeId        String             @db.ObjectId
   payload       Json
   issuerConsent Boolean            @default(false)
   holderConsent Boolean            @default(false)

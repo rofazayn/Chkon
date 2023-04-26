@@ -1,12 +1,34 @@
-import { Alert, Box, Divider, Flex, Grid, Loader, Text } from '@mantine/core'
-import { IconAlertCircle, IconInfoCircle } from '@tabler/icons-react'
+import {
+  Alert,
+  Box,
+  Button,
+  Divider,
+  Flex,
+  Grid,
+  Loader,
+  Text,
+} from '@mantine/core'
+import {
+  IconAlertCircle,
+  IconInfoCircle,
+  IconWorldPlus,
+} from '@tabler/icons-react'
+import Link from 'next/link'
 import DashboardLayout from '../../../components/_layouts/dashboard-layout'
-import IssuerCard from '../../../components/issuer-card'
+import OrganizationCard from '../../../components/organization-card'
 import { useOrganizationsQuery } from '../../../generated/graphql'
+import useUser from '../../../hooks/useUser'
 
-const IssuersHome = () => {
+const OrganizationsHome = () => {
+  const { user } = useUser()
   const orgsQuery = useOrganizationsQuery({
-    variables: { take: 20, where: { status: { equals: 'verified' } } },
+    variables: {
+      take: 20,
+      where: {
+        status: { equals: 'verified' },
+        memberships: { some: { user: { is: { id: { equals: user?.id } } } } },
+      },
+    },
   })
   console.log(orgsQuery.data?.organizations)
   return (
@@ -22,24 +44,24 @@ const IssuersHome = () => {
       >
         <Box>
           <Text weight='bold' size='lg'>
-            Trusted Issuers
+            Organizations you are part of
           </Text>
           <Text color='dimmed' mt={-3}>
-            Here are the verified issuers that you can interact with.
+            Here are the organizations that you have access to.
           </Text>
         </Box>
 
-        {/* <Box>
+        <Box>
           <Button
             component={Link}
-            href='/dashboard/issuers/candidacy'
+            href='/dashboard/organizations/candidacy'
             leftIcon={<IconWorldPlus size={18} />}
             variant='light'
             color='gray'
           >
-            Become an issuer
+            Register an organization
           </Button>
-        </Box> */}
+        </Box>
       </Flex>
       <Divider variant='dashed' my={16} />
       <Box
@@ -57,15 +79,16 @@ const IssuersHome = () => {
           <Grid>
             {orgsQuery.data.organizations.map((org): any => (
               <Grid.Col span={4} key={org.id}>
-                <IssuerCard org={org} />
+                <OrganizationCard org={org} />
               </Grid.Col>
             ))}
           </Grid>
         ) : (
           <Box sx={{ maxWidth: 400 }}>
             <Alert icon={<IconInfoCircle size={18} />} color='yellow'>
-              It appears that there aren&apos;t any available issuer for you to
-              work with at the moment.
+              It appears that you aren&apos;t part of any organization at the
+              moment, you need an invitation from a supervisor to become a
+              member.
             </Alert>
           </Box>
         )}
@@ -74,4 +97,4 @@ const IssuersHome = () => {
   )
 }
 
-export default IssuersHome
+export default OrganizationsHome

@@ -1,0 +1,16 @@
+mutation UpdateOneOrganization(
+  $data: OrganizationUpdateInput!
+  $where: OrganizationWhereUniqueInput!
+) {
+  updateOneOrganization(data: $data, where: $where) {
+    id
+    name
+    description
+    logoUrl
+    status
+    allowedCredentialTypesIds
+    usersWhoTrustIds
+    createdAt
+    updatedAt
+  }
+}
