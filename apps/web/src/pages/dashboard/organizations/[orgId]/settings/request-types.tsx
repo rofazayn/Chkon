@@ -14,13 +14,10 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { ReactNode } from 'react'
 import DashboardLayout from '../../../../../components/_layouts/dashboard-layout'
-import {
-  useCredentialTypesQuery,
-  useOrganizationQuery,
-} from '../../../../../generated/graphql'
+import CredentialTypeCard from '../../../../../components/credential-type-card'
+import { useCredentialTypesQuery } from '../../../../../generated/graphql'
 import useUI from '../../../../../hooks/useUI'
 import useUser from '../../../../../hooks/useUser'
-import CredentialTypeCard from '../../../../../components/credential-type-card'
 
 const OrgSettingsHome = ({ children }: { children: ReactNode }) => {
   const { user } = useUser()

@@ -113,6 +113,7 @@ export type Credential = {
   payload: Scalars['JSON'];
   request?: Maybe<CredentialRequest>;
   requestId?: Maybe<Scalars['String']>;
+  required: Array<Scalars['String']>;
   type: CredentialType;
   typeId: Scalars['String'];
   updatedAt: Scalars['DateTime'];
@@ -131,6 +132,7 @@ export type CredentialCountAggregate = {
   issuerId: Scalars['Int'];
   payload: Scalars['Int'];
   requestId: Scalars['Int'];
+  required: Scalars['Int'];
   typeId: Scalars['Int'];
   updatedAt: Scalars['Int'];
   userId: Scalars['Int'];
@@ -145,6 +147,7 @@ export type CredentialCountOrderByAggregateInput = {
   issuerId?: InputMaybe<SortOrder>;
   payload?: InputMaybe<SortOrder>;
   requestId?: InputMaybe<SortOrder>;
+  required?: InputMaybe<SortOrder>;
   typeId?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
   userId?: InputMaybe<SortOrder>;
@@ -159,6 +162,7 @@ export type CredentialCreateInput = {
   issuerConsent?: InputMaybe<Scalars['Boolean']>;
   payload: Scalars['JSON'];
   request?: InputMaybe<CredentialRequestCreateNestedOneWithoutCredentialInput>;
+  required?: InputMaybe<CredentialCreaterequiredInput>;
   type: CredentialTypeCreateNestedOneWithoutCredentialsInput;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
   user: UserCreateNestedOneWithoutCredentialsInput;
@@ -173,6 +177,7 @@ export type CredentialCreateManyInput = {
   issuerId: Scalars['String'];
   payload: Scalars['JSON'];
   requestId?: InputMaybe<Scalars['String']>;
+  required?: InputMaybe<CredentialCreaterequiredInput>;
   typeId: Scalars['String'];
   updatedAt?: InputMaybe<Scalars['DateTime']>;
   userId: Scalars['String'];
@@ -186,6 +191,7 @@ export type CredentialCreateManyIssuerInput = {
   issuerConsent?: InputMaybe<Scalars['Boolean']>;
   payload: Scalars['JSON'];
   requestId?: InputMaybe<Scalars['String']>;
+  required?: InputMaybe<CredentialCreaterequiredInput>;
   typeId: Scalars['String'];
   updatedAt?: InputMaybe<Scalars['DateTime']>;
   userId: Scalars['String'];
@@ -204,6 +210,7 @@ export type CredentialCreateManyTypeInput = {
   issuerId: Scalars['String'];
   payload: Scalars['JSON'];
   requestId?: InputMaybe<Scalars['String']>;
+  required?: InputMaybe<CredentialCreaterequiredInput>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
   userId: Scalars['String'];
 };
@@ -221,6 +228,7 @@ export type CredentialCreateManyUserInput = {
   issuerId: Scalars['String'];
   payload: Scalars['JSON'];
   requestId?: InputMaybe<Scalars['String']>;
+  required?: InputMaybe<CredentialCreaterequiredInput>;
   typeId: Scalars['String'];
   updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
@@ -284,6 +292,7 @@ export type CredentialCreateWithoutIssuerInput = {
   issuerConsent?: InputMaybe<Scalars['Boolean']>;
   payload: Scalars['JSON'];
   request?: InputMaybe<CredentialRequestCreateNestedOneWithoutCredentialInput>;
+  required?: InputMaybe<CredentialCreaterequiredInput>;
   type: CredentialTypeCreateNestedOneWithoutCredentialsInput;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
   user: UserCreateNestedOneWithoutCredentialsInput;
@@ -297,6 +306,7 @@ export type CredentialCreateWithoutRequestInput = {
   issuer: OrganizationCreateNestedOneWithoutIssuedCredentialsInput;
   issuerConsent?: InputMaybe<Scalars['Boolean']>;
   payload: Scalars['JSON'];
+  required?: InputMaybe<CredentialCreaterequiredInput>;
   type: CredentialTypeCreateNestedOneWithoutCredentialsInput;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
   user: UserCreateNestedOneWithoutCredentialsInput;
@@ -311,6 +321,7 @@ export type CredentialCreateWithoutTypeInput = {
   issuerConsent?: InputMaybe<Scalars['Boolean']>;
   payload: Scalars['JSON'];
   request?: InputMaybe<CredentialRequestCreateNestedOneWithoutCredentialInput>;
+  required?: InputMaybe<CredentialCreaterequiredInput>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
   user: UserCreateNestedOneWithoutCredentialsInput;
 };
@@ -324,8 +335,13 @@ export type CredentialCreateWithoutUserInput = {
   issuerConsent?: InputMaybe<Scalars['Boolean']>;
   payload: Scalars['JSON'];
   request?: InputMaybe<CredentialRequestCreateNestedOneWithoutCredentialInput>;
+  required?: InputMaybe<CredentialCreaterequiredInput>;
   type: CredentialTypeCreateNestedOneWithoutCredentialsInput;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
+};
+
+export type CredentialCreaterequiredInput = {
+  set: Array<Scalars['String']>;
 };
 
 export type CredentialGroupBy = {
@@ -341,6 +357,7 @@ export type CredentialGroupBy = {
   issuerId: Scalars['String'];
   payload: Scalars['JSON'];
   requestId?: Maybe<Scalars['String']>;
+  required?: Maybe<Array<Scalars['String']>>;
   typeId: Scalars['String'];
   updatedAt: Scalars['DateTime'];
   userId: Scalars['String'];
@@ -422,6 +439,7 @@ export type CredentialOrderByWithAggregationInput = {
   issuerId?: InputMaybe<SortOrder>;
   payload?: InputMaybe<SortOrder>;
   requestId?: InputMaybe<SortOrder>;
+  required?: InputMaybe<SortOrder>;
   typeId?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
   userId?: InputMaybe<SortOrder>;
@@ -438,6 +456,7 @@ export type CredentialOrderByWithRelationInput = {
   payload?: InputMaybe<SortOrder>;
   request?: InputMaybe<CredentialRequestOrderByWithRelationInput>;
   requestId?: InputMaybe<SortOrder>;
+  required?: InputMaybe<SortOrder>;
   type?: InputMaybe<CredentialTypeOrderByWithRelationInput>;
   typeId?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
@@ -452,10 +471,10 @@ export type CredentialRelationFilter = {
 
 export type CredentialRequest = {
   __typename?: 'CredentialRequest';
-  attributes: Scalars['JSON'];
   createdAt: Scalars['DateTime'];
   credential?: Maybe<Credential>;
-  credentialType: Scalars['String'];
+  credentialType: CredentialType;
+  credentialTypeId: Scalars['String'];
   id: Scalars['String'];
   issuer: Organization;
   issuerId: Scalars['String'];
@@ -468,9 +487,8 @@ export type CredentialRequest = {
 export type CredentialRequestCountAggregate = {
   __typename?: 'CredentialRequestCountAggregate';
   _all: Scalars['Int'];
-  attributes: Scalars['Int'];
   createdAt: Scalars['Int'];
-  credentialType: Scalars['Int'];
+  credentialTypeId: Scalars['Int'];
   id: Scalars['Int'];
   issuerId: Scalars['Int'];
   status: Scalars['Int'];
@@ -479,9 +497,8 @@ export type CredentialRequestCountAggregate = {
 };
 
 export type CredentialRequestCountOrderByAggregateInput = {
-  attributes?: InputMaybe<SortOrder>;
   createdAt?: InputMaybe<SortOrder>;
-  credentialType?: InputMaybe<SortOrder>;
+  credentialTypeId?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   issuerId?: InputMaybe<SortOrder>;
   status?: InputMaybe<SortOrder>;
@@ -490,10 +507,9 @@ export type CredentialRequestCountOrderByAggregateInput = {
 };
 
 export type CredentialRequestCreateInput = {
-  attributes: Scalars['JSON'];
   createdAt?: InputMaybe<Scalars['DateTime']>;
   credential?: InputMaybe<CredentialCreateNestedOneWithoutRequestInput>;
-  credentialType: Scalars['String'];
+  credentialType: CredentialTypeCreateNestedOneWithoutRequestsInput;
   id?: InputMaybe<Scalars['String']>;
   issuer: OrganizationCreateNestedOneWithoutCredentialRequestsInput;
   status?: InputMaybe<Scalars['String']>;
@@ -501,10 +517,22 @@ export type CredentialRequestCreateInput = {
   user: UserCreateNestedOneWithoutCredentialRequestsInput;
 };
 
-export type CredentialRequestCreateManyInput = {
-  attributes: Scalars['JSON'];
+export type CredentialRequestCreateManyCredentialTypeInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
-  credentialType: Scalars['String'];
+  id?: InputMaybe<Scalars['String']>;
+  issuerId: Scalars['String'];
+  status?: InputMaybe<Scalars['String']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+  userId: Scalars['String'];
+};
+
+export type CredentialRequestCreateManyCredentialTypeInputEnvelope = {
+  data: Array<CredentialRequestCreateManyCredentialTypeInput>;
+};
+
+export type CredentialRequestCreateManyInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  credentialTypeId: Scalars['String'];
   id?: InputMaybe<Scalars['String']>;
   issuerId: Scalars['String'];
   status?: InputMaybe<Scalars['String']>;
@@ -513,9 +541,8 @@ export type CredentialRequestCreateManyInput = {
 };
 
 export type CredentialRequestCreateManyIssuerInput = {
-  attributes: Scalars['JSON'];
   createdAt?: InputMaybe<Scalars['DateTime']>;
-  credentialType: Scalars['String'];
+  credentialTypeId: Scalars['String'];
   id?: InputMaybe<Scalars['String']>;
   status?: InputMaybe<Scalars['String']>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
@@ -527,9 +554,8 @@ export type CredentialRequestCreateManyIssuerInputEnvelope = {
 };
 
 export type CredentialRequestCreateManyUserInput = {
-  attributes: Scalars['JSON'];
   createdAt?: InputMaybe<Scalars['DateTime']>;
-  credentialType: Scalars['String'];
+  credentialTypeId: Scalars['String'];
   id?: InputMaybe<Scalars['String']>;
   issuerId: Scalars['String'];
   status?: InputMaybe<Scalars['String']>;
@@ -538,6 +564,13 @@ export type CredentialRequestCreateManyUserInput = {
 
 export type CredentialRequestCreateManyUserInputEnvelope = {
   data: Array<CredentialRequestCreateManyUserInput>;
+};
+
+export type CredentialRequestCreateNestedManyWithoutCredentialTypeInput = {
+  connect?: InputMaybe<Array<CredentialRequestWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<CredentialRequestCreateOrConnectWithoutCredentialTypeInput>>;
+  create?: InputMaybe<Array<CredentialRequestCreateWithoutCredentialTypeInput>>;
+  createMany?: InputMaybe<CredentialRequestCreateManyCredentialTypeInputEnvelope>;
 };
 
 export type CredentialRequestCreateNestedManyWithoutIssuerInput = {
@@ -565,6 +598,11 @@ export type CredentialRequestCreateOrConnectWithoutCredentialInput = {
   where: CredentialRequestWhereUniqueInput;
 };
 
+export type CredentialRequestCreateOrConnectWithoutCredentialTypeInput = {
+  create: CredentialRequestCreateWithoutCredentialTypeInput;
+  where: CredentialRequestWhereUniqueInput;
+};
+
 export type CredentialRequestCreateOrConnectWithoutIssuerInput = {
   create: CredentialRequestCreateWithoutIssuerInput;
   where: CredentialRequestWhereUniqueInput;
@@ -576,9 +614,18 @@ export type CredentialRequestCreateOrConnectWithoutUserInput = {
 };
 
 export type CredentialRequestCreateWithoutCredentialInput = {
-  attributes: Scalars['JSON'];
   createdAt?: InputMaybe<Scalars['DateTime']>;
-  credentialType: Scalars['String'];
+  credentialType: CredentialTypeCreateNestedOneWithoutRequestsInput;
+  id?: InputMaybe<Scalars['String']>;
+  issuer: OrganizationCreateNestedOneWithoutCredentialRequestsInput;
+  status?: InputMaybe<Scalars['String']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+  user: UserCreateNestedOneWithoutCredentialRequestsInput;
+};
+
+export type CredentialRequestCreateWithoutCredentialTypeInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  credential?: InputMaybe<CredentialCreateNestedOneWithoutRequestInput>;
   id?: InputMaybe<Scalars['String']>;
   issuer: OrganizationCreateNestedOneWithoutCredentialRequestsInput;
   status?: InputMaybe<Scalars['String']>;
@@ -587,10 +634,9 @@ export type CredentialRequestCreateWithoutCredentialInput = {
 };
 
 export type CredentialRequestCreateWithoutIssuerInput = {
-  attributes: Scalars['JSON'];
   createdAt?: InputMaybe<Scalars['DateTime']>;
   credential?: InputMaybe<CredentialCreateNestedOneWithoutRequestInput>;
-  credentialType: Scalars['String'];
+  credentialType: CredentialTypeCreateNestedOneWithoutRequestsInput;
   id?: InputMaybe<Scalars['String']>;
   status?: InputMaybe<Scalars['String']>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
@@ -598,10 +644,9 @@ export type CredentialRequestCreateWithoutIssuerInput = {
 };
 
 export type CredentialRequestCreateWithoutUserInput = {
-  attributes: Scalars['JSON'];
   createdAt?: InputMaybe<Scalars['DateTime']>;
   credential?: InputMaybe<CredentialCreateNestedOneWithoutRequestInput>;
-  credentialType: Scalars['String'];
+  credentialType: CredentialTypeCreateNestedOneWithoutRequestsInput;
   id?: InputMaybe<Scalars['String']>;
   issuer: OrganizationCreateNestedOneWithoutCredentialRequestsInput;
   status?: InputMaybe<Scalars['String']>;
@@ -613,9 +658,8 @@ export type CredentialRequestGroupBy = {
   _count?: Maybe<CredentialRequestCountAggregate>;
   _max?: Maybe<CredentialRequestMaxAggregate>;
   _min?: Maybe<CredentialRequestMinAggregate>;
-  attributes: Scalars['JSON'];
   createdAt: Scalars['DateTime'];
-  credentialType: Scalars['String'];
+  credentialTypeId: Scalars['String'];
   id: Scalars['String'];
   issuerId: Scalars['String'];
   status: Scalars['String'];
@@ -632,7 +676,7 @@ export type CredentialRequestListRelationFilter = {
 export type CredentialRequestMaxAggregate = {
   __typename?: 'CredentialRequestMaxAggregate';
   createdAt?: Maybe<Scalars['DateTime']>;
-  credentialType?: Maybe<Scalars['String']>;
+  credentialTypeId?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['String']>;
   issuerId?: Maybe<Scalars['String']>;
   status?: Maybe<Scalars['String']>;
@@ -642,7 +686,7 @@ export type CredentialRequestMaxAggregate = {
 
 export type CredentialRequestMaxOrderByAggregateInput = {
   createdAt?: InputMaybe<SortOrder>;
-  credentialType?: InputMaybe<SortOrder>;
+  credentialTypeId?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   issuerId?: InputMaybe<SortOrder>;
   status?: InputMaybe<SortOrder>;
@@ -653,7 +697,7 @@ export type CredentialRequestMaxOrderByAggregateInput = {
 export type CredentialRequestMinAggregate = {
   __typename?: 'CredentialRequestMinAggregate';
   createdAt?: Maybe<Scalars['DateTime']>;
-  credentialType?: Maybe<Scalars['String']>;
+  credentialTypeId?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['String']>;
   issuerId?: Maybe<Scalars['String']>;
   status?: Maybe<Scalars['String']>;
@@ -663,7 +707,7 @@ export type CredentialRequestMinAggregate = {
 
 export type CredentialRequestMinOrderByAggregateInput = {
   createdAt?: InputMaybe<SortOrder>;
-  credentialType?: InputMaybe<SortOrder>;
+  credentialTypeId?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   issuerId?: InputMaybe<SortOrder>;
   status?: InputMaybe<SortOrder>;
@@ -679,9 +723,8 @@ export type CredentialRequestOrderByWithAggregationInput = {
   _count?: InputMaybe<CredentialRequestCountOrderByAggregateInput>;
   _max?: InputMaybe<CredentialRequestMaxOrderByAggregateInput>;
   _min?: InputMaybe<CredentialRequestMinOrderByAggregateInput>;
-  attributes?: InputMaybe<SortOrder>;
   createdAt?: InputMaybe<SortOrder>;
-  credentialType?: InputMaybe<SortOrder>;
+  credentialTypeId?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   issuerId?: InputMaybe<SortOrder>;
   status?: InputMaybe<SortOrder>;
@@ -690,10 +733,10 @@ export type CredentialRequestOrderByWithAggregationInput = {
 };
 
 export type CredentialRequestOrderByWithRelationInput = {
-  attributes?: InputMaybe<SortOrder>;
   createdAt?: InputMaybe<SortOrder>;
   credential?: InputMaybe<CredentialOrderByWithRelationInput>;
-  credentialType?: InputMaybe<SortOrder>;
+  credentialType?: InputMaybe<CredentialTypeOrderByWithRelationInput>;
+  credentialTypeId?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   issuer?: InputMaybe<OrganizationOrderByWithRelationInput>;
   issuerId?: InputMaybe<SortOrder>;
@@ -709,9 +752,8 @@ export type CredentialRequestRelationFilter = {
 };
 
 export enum CredentialRequestScalarFieldEnum {
-  Attributes = 'attributes',
   CreatedAt = 'createdAt',
-  CredentialType = 'credentialType',
+  CredentialTypeId = 'credentialTypeId',
   Id = 'id',
   IssuerId = 'issuerId',
   Status = 'status',
@@ -723,9 +765,8 @@ export type CredentialRequestScalarWhereInput = {
   AND?: InputMaybe<Array<CredentialRequestScalarWhereInput>>;
   NOT?: InputMaybe<Array<CredentialRequestScalarWhereInput>>;
   OR?: InputMaybe<Array<CredentialRequestScalarWhereInput>>;
-  attributes?: InputMaybe<JsonFilter>;
   createdAt?: InputMaybe<DateTimeFilter>;
-  credentialType?: InputMaybe<StringFilter>;
+  credentialTypeId?: InputMaybe<StringFilter>;
   id?: InputMaybe<StringFilter>;
   issuerId?: InputMaybe<StringFilter>;
   status?: InputMaybe<StringFilter>;
@@ -737,9 +778,8 @@ export type CredentialRequestScalarWhereWithAggregatesInput = {
   AND?: InputMaybe<Array<CredentialRequestScalarWhereWithAggregatesInput>>;
   NOT?: InputMaybe<Array<CredentialRequestScalarWhereWithAggregatesInput>>;
   OR?: InputMaybe<Array<CredentialRequestScalarWhereWithAggregatesInput>>;
-  attributes?: InputMaybe<JsonWithAggregatesFilter>;
   createdAt?: InputMaybe<DateTimeWithAggregatesFilter>;
-  credentialType?: InputMaybe<StringWithAggregatesFilter>;
+  credentialTypeId?: InputMaybe<StringWithAggregatesFilter>;
   id?: InputMaybe<StringWithAggregatesFilter>;
   issuerId?: InputMaybe<StringWithAggregatesFilter>;
   status?: InputMaybe<StringWithAggregatesFilter>;
@@ -748,10 +788,9 @@ export type CredentialRequestScalarWhereWithAggregatesInput = {
 };
 
 export type CredentialRequestUpdateInput = {
-  attributes?: InputMaybe<Scalars['JSON']>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   credential?: InputMaybe<CredentialUpdateOneWithoutRequestNestedInput>;
-  credentialType?: InputMaybe<StringFieldUpdateOperationsInput>;
+  credentialType?: InputMaybe<CredentialTypeUpdateOneRequiredWithoutRequestsNestedInput>;
   issuer?: InputMaybe<OrganizationUpdateOneRequiredWithoutCredentialRequestsNestedInput>;
   status?: InputMaybe<StringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
@@ -759,11 +798,14 @@ export type CredentialRequestUpdateInput = {
 };
 
 export type CredentialRequestUpdateManyMutationInput = {
-  attributes?: InputMaybe<Scalars['JSON']>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
-  credentialType?: InputMaybe<StringFieldUpdateOperationsInput>;
   status?: InputMaybe<StringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+};
+
+export type CredentialRequestUpdateManyWithWhereWithoutCredentialTypeInput = {
+  data: CredentialRequestUpdateManyMutationInput;
+  where: CredentialRequestScalarWhereInput;
 };
 
 export type CredentialRequestUpdateManyWithWhereWithoutIssuerInput = {
@@ -774,6 +816,20 @@ export type CredentialRequestUpdateManyWithWhereWithoutIssuerInput = {
 export type CredentialRequestUpdateManyWithWhereWithoutUserInput = {
   data: CredentialRequestUpdateManyMutationInput;
   where: CredentialRequestScalarWhereInput;
+};
+
+export type CredentialRequestUpdateManyWithoutCredentialTypeNestedInput = {
+  connect?: InputMaybe<Array<CredentialRequestWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<CredentialRequestCreateOrConnectWithoutCredentialTypeInput>>;
+  create?: InputMaybe<Array<CredentialRequestCreateWithoutCredentialTypeInput>>;
+  createMany?: InputMaybe<CredentialRequestCreateManyCredentialTypeInputEnvelope>;
+  delete?: InputMaybe<Array<CredentialRequestWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<CredentialRequestScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<CredentialRequestWhereUniqueInput>>;
+  set?: InputMaybe<Array<CredentialRequestWhereUniqueInput>>;
+  update?: InputMaybe<Array<CredentialRequestUpdateWithWhereUniqueWithoutCredentialTypeInput>>;
+  updateMany?: InputMaybe<Array<CredentialRequestUpdateManyWithWhereWithoutCredentialTypeInput>>;
+  upsert?: InputMaybe<Array<CredentialRequestUpsertWithWhereUniqueWithoutCredentialTypeInput>>;
 };
 
 export type CredentialRequestUpdateManyWithoutIssuerNestedInput = {
@@ -814,6 +870,11 @@ export type CredentialRequestUpdateOneWithoutCredentialNestedInput = {
   upsert?: InputMaybe<CredentialRequestUpsertWithoutCredentialInput>;
 };
 
+export type CredentialRequestUpdateWithWhereUniqueWithoutCredentialTypeInput = {
+  data: CredentialRequestUpdateWithoutCredentialTypeInput;
+  where: CredentialRequestWhereUniqueInput;
+};
+
 export type CredentialRequestUpdateWithWhereUniqueWithoutIssuerInput = {
   data: CredentialRequestUpdateWithoutIssuerInput;
   where: CredentialRequestWhereUniqueInput;
@@ -825,9 +886,17 @@ export type CredentialRequestUpdateWithWhereUniqueWithoutUserInput = {
 };
 
 export type CredentialRequestUpdateWithoutCredentialInput = {
-  attributes?: InputMaybe<Scalars['JSON']>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
-  credentialType?: InputMaybe<StringFieldUpdateOperationsInput>;
+  credentialType?: InputMaybe<CredentialTypeUpdateOneRequiredWithoutRequestsNestedInput>;
+  issuer?: InputMaybe<OrganizationUpdateOneRequiredWithoutCredentialRequestsNestedInput>;
+  status?: InputMaybe<StringFieldUpdateOperationsInput>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  user?: InputMaybe<UserUpdateOneRequiredWithoutCredentialRequestsNestedInput>;
+};
+
+export type CredentialRequestUpdateWithoutCredentialTypeInput = {
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  credential?: InputMaybe<CredentialUpdateOneWithoutRequestNestedInput>;
   issuer?: InputMaybe<OrganizationUpdateOneRequiredWithoutCredentialRequestsNestedInput>;
   status?: InputMaybe<StringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
@@ -835,23 +904,27 @@ export type CredentialRequestUpdateWithoutCredentialInput = {
 };
 
 export type CredentialRequestUpdateWithoutIssuerInput = {
-  attributes?: InputMaybe<Scalars['JSON']>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   credential?: InputMaybe<CredentialUpdateOneWithoutRequestNestedInput>;
-  credentialType?: InputMaybe<StringFieldUpdateOperationsInput>;
+  credentialType?: InputMaybe<CredentialTypeUpdateOneRequiredWithoutRequestsNestedInput>;
   status?: InputMaybe<StringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   user?: InputMaybe<UserUpdateOneRequiredWithoutCredentialRequestsNestedInput>;
 };
 
 export type CredentialRequestUpdateWithoutUserInput = {
-  attributes?: InputMaybe<Scalars['JSON']>;
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   credential?: InputMaybe<CredentialUpdateOneWithoutRequestNestedInput>;
-  credentialType?: InputMaybe<StringFieldUpdateOperationsInput>;
+  credentialType?: InputMaybe<CredentialTypeUpdateOneRequiredWithoutRequestsNestedInput>;
   issuer?: InputMaybe<OrganizationUpdateOneRequiredWithoutCredentialRequestsNestedInput>;
   status?: InputMaybe<StringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+};
+
+export type CredentialRequestUpsertWithWhereUniqueWithoutCredentialTypeInput = {
+  create: CredentialRequestCreateWithoutCredentialTypeInput;
+  update: CredentialRequestUpdateWithoutCredentialTypeInput;
+  where: CredentialRequestWhereUniqueInput;
 };
 
 export type CredentialRequestUpsertWithWhereUniqueWithoutIssuerInput = {
@@ -875,10 +948,10 @@ export type CredentialRequestWhereInput = {
   AND?: InputMaybe<Array<CredentialRequestWhereInput>>;
   NOT?: InputMaybe<Array<CredentialRequestWhereInput>>;
   OR?: InputMaybe<Array<CredentialRequestWhereInput>>;
-  attributes?: InputMaybe<JsonFilter>;
   createdAt?: InputMaybe<DateTimeFilter>;
   credential?: InputMaybe<CredentialRelationFilter>;
-  credentialType?: InputMaybe<StringFilter>;
+  credentialType?: InputMaybe<CredentialTypeRelationFilter>;
+  credentialTypeId?: InputMaybe<StringFilter>;
   id?: InputMaybe<StringFilter>;
   issuer?: InputMaybe<OrganizationRelationFilter>;
   issuerId?: InputMaybe<StringFilter>;
@@ -901,6 +974,7 @@ export enum CredentialScalarFieldEnum {
   IssuerId = 'issuerId',
   Payload = 'payload',
   RequestId = 'requestId',
+  Required = 'required',
   TypeId = 'typeId',
   UpdatedAt = 'updatedAt',
   UserId = 'userId'
@@ -918,6 +992,7 @@ export type CredentialScalarWhereInput = {
   issuerId?: InputMaybe<StringFilter>;
   payload?: InputMaybe<JsonFilter>;
   requestId?: InputMaybe<StringNullableFilter>;
+  required?: InputMaybe<StringNullableListFilter>;
   typeId?: InputMaybe<StringFilter>;
   updatedAt?: InputMaybe<DateTimeFilter>;
   userId?: InputMaybe<StringFilter>;
@@ -935,6 +1010,7 @@ export type CredentialScalarWhereWithAggregatesInput = {
   issuerId?: InputMaybe<StringWithAggregatesFilter>;
   payload?: InputMaybe<JsonWithAggregatesFilter>;
   requestId?: InputMaybe<StringNullableWithAggregatesFilter>;
+  required?: InputMaybe<StringNullableListFilter>;
   typeId?: InputMaybe<StringWithAggregatesFilter>;
   updatedAt?: InputMaybe<DateTimeWithAggregatesFilter>;
   userId?: InputMaybe<StringWithAggregatesFilter>;
@@ -950,6 +1026,7 @@ export type CredentialType = {
   credentials: Array<Credential>;
   id: Scalars['String'];
   name: Scalars['String'];
+  requests: Array<CredentialRequest>;
   typename: Scalars['String'];
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
@@ -974,10 +1051,21 @@ export type CredentialTypeCredentialsArgs = {
   where?: InputMaybe<CredentialWhereInput>;
 };
 
+
+export type CredentialTypeRequestsArgs = {
+  cursor?: InputMaybe<CredentialRequestWhereUniqueInput>;
+  distinct?: InputMaybe<Array<CredentialRequestScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<CredentialRequestOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']>;
+  take?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<CredentialRequestWhereInput>;
+};
+
 export type CredentialTypeCount = {
   __typename?: 'CredentialTypeCount';
   allowedOrganizations: Scalars['Int'];
   credentials: Scalars['Int'];
+  requests: Scalars['Int'];
 };
 
 export type CredentialTypeCountAggregate = {
@@ -1010,6 +1098,7 @@ export type CredentialTypeCreateInput = {
   credentials?: InputMaybe<CredentialCreateNestedManyWithoutTypeInput>;
   id?: InputMaybe<Scalars['String']>;
   name: Scalars['String'];
+  requests?: InputMaybe<CredentialRequestCreateNestedManyWithoutCredentialTypeInput>;
   typename: Scalars['String'];
   updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
@@ -1036,6 +1125,12 @@ export type CredentialTypeCreateNestedOneWithoutCredentialsInput = {
   create?: InputMaybe<CredentialTypeCreateWithoutCredentialsInput>;
 };
 
+export type CredentialTypeCreateNestedOneWithoutRequestsInput = {
+  connect?: InputMaybe<CredentialTypeWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<CredentialTypeCreateOrConnectWithoutRequestsInput>;
+  create?: InputMaybe<CredentialTypeCreateWithoutRequestsInput>;
+};
+
 export type CredentialTypeCreateOrConnectWithoutAllowedOrganizationsInput = {
   create: CredentialTypeCreateWithoutAllowedOrganizationsInput;
   where: CredentialTypeWhereUniqueInput;
@@ -1046,6 +1141,11 @@ export type CredentialTypeCreateOrConnectWithoutCredentialsInput = {
   where: CredentialTypeWhereUniqueInput;
 };
 
+export type CredentialTypeCreateOrConnectWithoutRequestsInput = {
+  create: CredentialTypeCreateWithoutRequestsInput;
+  where: CredentialTypeWhereUniqueInput;
+};
+
 export type CredentialTypeCreateWithoutAllowedOrganizationsInput = {
   allowedOrganizationsIds?: InputMaybe<CredentialTypeCreateallowedOrganizationsIdsInput>;
   attributes?: InputMaybe<CredentialTypeCreateattributesInput>;
@@ -1053,6 +1153,7 @@ export type CredentialTypeCreateWithoutAllowedOrganizationsInput = {
   credentials?: InputMaybe<CredentialCreateNestedManyWithoutTypeInput>;
   id?: InputMaybe<Scalars['String']>;
   name: Scalars['String'];
+  requests?: InputMaybe<CredentialRequestCreateNestedManyWithoutCredentialTypeInput>;
   typename: Scalars['String'];
   updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
@@ -1062,6 +1163,19 @@ export type CredentialTypeCreateWithoutCredentialsInput = {
   allowedOrganizationsIds?: InputMaybe<CredentialTypeCreateallowedOrganizationsIdsInput>;
   attributes?: InputMaybe<CredentialTypeCreateattributesInput>;
   createdAt?: InputMaybe<Scalars['DateTime']>;
+  id?: InputMaybe<Scalars['String']>;
+  name: Scalars['String'];
+  requests?: InputMaybe<CredentialRequestCreateNestedManyWithoutCredentialTypeInput>;
+  typename: Scalars['String'];
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+};
+
+export type CredentialTypeCreateWithoutRequestsInput = {
+  allowedOrganizations?: InputMaybe<OrganizationCreateNestedManyWithoutAllowedCredentialTypesInput>;
+  allowedOrganizationsIds?: InputMaybe<CredentialTypeCreateallowedOrganizationsIdsInput>;
+  attributes?: InputMaybe<CredentialTypeCreateattributesInput>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  credentials?: InputMaybe<CredentialCreateNestedManyWithoutTypeInput>;
   id?: InputMaybe<Scalars['String']>;
   name: Scalars['String'];
   typename: Scalars['String'];
@@ -1155,6 +1269,7 @@ export type CredentialTypeOrderByWithRelationInput = {
   credentials?: InputMaybe<CredentialOrderByRelationAggregateInput>;
   id?: InputMaybe<SortOrder>;
   name?: InputMaybe<SortOrder>;
+  requests?: InputMaybe<CredentialRequestOrderByRelationAggregateInput>;
   typename?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
 };
@@ -1207,6 +1322,7 @@ export type CredentialTypeUpdateInput = {
   createdAt?: InputMaybe<NullableDateTimeFieldUpdateOperationsInput>;
   credentials?: InputMaybe<CredentialUpdateManyWithoutTypeNestedInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
+  requests?: InputMaybe<CredentialRequestUpdateManyWithoutCredentialTypeNestedInput>;
   typename?: InputMaybe<StringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<NullableDateTimeFieldUpdateOperationsInput>;
 };
@@ -1246,6 +1362,14 @@ export type CredentialTypeUpdateOneRequiredWithoutCredentialsNestedInput = {
   upsert?: InputMaybe<CredentialTypeUpsertWithoutCredentialsInput>;
 };
 
+export type CredentialTypeUpdateOneRequiredWithoutRequestsNestedInput = {
+  connect?: InputMaybe<CredentialTypeWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<CredentialTypeCreateOrConnectWithoutRequestsInput>;
+  create?: InputMaybe<CredentialTypeCreateWithoutRequestsInput>;
+  update?: InputMaybe<CredentialTypeUpdateWithoutRequestsInput>;
+  upsert?: InputMaybe<CredentialTypeUpsertWithoutRequestsInput>;
+};
+
 export type CredentialTypeUpdateWithWhereUniqueWithoutAllowedOrganizationsInput = {
   data: CredentialTypeUpdateWithoutAllowedOrganizationsInput;
   where: CredentialTypeWhereUniqueInput;
@@ -1257,6 +1381,7 @@ export type CredentialTypeUpdateWithoutAllowedOrganizationsInput = {
   createdAt?: InputMaybe<NullableDateTimeFieldUpdateOperationsInput>;
   credentials?: InputMaybe<CredentialUpdateManyWithoutTypeNestedInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
+  requests?: InputMaybe<CredentialRequestUpdateManyWithoutCredentialTypeNestedInput>;
   typename?: InputMaybe<StringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<NullableDateTimeFieldUpdateOperationsInput>;
 };
@@ -1266,6 +1391,18 @@ export type CredentialTypeUpdateWithoutCredentialsInput = {
   allowedOrganizationsIds?: InputMaybe<CredentialTypeUpdateallowedOrganizationsIdsInput>;
   attributes?: InputMaybe<CredentialTypeUpdateattributesInput>;
   createdAt?: InputMaybe<NullableDateTimeFieldUpdateOperationsInput>;
+  name?: InputMaybe<StringFieldUpdateOperationsInput>;
+  requests?: InputMaybe<CredentialRequestUpdateManyWithoutCredentialTypeNestedInput>;
+  typename?: InputMaybe<StringFieldUpdateOperationsInput>;
+  updatedAt?: InputMaybe<NullableDateTimeFieldUpdateOperationsInput>;
+};
+
+export type CredentialTypeUpdateWithoutRequestsInput = {
+  allowedOrganizations?: InputMaybe<OrganizationUpdateManyWithoutAllowedCredentialTypesNestedInput>;
+  allowedOrganizationsIds?: InputMaybe<CredentialTypeUpdateallowedOrganizationsIdsInput>;
+  attributes?: InputMaybe<CredentialTypeUpdateattributesInput>;
+  createdAt?: InputMaybe<NullableDateTimeFieldUpdateOperationsInput>;
+  credentials?: InputMaybe<CredentialUpdateManyWithoutTypeNestedInput>;
   name?: InputMaybe<StringFieldUpdateOperationsInput>;
   typename?: InputMaybe<StringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<NullableDateTimeFieldUpdateOperationsInput>;
@@ -1292,6 +1429,11 @@ export type CredentialTypeUpsertWithoutCredentialsInput = {
   update: CredentialTypeUpdateWithoutCredentialsInput;
 };
 
+export type CredentialTypeUpsertWithoutRequestsInput = {
+  create: CredentialTypeCreateWithoutRequestsInput;
+  update: CredentialTypeUpdateWithoutRequestsInput;
+};
+
 export type CredentialTypeWhereInput = {
   AND?: InputMaybe<Array<CredentialTypeWhereInput>>;
   NOT?: InputMaybe<Array<CredentialTypeWhereInput>>;
@@ -1303,6 +1445,7 @@ export type CredentialTypeWhereInput = {
   credentials?: InputMaybe<CredentialListRelationFilter>;
   id?: InputMaybe<StringFilter>;
   name?: InputMaybe<StringFilter>;
+  requests?: InputMaybe<CredentialRequestListRelationFilter>;
   typename?: InputMaybe<StringFilter>;
   updatedAt?: InputMaybe<DateTimeNullableFilter>;
 };
@@ -1321,6 +1464,7 @@ export type CredentialUpdateInput = {
   issuerConsent?: InputMaybe<BoolFieldUpdateOperationsInput>;
   payload?: InputMaybe<Scalars['JSON']>;
   request?: InputMaybe<CredentialRequestUpdateOneWithoutCredentialNestedInput>;
+  required?: InputMaybe<CredentialUpdaterequiredInput>;
   type?: InputMaybe<CredentialTypeUpdateOneRequiredWithoutCredentialsNestedInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   user?: InputMaybe<UserUpdateOneRequiredWithoutCredentialsNestedInput>;
@@ -1332,6 +1476,7 @@ export type CredentialUpdateManyMutationInput = {
   holderConsent?: InputMaybe<BoolFieldUpdateOperationsInput>;
   issuerConsent?: InputMaybe<BoolFieldUpdateOperationsInput>;
   payload?: InputMaybe<Scalars['JSON']>;
+  required?: InputMaybe<CredentialUpdaterequiredInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
 };
 
@@ -1424,6 +1569,7 @@ export type CredentialUpdateWithoutIssuerInput = {
   issuerConsent?: InputMaybe<BoolFieldUpdateOperationsInput>;
   payload?: InputMaybe<Scalars['JSON']>;
   request?: InputMaybe<CredentialRequestUpdateOneWithoutCredentialNestedInput>;
+  required?: InputMaybe<CredentialUpdaterequiredInput>;
   type?: InputMaybe<CredentialTypeUpdateOneRequiredWithoutCredentialsNestedInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   user?: InputMaybe<UserUpdateOneRequiredWithoutCredentialsNestedInput>;
@@ -1436,6 +1582,7 @@ export type CredentialUpdateWithoutRequestInput = {
   issuer?: InputMaybe<OrganizationUpdateOneRequiredWithoutIssuedCredentialsNestedInput>;
   issuerConsent?: InputMaybe<BoolFieldUpdateOperationsInput>;
   payload?: InputMaybe<Scalars['JSON']>;
+  required?: InputMaybe<CredentialUpdaterequiredInput>;
   type?: InputMaybe<CredentialTypeUpdateOneRequiredWithoutCredentialsNestedInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   user?: InputMaybe<UserUpdateOneRequiredWithoutCredentialsNestedInput>;
@@ -1449,6 +1596,7 @@ export type CredentialUpdateWithoutTypeInput = {
   issuerConsent?: InputMaybe<BoolFieldUpdateOperationsInput>;
   payload?: InputMaybe<Scalars['JSON']>;
   request?: InputMaybe<CredentialRequestUpdateOneWithoutCredentialNestedInput>;
+  required?: InputMaybe<CredentialUpdaterequiredInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   user?: InputMaybe<UserUpdateOneRequiredWithoutCredentialsNestedInput>;
 };
@@ -1461,8 +1609,14 @@ export type CredentialUpdateWithoutUserInput = {
   issuerConsent?: InputMaybe<BoolFieldUpdateOperationsInput>;
   payload?: InputMaybe<Scalars['JSON']>;
   request?: InputMaybe<CredentialRequestUpdateOneWithoutCredentialNestedInput>;
+  required?: InputMaybe<CredentialUpdaterequiredInput>;
   type?: InputMaybe<CredentialTypeUpdateOneRequiredWithoutCredentialsNestedInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+};
+
+export type CredentialUpdaterequiredInput = {
+  push?: InputMaybe<Array<Scalars['String']>>;
+  set?: InputMaybe<Array<Scalars['String']>>;
 };
 
 export type CredentialUpsertWithWhereUniqueWithoutIssuerInput = {
@@ -1502,6 +1656,7 @@ export type CredentialWhereInput = {
   payload?: InputMaybe<JsonFilter>;
   request?: InputMaybe<CredentialRequestRelationFilter>;
   requestId?: InputMaybe<StringNullableFilter>;
+  required?: InputMaybe<StringNullableListFilter>;
   type?: InputMaybe<CredentialTypeRelationFilter>;
   typeId?: InputMaybe<StringFilter>;
   updatedAt?: InputMaybe<DateTimeFilter>;
@@ -5721,6 +5876,13 @@ export type UserWhereUniqueInput = {
   username?: InputMaybe<Scalars['String']>;
 };
 
+export type CreateOneCredentialRequestMutationVariables = Exact<{
+  data: CredentialRequestCreateInput;
+}>;
+
+
+export type CreateOneCredentialRequestMutation = { __typename?: 'Mutation', createOneCredentialRequest: { __typename?: 'CredentialRequest', id: string, userId: string, issuerId: string, status: string, createdAt: any, updatedAt: any, credentialType: { __typename?: 'CredentialType', id: string, name: string, typename: string, attributes: Array<any>, createdAt?: any | null, updatedAt?: any | null } } };
+
 export type CreateOneOrganizationMutationVariables = Exact<{
   data: OrganizationCreateInput;
 }>;
@@ -5772,14 +5934,14 @@ export type CredentialTypesQueryVariables = Exact<{
 }>;
 
 
-export type CredentialTypesQuery = { __typename?: 'Query', credentialTypes: Array<{ __typename?: 'CredentialType', id: string, name: string, typename: string, attributes: Array<any>, allowedOrganizationsIds: Array<string>, createdAt?: any | null, updatedAt?: any | null }> };
+export type CredentialTypesQuery = { __typename?: 'Query', credentialTypes: Array<{ __typename?: 'CredentialType', id: string, name: string, typename: string, attributes: Array<any>, createdAt?: any | null, updatedAt?: any | null, allowedOrganizationsIds: Array<string> }> };
 
 export type OrganizationQueryVariables = Exact<{
   where: OrganizationWhereUniqueInput;
 }>;
 
 
-export type OrganizationQuery = { __typename?: 'Query', organization?: { __typename?: 'Organization', id: string, name: string, description?: string | null, logoUrl?: string | null, status: string, createdAt?: any | null, updatedAt?: any | null, allowedCredentialTypes: Array<{ __typename?: 'CredentialType', id: string, name: string, typename: string, attributes: Array<any>, createdAt?: any | null, updatedAt?: any | null, allowedOrganizationsIds: Array<string> }> } | null };
+export type OrganizationQuery = { __typename?: 'Query', organization?: { __typename?: 'Organization', id: string, name: string, description?: string | null, logoUrl?: string | null, status: string, createdAt?: any | null, updatedAt?: any | null, allowedCredentialTypes: Array<{ __typename?: 'CredentialType', id: string, name: string, typename: string, attributes: Array<any>, allowedOrganizationsIds: Array<string>, createdAt?: any | null, updatedAt?: any | null }> } | null };
 
 export type OrganizationsQueryVariables = Exact<{
   where?: InputMaybe<OrganizationWhereInput>;
@@ -5799,6 +5961,52 @@ export type ProfileQueryVariables = Exact<{ [key: string]: never; }>;
 export type ProfileQuery = { __typename?: 'Query', profile?: { __typename?: 'User', id: string, username: string, phoneNumber?: string | null, email: string, name: string, logoUrl?: string | null, verified: boolean, createdAt?: any | null, updatedAt?: any | null } | null };
 
 
+export const CreateOneCredentialRequestDocument = gql`
+    mutation CreateOneCredentialRequest($data: CredentialRequestCreateInput!) {
+  createOneCredentialRequest(data: $data) {
+    id
+    userId
+    issuerId
+    status
+    createdAt
+    updatedAt
+    credentialType {
+      id
+      name
+      typename
+      attributes
+      createdAt
+      updatedAt
+    }
+  }
+}
+    `;
+export type CreateOneCredentialRequestMutationFn = Apollo.MutationFunction<CreateOneCredentialRequestMutation, CreateOneCredentialRequestMutationVariables>;
+
+/**
+ * __useCreateOneCredentialRequestMutation__
+ *
+ * To run a mutation, you first call `useCreateOneCredentialRequestMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateOneCredentialRequestMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createOneCredentialRequestMutation, { data, loading, error }] = useCreateOneCredentialRequestMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useCreateOneCredentialRequestMutation(baseOptions?: Apollo.MutationHookOptions<CreateOneCredentialRequestMutation, CreateOneCredentialRequestMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateOneCredentialRequestMutation, CreateOneCredentialRequestMutationVariables>(CreateOneCredentialRequestDocument, options);
+      }
+export type CreateOneCredentialRequestMutationHookResult = ReturnType<typeof useCreateOneCredentialRequestMutation>;
+export type CreateOneCredentialRequestMutationResult = Apollo.MutationResult<CreateOneCredentialRequestMutation>;
+export type CreateOneCredentialRequestMutationOptions = Apollo.BaseMutationOptions<CreateOneCredentialRequestMutation, CreateOneCredentialRequestMutationVariables>;
 export const CreateOneOrganizationDocument = gql`
     mutation CreateOneOrganization($data: OrganizationCreateInput!) {
   createOneOrganization(data: $data) {
@@ -6008,9 +6216,9 @@ export const CredentialTypesDocument = gql`
     name
     typename
     attributes
-    allowedOrganizationsIds
     createdAt
     updatedAt
+    allowedOrganizationsIds
   }
 }
     `;
@@ -6060,9 +6268,9 @@ export const OrganizationDocument = gql`
       name
       typename
       attributes
+      allowedOrganizationsIds
       createdAt
       updatedAt
-      allowedOrganizationsIds
     }
     createdAt
     updatedAt

@@ -10,9 +10,9 @@ query Organization($where: OrganizationWhereUniqueInput!) {
       name
       typename
       attributes
+      allowedOrganizationsIds
       createdAt
       updatedAt
-      allowedOrganizationsIds
     }
     createdAt
     updatedAt

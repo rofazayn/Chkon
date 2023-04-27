@@ -14,7 +14,8 @@ const useStyles = createStyles((theme, _params, _getRef) => {
         theme.colorScheme === 'dark'
           ? theme.colors.dark[1]
           : theme.colors.gray[7],
-      padding: `12px`,
+      paddingInline: 12,
+      paddingBlock: 10,
       borderRadius: 7,
       fontWeight: 500,
       // transitionProperty: 'color, background-color',
@@ -94,7 +95,7 @@ function NavLink({ item }: any) {
           setActive(item.label)
         }}
       >
-        <item.icon className={classes.linkIcon} stroke={2} size={24} />
+        <item.icon className={classes.linkIcon} stroke={2} size={22} />
         <span>{item.labelExtended || item.label}</span>
       </Text>
     </Box>
