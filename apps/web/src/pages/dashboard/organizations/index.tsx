@@ -25,12 +25,11 @@ const OrganizationsHome = () => {
     variables: {
       take: 20,
       where: {
-        status: { equals: 'verified' },
+        // status: { equals: 'verified' },
         memberships: { some: { user: { is: { id: { equals: user?.id } } } } },
       },
     },
   })
-  console.log(orgsQuery.data?.organizations)
   return (
     <DashboardLayout>
       <Flex

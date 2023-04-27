@@ -6,13 +6,16 @@ import {
   TextInput,
   useMantineTheme,
 } from '@mantine/core'
+import { notifications } from '@mantine/notifications'
 import { IconWorldCheck, IconWorldPlus } from '@tabler/icons-react'
+import { useRouter } from 'next/router'
 import { useState } from 'react'
 import DashboardLayout from '../../../../components/_layouts/dashboard-layout'
+import {
+  useCreateOneOrganizationMutation,
+  useOrganizationsQuery,
+} from '../../../../generated/graphql'
 import useUser from '../../../../hooks/useUser'
-import { useCreateOneOrganizationMutation } from '../../../../generated/graphql'
-import { notifications } from '@mantine/notifications'
-import { useRouter } from 'next/router'
 
 type OrganizationValues = {
   name: string
@@ -29,6 +32,7 @@ const OrganizationCandidacy = () => {
     name: '',
     description: '',
   })
+  const organizationsQuery = useOrganizationsQuery()
 
   const handleApplyCandidacy = async () => {
     const { name, description } = values
@@ -55,7 +59,16 @@ const OrganizationCandidacy = () => {
           autoClose: 5000,
         })
 
-        router.push('/dashboard/issuers')
+        await organizationsQuery.refetch({
+          take: 20,
+          where: {
+            // status: { equals: 'verified' },
+            memberships: {
+              some: { user: { is: { id: { equals: user?.id } } } },
+            },
+          },
+        })
+        router.push('/dashboard/organizations')
       }
     } catch (error) {
       console.log(error)

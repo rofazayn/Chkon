@@ -7,9 +7,16 @@ import {
   Flex,
   Group,
   Indicator,
+  useMantineColorScheme,
   useMantineTheme,
 } from '@mantine/core'
-import { IconAntenna, IconBell, IconCheck } from '@tabler/icons-react'
+import {
+  IconAntenna,
+  IconBell,
+  IconCheck,
+  IconMoon,
+  IconSun,
+} from '@tabler/icons-react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
@@ -17,6 +24,7 @@ import useUser from '../hooks/useUser'
 
 const Topbar = () => {
   const theme = useMantineTheme()
+  const { colorScheme, toggleColorScheme } = useMantineColorScheme()
   const router = useRouter()
   const { user } = useUser()
 
@@ -97,7 +105,18 @@ const Topbar = () => {
         ) : null}
       </Box>
       <Box>
-        <Group spacing={12}>
+        <Group spacing={2}>
+          <ActionIcon
+            variant='subtle'
+            size='lg'
+            onClick={() => toggleColorScheme()}
+          >
+            {colorScheme === 'dark' ? (
+              <IconSun size={20} />
+            ) : (
+              <IconMoon size={20} />
+            )}
+          </ActionIcon>
           <ActionIcon variant='subtle' size='lg'>
             <IconBell size={20} />
           </ActionIcon>
@@ -107,6 +126,7 @@ const Topbar = () => {
             withBorder
             size={16}
             offset={3}
+            sx={{ marginInlineStart: 16 }}
           >
             <Avatar
               variant='gradient'

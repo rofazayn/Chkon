@@ -7,7 +7,13 @@ import {
   Text,
   useMantineTheme,
 } from '@mantine/core'
-import { IconHomeCog, IconSettingsCog, IconWorld } from '@tabler/icons-react'
+import {
+  IconHomeCog,
+  IconSettingsCog,
+  IconWorld,
+  IconWorldCheck,
+  IconWorldExclamation,
+} from '@tabler/icons-react'
 import useUI from '../hooks/useUI'
 import { useRouter } from 'next/router'
 
@@ -50,7 +56,11 @@ const OrganizationCard = ({ org }: any) => {
             </Text>
           </Box>
           <Box>
-            <IconWorld size={18} color={colors.gray[6]} />
+            {org.status === 'verified' ? (
+              <IconWorldCheck size={20} color={colors.green[5]} />
+            ) : (
+              <IconWorldExclamation size={20} color={colors.orange[5]} />
+            )}
           </Box>
         </Flex>
         {org.description && <Text size='sm'>{org.description}</Text>}

@@ -9,7 +9,14 @@ import {
   Text,
   useMantineTheme,
 } from '@mantine/core'
-import { IconArrowBack, IconInfoCircle } from '@tabler/icons-react'
+import {
+  IconArrowBack,
+  IconBadge3d,
+  IconIdBadge,
+  IconIdBadge2,
+  IconInfoCircle,
+  IconPlus,
+} from '@tabler/icons-react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { ReactNode } from 'react'
@@ -80,9 +87,37 @@ const OrgSettingsHome = ({ children }: { children: ReactNode }) => {
         <Group mt={8}>
           {orgData?.organization?.allowedCredentialTypes &&
           orgData.organization?.allowedCredentialTypes.length > 0 ? (
-            orgData.organization.allowedCredentialTypes.map((credType): any => (
-              <Box key={credType.id}>{credType.name}</Box>
-            ))
+            <>
+              {orgData.organization.allowedCredentialTypes.map(
+                (credType): any => (
+                  <Group
+                    align='center'
+                    spacing={8}
+                    sx={{
+                      borderRadius: 12,
+                      paddingBlock: 8,
+                      paddingInline: 12,
+                      backgroundColor: bgColor,
+                    }}
+                    key={credType.id}
+                  >
+                    <IconIdBadge2 size={20} />
+                    <Text size='sm' weight='500'>
+                      {credType.name}
+                    </Text>
+                  </Group>
+                )
+              )}
+              <Button
+                variant='light'
+                component={Link}
+                href={`/dashboard/organizations/${orgId}/settings/request-types/`}
+                radius={12}
+                leftIcon={<IconPlus size={16} />}
+              >
+                Request more types
+              </Button>
+            </>
           ) : (
             <Alert icon={<IconInfoCircle size={18} />} color='yellow'>
               This issuer is not allowed to issue any type of credentials at the
@@ -95,19 +130,12 @@ const OrgSettingsHome = ({ children }: { children: ReactNode }) => {
                   color='orange'
                   variant='light'
                 >
-                  Request to add allowed types
+                  Request more allowed types
                 </Button>
               </Box>
             </Alert>
           )}
         </Group>
-      </Box>
-      <Box
-        sx={{
-          width: '100%',
-        }}
-      >
-        {children}
       </Box>
     </DashboardLayout>
   )

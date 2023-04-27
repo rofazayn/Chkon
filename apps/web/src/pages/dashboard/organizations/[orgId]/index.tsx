@@ -64,11 +64,11 @@ const OrgRequestsPage = () => {
 
         <Box>
           <Button
+            color='gray'
             component={Link}
             href={`/dashboard/organizations/${orgId}/settings`}
             rightIcon={<IconSettings size={18} />}
             variant='light'
-            color='gray'
           >
             Organization Settings
           </Button>
@@ -103,7 +103,7 @@ const OrgRequestsPage = () => {
                 </Badge>
               </Stack>
               <Button
-                color='gray'
+                color='violet'
                 size='xs'
                 variant='light'
                 component={Link}
@@ -134,7 +134,7 @@ const OrgRequestsPage = () => {
                   0 fulfilled
                 </Badge>
               </Stack>
-              <Button color='gray' size='xs' variant='light'>
+              <Button color='violet' size='xs' variant='light'>
                 Browse requests
               </Button>
             </Flex>
@@ -160,7 +160,7 @@ const OrgRequestsPage = () => {
                   0 revoked
                 </Badge>
               </Stack>
-              <Button color='gray' size='xs' variant='light'>
+              <Button color='violet' size='xs' variant='light'>
                 Browse requests
               </Button>
             </Flex>
@@ -189,7 +189,7 @@ const OrgRequestsPage = () => {
                   0 issued
                 </Badge>
               </Stack>
-              <Button color='gray' size='xs' variant='light'>
+              <Button color='violet' size='xs' variant='light'>
                 Browse credentials
               </Button>
             </Flex>
@@ -215,7 +215,7 @@ const OrgRequestsPage = () => {
                   0 banned
                 </Badge>
               </Stack>
-              <Button color='gray' size='xs' variant='light'>
+              <Button color='violet' size='xs' variant='light'>
                 Browse banned users
               </Button>
             </Flex>

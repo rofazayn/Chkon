@@ -99,7 +99,7 @@ const DashboardNavbar = () => {
               }}
             />
           </Stack>
-          <Box my={16}>
+          {/* <Box my={16}>
             <Divider variant='dashed' />
           </Box>
           <Box>
@@ -142,7 +142,7 @@ const DashboardNavbar = () => {
                 Dark
               </Button>
             </Button.Group>
-          </Box>
+          </Box> */}
           <Box my={16}>
             <Divider variant='dashed' />
           </Box>
@@ -157,14 +157,16 @@ const DashboardNavbar = () => {
               ref={ref}
               color={hovered ? 'red' : 'gray'}
               fullWidth
-              rightIcon={<IconPower size={20} color={theme.colors.red[5]} />}
+              rightIcon={
+                <IconPower size={20} stroke={2.5} color={theme.colors.red[5]} />
+              }
               onClick={() => {
                 logout()
               }}
               sx={{
                 color: theme.colors.red[5],
                 paddingInline: 16,
-                minHeight: 48,
+                minHeight: 44,
                 '& > div': {
                   display: 'flex',
                   justifyContent: 'space-between',

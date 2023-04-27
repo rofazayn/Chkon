@@ -7,19 +7,20 @@ import {
   Text,
   useMantineTheme,
 } from '@mantine/core'
+import { notifications } from '@mantine/notifications'
 import {
   IconAlertCircle,
   IconCheck,
   IconLockCheck,
+  IconPlus,
   IconWorld,
 } from '@tabler/icons-react'
-import useUI from '../hooks/useUI'
+import { useRouter } from 'next/router'
 import {
   useOrganizationQuery,
   useUpdateOneOrganizationMutation,
 } from '../generated/graphql'
-import { notifications } from '@mantine/notifications'
-import { useRouter } from 'next/router'
+import useUI from '../hooks/useUI'
 
 const CredentialTypeCard = ({ credType, orgId }: any) => {
   const theme = useMantineTheme()
@@ -110,9 +111,9 @@ const CredentialTypeCard = ({ credType, orgId }: any) => {
           {!credType.allowedOrganizationsIds.includes(orgId) ? (
             <Button
               variant='light'
-              color='green'
+              color='indigo'
               size='xs'
-              rightIcon={<IconCheck size={16} />}
+              rightIcon={<IconPlus size={16} />}
               onClick={handleRequestCredentialType}
               loading={loading || organizationQuery.loading}
               disabled={credType.allowedOrganizationsIds.includes(orgId)}
