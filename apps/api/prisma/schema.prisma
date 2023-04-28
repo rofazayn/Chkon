@@ -124,7 +124,7 @@ model CredentialRequest {
   credentialType   CredentialType @relation(fields: [credentialTypeId], references: [id])
   credentialTypeId String         @db.ObjectId
   credential       Credential?
-  status           String         @default("requested")
+  status           String         @default("pending")
   createdAt        DateTime       @default(now())
   updatedAt        DateTime       @updatedAt
 }

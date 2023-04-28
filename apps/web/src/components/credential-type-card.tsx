@@ -28,7 +28,7 @@ const CredentialTypeCard = ({ credType, orgId }: any) => {
   const { bgColor } = useUI()
   const router = useRouter()
   const organizationQuery = useOrganizationQuery({
-    variables: { where: { id: orgId } },
+    variables: { where: { id: (orgId as string) || undefined } },
   })
 
   const [updateOneOrganizationMutation, { loading }] =

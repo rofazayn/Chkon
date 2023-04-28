@@ -9,13 +9,11 @@ import {
 } from '@mantine/core'
 import {
   IconHomeCog,
-  IconSettingsCog,
-  IconWorld,
   IconWorldCheck,
   IconWorldExclamation,
 } from '@tabler/icons-react'
-import useUI from '../hooks/useUI'
 import { useRouter } from 'next/router'
+import useUI from '../hooks/useUI'
 
 const OrganizationCard = ({ org }: any) => {
   const theme = useMantineTheme()

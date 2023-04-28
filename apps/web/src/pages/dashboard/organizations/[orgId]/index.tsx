@@ -21,9 +21,14 @@ import {
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import DashboardLayout from '../../../../components/_layouts/dashboard-layout'
-import { useOrganizationQuery } from '../../../../generated/graphql'
+import {
+  useAggregateCredentialRequestLazyQuery,
+  useAggregateCredentialRequestQuery,
+  useOrganizationQuery,
+} from '../../../../generated/graphql'
 import useUI from '../../../../hooks/useUI'
 import useUser from '../../../../hooks/useUser'
+import { useEffect, useState } from 'react'
 
 const OrgRequestsPage = () => {
   const { user } = useUser()
@@ -38,6 +43,66 @@ const OrgRequestsPage = () => {
   } = useOrganizationQuery({
     variables: { where: { id: orgId as string } },
   })
+
+  const credentialRequestsQuery = useAggregateCredentialRequestQuery({
+    skip: true,
+  })
+
+  const [pendingReqs, setPendingReqs] = useState<number>(0)
+  async function fetchPendingCount() {
+    try {
+      const res = await credentialRequestsQuery.refetch({
+        where: {
+          status: { equals: 'pending' },
+          issuerId: { equals: (orgId as string) || undefined },
+        },
+      })
+      setPendingReqs(res.data?.aggregateCredentialRequest?._count?.id || 0)
+    } catch {
+      setPendingReqs(0)
+    }
+  }
+
+  const [fulfilledReqs, setFulfilledReqs] = useState<number>(0)
+  async function fetchFulfilledCount() {
+    try {
+      const res = await credentialRequestsQuery.refetch({
+        where: {
+          status: { equals: 'fulfilled' },
+          issuerId: { equals: (orgId as string) || undefined },
+        },
+      })
+      setFulfilledReqs(res.data?.aggregateCredentialRequest?._count?.id || 0)
+    } catch {
+      setFulfilledReqs(0)
+    }
+  }
+
+  const [revokedReqs, setRevokedReqs] = useState<number>(0)
+  async function fetchRevokedCount() {
+    try {
+      const res = await credentialRequestsQuery.refetch({
+        where: {
+          status: { equals: 'revoked' },
+          issuerId: { equals: (orgId as string) || undefined },
+        },
+      })
+      setRevokedReqs(res.data?.aggregateCredentialRequest?._count?.id || 0)
+    } catch {
+      setRevokedReqs(0)
+    }
+  }
+
+  useEffect(() => {
+    let fetchRequestsInterval = setInterval(() => {
+      fetchPendingCount()
+      fetchFulfilledCount()
+      fetchRevokedCount()
+    }, 5000)
+
+    return () => clearInterval(fetchRequestsInterval)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <DashboardLayout>
@@ -99,7 +164,7 @@ const OrgRequestsPage = () => {
                   Credential Requests
                 </Text>
                 <Badge variant='light' color='yellow' mt={2}>
-                  0 pending
+                  {pendingReqs} pending
                 </Badge>
               </Stack>
               <Button
@@ -131,7 +196,7 @@ const OrgRequestsPage = () => {
                   Fulfilled Requests
                 </Text>
                 <Badge variant='light' color='green' mt={2}>
-                  0 fulfilled
+                  {fulfilledReqs} fulfilled
                 </Badge>
               </Stack>
               <Button color='violet' size='xs' variant='light'>
@@ -157,7 +222,7 @@ const OrgRequestsPage = () => {
                   Revoked requests
                 </Text>
                 <Badge variant='light' color='red' mt={2}>
-                  0 revoked
+                  {revokedReqs} revoked
                 </Badge>
               </Stack>
               <Button color='violet' size='xs' variant='light'>
