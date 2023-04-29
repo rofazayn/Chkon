@@ -73,13 +73,14 @@ const DashboardLayout = ({ children }: any) => {
               </Box>
               <Box
                 mt={12}
+                px={12}
                 sx={{
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'space-between',
                 }}
               >
-                <Text size='xs' color='dimmed'>
+                <Text size='xs' color='dimmed' weight='500'>
                   Chkon&trade;, Property of AuresX SPAS
                 </Text>
                 <Group spacing={8}>

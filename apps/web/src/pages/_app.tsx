@@ -42,7 +42,7 @@ export default function App(props: AppProps) {
   return (
     <>
       <Head>
-        <title>Chkon: E-ID</title>
+        <title>Chkon: D-ID</title>
         <meta
           name='viewport'
           content='minimum-scale=1, initial-scale=1, width=device-width'

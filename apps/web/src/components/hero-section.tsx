@@ -47,7 +47,7 @@ const HeroSection = () => {
           </Badge>
         </Box>
 
-        <Title order={1}>Chkon E-ID: Empowering Digital Identity.</Title>
+        <Title order={1}>Chkon D-ID: Empowering Digital Identity.</Title>
 
         <Text
           mt={12}
