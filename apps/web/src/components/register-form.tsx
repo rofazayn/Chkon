@@ -124,7 +124,7 @@ const RegisterForm = () => {
                   </Box>
                   <Flex direction='column'>
                     <Text size='xl' weight='bold' mb={-5}>
-                      Chkon: E-ID
+                      Chkon: D-ID
                     </Text>
                     <Text color='dimmed'>Create a new account.</Text>
                   </Flex>

@@ -5941,7 +5941,7 @@ export type CredentialRequestsQueryVariables = Exact<{
 }>;
 
 
-export type CredentialRequestsQuery = { __typename?: 'Query', credentialRequests: Array<{ __typename?: 'CredentialRequest', id: string, userId: string, issuerId: string, credentialTypeId: string, status: string, createdAt: any, updatedAt: any, user: { __typename?: 'User', id: string, username: string, phoneNumber?: string | null, email: string, name: string, logoUrl?: string | null, verified: boolean, createdAt?: any | null, updatedAt?: any | null }, issuer: { __typename?: 'Organization', id: string, name: string, description?: string | null, logoUrl?: string | null, status: string, createdAt?: any | null, updatedAt?: any | null } }> };
+export type CredentialRequestsQuery = { __typename?: 'Query', credentialRequests: Array<{ __typename?: 'CredentialRequest', id: string, userId: string, issuerId: string, status: string, createdAt: any, updatedAt: any, credentialTypeId: string, credentialType: { __typename?: 'CredentialType', typename: string, name: string, createdAt?: any | null, updatedAt?: any | null }, user: { __typename?: 'User', id: string, username: string, phoneNumber?: string | null, email: string, name: string, logoUrl?: string | null, verified: boolean, createdAt?: any | null, updatedAt?: any | null }, issuer: { __typename?: 'Organization', id: string, name: string, description?: string | null, logoUrl?: string | null, status: string, createdAt?: any | null, updatedAt?: any | null } }> };
 
 export type CredentialTypesQueryVariables = Exact<{
   where?: InputMaybe<CredentialTypeWhereInput>;
@@ -6271,10 +6271,16 @@ export const CredentialRequestsDocument = gql`
     id
     userId
     issuerId
-    credentialTypeId
     status
     createdAt
     updatedAt
+    credentialType {
+      typename
+      name
+      createdAt
+      updatedAt
+    }
+    credentialTypeId
     user {
       id
       username

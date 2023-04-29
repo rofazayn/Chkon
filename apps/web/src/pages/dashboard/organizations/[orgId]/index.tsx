@@ -94,6 +94,9 @@ const OrgRequestsPage = () => {
   }
 
   useEffect(() => {
+    fetchPendingCount()
+    fetchFulfilledCount()
+    fetchRevokedCount()
     let fetchRequestsInterval = setInterval(() => {
       fetchPendingCount()
       fetchFulfilledCount()

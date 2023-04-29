@@ -98,7 +98,7 @@ const LoginForm = () => {
                       </Box>
                       <Flex direction='column'>
                         <Text size='xl' weight='bold' mb={-5}>
-                          Chkon: E-ID
+                          Chkon: D-ID
                         </Text>
                         <Text color='dimmed'>Login to your account.</Text>
                       </Flex>
