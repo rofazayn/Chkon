@@ -55,6 +55,7 @@ const OrgControlPanelHome = ({ children }: { children: ReactNode }) => {
       orderBy: { createdAt: SortOrder.Desc },
     },
     pollInterval: 5000,
+    fetchPolicy: 'network-only',
   })
   const rows = credentialRequestsQuery.loading
     ? null
@@ -95,28 +96,28 @@ const OrgControlPanelHome = ({ children }: { children: ReactNode }) => {
                 zIndex: 9,
               }}
             >
-              <Button.Group>
+              <Group spacing={12}>
                 <Button
                   leftIcon={<IconTrash size={14} />}
-                  size='xs'
-                  variant='light'
+                  size='sm'
+                  variant='subtle'
                   color='red'
                 >
                   Revoke
                 </Button>
                 <Button
                   rightIcon={<IconSettings2 size={14} />}
-                  size='xs'
+                  size='sm'
                   variant='light'
                   onClick={() =>
                     router.push(
-                      `/dashboard/organizations/${orgId}/requests/handle/${credReq.id}`
+                      `/dashboard/organizations/${orgId}/requests/${credReq.id}/handle/`
                     )
                   }
                 >
                   Handle
                 </Button>
-              </Button.Group>
+              </Group>
             </Flex>
           </td>
         </tr>
@@ -171,7 +172,7 @@ const OrgControlPanelHome = ({ children }: { children: ReactNode }) => {
             your organization at the moment
           </Alert>
         ) : rows && rows.length > 0 ? (
-          <Table highlightOnHover withBorder={false} verticalSpacing={'sm'}>
+          <Table striped withBorder={false} verticalSpacing={'sm'}>
             <thead>
               <tr>
                 <th>Credential Type</th>

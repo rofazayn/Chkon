@@ -6,17 +6,10 @@ import {
   Group,
   Stack,
   Text,
-  useMantineColorScheme,
   useMantineTheme,
 } from '@mantine/core'
 import { useHover } from '@mantine/hooks'
-import {
-  IconMoon,
-  IconPower,
-  IconSettings,
-  IconSun,
-  IconWorld,
-} from '@tabler/icons-react'
+import { IconPower, IconSettings, IconWorld } from '@tabler/icons-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import useAuth from '../hooks/useAuth'
@@ -26,7 +19,6 @@ import NavLink from './nav-link'
 const DashboardNavbar = () => {
   const { logout } = useAuth()
   const theme = useMantineTheme()
-  const { colorScheme, toggleColorScheme } = useMantineColorScheme()
   const { hovered, ref } = useHover<any>()
   return (
     <Box
@@ -86,7 +78,7 @@ const DashboardNavbar = () => {
               item={{
                 link: '/dashboard/organizations',
                 label: 'Organizations',
-                labelExtended: 'Organizations Control',
+                labelExtended: 'Organizations panel',
                 icon: IconWorld,
               }}
             />
@@ -94,55 +86,12 @@ const DashboardNavbar = () => {
               item={{
                 link: '/dashboard/settings',
                 label: 'Settings',
-                labelExtended: 'Account Settings',
+                labelExtended: 'Account settings',
                 icon: IconSettings,
               }}
             />
           </Stack>
-          {/* <Box my={16}>
-            <Divider variant='dashed' />
-          </Box>
-          <Box>
-            <Text mb={16} size='sm' color='gray.6' sx={{ lineHeight: 1.6 }}>
-              Use the buttons below <br /> to toggle your color scheme
-            </Text>
-            <Button.Group sx={{ width: '100%' }}>
-              <Button
-                variant='light'
-                onClick={() => toggleColorScheme()}
-                fullWidth
-                rightIcon={<IconSun size={18} />}
-                color={colorScheme === 'light' ? 'violet' : 'gray'}
-                sx={{
-                  paddingInline: 16,
-                  minHeight: 40,
-                  '& > div': {
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                  },
-                }}
-              >
-                Light
-              </Button>
-              <Button
-                variant='light'
-                onClick={() => toggleColorScheme()}
-                fullWidth
-                rightIcon={<IconMoon size={18} />}
-                color={colorScheme === 'dark' ? 'violet' : 'gray'}
-                sx={{
-                  paddingInline: 16,
-                  minHeight: 40,
-                  '& > div': {
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                  },
-                }}
-              >
-                Dark
-              </Button>
-            </Button.Group>
-          </Box> */}
+
           <Box my={16}>
             <Divider variant='dashed' />
           </Box>

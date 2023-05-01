@@ -20,15 +20,14 @@ import {
 } from '@tabler/icons-react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
 import DashboardLayout from '../../../../components/_layouts/dashboard-layout'
 import {
-  useAggregateCredentialRequestLazyQuery,
   useAggregateCredentialRequestQuery,
   useOrganizationQuery,
 } from '../../../../generated/graphql'
 import useUI from '../../../../hooks/useUI'
 import useUser from '../../../../hooks/useUser'
-import { useEffect, useState } from 'react'
 
 const OrgRequestsPage = () => {
   const { user } = useUser()

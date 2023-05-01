@@ -5,45 +5,45 @@ async function main() {
     data: [
       {
         name: 'Student Card',
-        typename: 'StudentCard',
+        typename: 'StudentCardV1',
         attributes: [
-          { name: 'name', dataType: 'string' },
-          { name: 'dob', dataType: 'date' },
-          { name: 'registrationNumber', dataType: 'string' },
-          { name: 'study', dataType: 'string' },
-          { name: 'issueDate', dataType: 'date' },
-          { name: 'expiryDate', dataType: 'date' },
+          {
+            name: 'firstName',
+            label: 'First name',
+            inputType: 'text',
+          },
+          {
+            name: 'lastName',
+            label: 'Last name',
+            inputType: 'text',
+          },
+          {
+            name: 'dob',
+            label: 'Date of birth',
+            inputType: 'date',
+          },
+          {
+            name: 'study',
+            label: 'Field of study',
+            inputType: 'text',
+          },
+          {
+            name: 'speciality',
+            label: 'Speciality of study',
+            inputType: 'text',
+          },
+          {
+            name: 'issuedAt',
+            label: 'Issuance date',
+            inputType: 'date',
+          },
+          {
+            name: 'expiresAt',
+            label: 'Expiration date',
+            inputType: 'date',
+          },
         ],
       },
-      // {
-      //   name: 'Basic Identity Card',
-      //   typename: 'BasicIdentityCard',
-      //   attributes: [
-      //     { name: 'name', dataType: 'string' },
-      //     { name: 'dob', dataType: 'date' },
-      //     { name: 'region', dataType: 'string' },
-      //     { name: 'city', dataType: 'string' },
-      //     { name: 'nationality', dataType: 'string' },
-      //     { name: 'registrationNumber', dataType: 'string' },
-      //     { name: 'issueDate', dataType: 'date' },
-      //     { name: 'expiryDate', dataType: 'date' },
-      //   ],
-      // },
-      // {
-      //   name: "Basic Driver's License",
-      //   typename: 'BasicDriverLicense',
-      //   attributes: [
-      //     { name: 'name', dataType: 'string' },
-      //     { name: 'dob', dataType: 'date' },
-      //     { name: 'region', dataType: 'string' },
-      //     { name: 'city', dataType: 'string' },
-      //     { name: 'nationality', dataType: 'string' },
-      //     { name: 'registrationNumber', dataType: 'string' },
-      //     { name: 'licenseType', dataType: 'string' },
-      //     { name: 'issueDate', dataType: 'date' },
-      //     { name: 'expiryDate', dataType: 'date' },
-      //   ],
-      // },
     ],
   })
 

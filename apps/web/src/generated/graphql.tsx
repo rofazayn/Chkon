@@ -5883,6 +5883,13 @@ export type CreateOneCredentialRequestMutationVariables = Exact<{
 
 export type CreateOneCredentialRequestMutation = { __typename?: 'Mutation', createOneCredentialRequest: { __typename?: 'CredentialRequest', id: string, userId: string, issuerId: string, status: string, createdAt: any, updatedAt: any, credentialType: { __typename?: 'CredentialType', id: string, name: string, typename: string, attributes: Array<any>, createdAt?: any | null, updatedAt?: any | null } } };
 
+export type CreateOneCredentialMutationVariables = Exact<{
+  data: CredentialCreateInput;
+}>;
+
+
+export type CreateOneCredentialMutation = { __typename?: 'Mutation', createOneCredential: { __typename?: 'Credential', id: string, typeId: string, payload: any, required: Array<string>, issuerConsent: boolean, holderConsent: boolean, userId: string, issuerId: string, requestId?: string | null, expiryDate: any, createdAt: any, updatedAt: any } };
+
 export type CreateOneOrganizationMutationVariables = Exact<{
   data: OrganizationCreateInput;
 }>;
@@ -5908,6 +5915,14 @@ export type RegisterMutationVariables = Exact<{
 
 export type RegisterMutation = { __typename?: 'Mutation', register: { __typename?: 'AuthResponse', accessToken?: string | null, refreshToken?: string | null } };
 
+export type UpdateOneCredentialRequestMutationVariables = Exact<{
+  data: CredentialRequestUpdateInput;
+  where: CredentialRequestWhereUniqueInput;
+}>;
+
+
+export type UpdateOneCredentialRequestMutation = { __typename?: 'Mutation', updateOneCredentialRequest?: { __typename?: 'CredentialRequest', id: string, userId: string, issuerId: string, credentialTypeId: string, status: string, createdAt: any, updatedAt: any } | null };
+
 export type UpdateOneOrganizationMutationVariables = Exact<{
   data: OrganizationUpdateInput;
   where: OrganizationWhereUniqueInput;
@@ -5931,6 +5946,13 @@ export type AggregateCredentialRequestQueryVariables = Exact<{
 
 export type AggregateCredentialRequestQuery = { __typename?: 'Query', aggregateCredentialRequest: { __typename?: 'AggregateCredentialRequest', _count?: { __typename?: 'CredentialRequestCountAggregate', id: number } | null } };
 
+export type CredentialRequestQueryVariables = Exact<{
+  where: CredentialRequestWhereUniqueInput;
+}>;
+
+
+export type CredentialRequestQuery = { __typename?: 'Query', credentialRequest?: { __typename?: 'CredentialRequest', id: string, userId: string, issuerId: string, credentialTypeId: string, status: string, createdAt: any, updatedAt: any } | null };
+
 export type CredentialRequestsQueryVariables = Exact<{
   where?: InputMaybe<CredentialRequestWhereInput>;
   orderBy?: InputMaybe<Array<CredentialRequestOrderByWithRelationInput> | CredentialRequestOrderByWithRelationInput>;
@@ -5942,6 +5964,13 @@ export type CredentialRequestsQueryVariables = Exact<{
 
 
 export type CredentialRequestsQuery = { __typename?: 'Query', credentialRequests: Array<{ __typename?: 'CredentialRequest', id: string, userId: string, issuerId: string, status: string, createdAt: any, updatedAt: any, credentialTypeId: string, credentialType: { __typename?: 'CredentialType', typename: string, name: string, createdAt?: any | null, updatedAt?: any | null }, user: { __typename?: 'User', id: string, username: string, phoneNumber?: string | null, email: string, name: string, logoUrl?: string | null, verified: boolean, createdAt?: any | null, updatedAt?: any | null }, issuer: { __typename?: 'Organization', id: string, name: string, description?: string | null, logoUrl?: string | null, status: string, createdAt?: any | null, updatedAt?: any | null } }> };
+
+export type CredentialTypeQueryVariables = Exact<{
+  where: CredentialTypeWhereUniqueInput;
+}>;
+
+
+export type CredentialTypeQuery = { __typename?: 'Query', credentialType?: { __typename?: 'CredentialType', id: string, name: string, typename: string, attributes: Array<any>, allowedOrganizationsIds: Array<string>, createdAt?: any | null, updatedAt?: any | null } | null };
 
 export type CredentialTypesQueryVariables = Exact<{
   where?: InputMaybe<CredentialTypeWhereInput>;
@@ -5960,7 +5989,7 @@ export type OrganizationQueryVariables = Exact<{
 }>;
 
 
-export type OrganizationQuery = { __typename?: 'Query', organization?: { __typename?: 'Organization', id: string, name: string, description?: string | null, logoUrl?: string | null, status: string, createdAt?: any | null, updatedAt?: any | null, allowedCredentialTypes: Array<{ __typename?: 'CredentialType', id: string, name: string, typename: string, attributes: Array<any>, allowedOrganizationsIds: Array<string>, createdAt?: any | null, updatedAt?: any | null }> } | null };
+export type OrganizationQuery = { __typename?: 'Query', organization?: { __typename?: 'Organization', id: string, name: string, description?: string | null, logoUrl?: string | null, status: string, allowedCredentialTypesIds: Array<string>, createdAt?: any | null, updatedAt?: any | null, allowedCredentialTypes: Array<{ __typename?: 'CredentialType', id: string, name: string, typename: string, attributes: Array<any>, allowedOrganizationsIds: Array<string>, createdAt?: any | null, updatedAt?: any | null }> } | null };
 
 export type OrganizationsQueryVariables = Exact<{
   where?: InputMaybe<OrganizationWhereInput>;
@@ -5978,6 +6007,13 @@ export type ProfileQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type ProfileQuery = { __typename?: 'Query', profile?: { __typename?: 'User', id: string, username: string, phoneNumber?: string | null, email: string, name: string, logoUrl?: string | null, verified: boolean, createdAt?: any | null, updatedAt?: any | null } | null };
+
+export type UserQueryVariables = Exact<{
+  where: UserWhereUniqueInput;
+}>;
+
+
+export type UserQuery = { __typename?: 'Query', user?: { __typename?: 'User', id: string, username: string, phoneNumber?: string | null, email: string, name: string, logoUrl?: string | null, verified: boolean, trustedOrganizationsIds: Array<string>, createdAt?: any | null, updatedAt?: any | null } | null };
 
 
 export const CreateOneCredentialRequestDocument = gql`
@@ -6026,6 +6062,50 @@ export function useCreateOneCredentialRequestMutation(baseOptions?: Apollo.Mutat
 export type CreateOneCredentialRequestMutationHookResult = ReturnType<typeof useCreateOneCredentialRequestMutation>;
 export type CreateOneCredentialRequestMutationResult = Apollo.MutationResult<CreateOneCredentialRequestMutation>;
 export type CreateOneCredentialRequestMutationOptions = Apollo.BaseMutationOptions<CreateOneCredentialRequestMutation, CreateOneCredentialRequestMutationVariables>;
+export const CreateOneCredentialDocument = gql`
+    mutation CreateOneCredential($data: CredentialCreateInput!) {
+  createOneCredential(data: $data) {
+    id
+    typeId
+    payload
+    required
+    issuerConsent
+    holderConsent
+    userId
+    issuerId
+    requestId
+    expiryDate
+    createdAt
+    updatedAt
+  }
+}
+    `;
+export type CreateOneCredentialMutationFn = Apollo.MutationFunction<CreateOneCredentialMutation, CreateOneCredentialMutationVariables>;
+
+/**
+ * __useCreateOneCredentialMutation__
+ *
+ * To run a mutation, you first call `useCreateOneCredentialMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateOneCredentialMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createOneCredentialMutation, { data, loading, error }] = useCreateOneCredentialMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useCreateOneCredentialMutation(baseOptions?: Apollo.MutationHookOptions<CreateOneCredentialMutation, CreateOneCredentialMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateOneCredentialMutation, CreateOneCredentialMutationVariables>(CreateOneCredentialDocument, options);
+      }
+export type CreateOneCredentialMutationHookResult = ReturnType<typeof useCreateOneCredentialMutation>;
+export type CreateOneCredentialMutationResult = Apollo.MutationResult<CreateOneCredentialMutation>;
+export type CreateOneCredentialMutationOptions = Apollo.BaseMutationOptions<CreateOneCredentialMutation, CreateOneCredentialMutationVariables>;
 export const CreateOneOrganizationDocument = gql`
     mutation CreateOneOrganization($data: OrganizationCreateInput!) {
   createOneOrganization(data: $data) {
@@ -6137,6 +6217,46 @@ export function useRegisterMutation(baseOptions?: Apollo.MutationHookOptions<Reg
 export type RegisterMutationHookResult = ReturnType<typeof useRegisterMutation>;
 export type RegisterMutationResult = Apollo.MutationResult<RegisterMutation>;
 export type RegisterMutationOptions = Apollo.BaseMutationOptions<RegisterMutation, RegisterMutationVariables>;
+export const UpdateOneCredentialRequestDocument = gql`
+    mutation UpdateOneCredentialRequest($data: CredentialRequestUpdateInput!, $where: CredentialRequestWhereUniqueInput!) {
+  updateOneCredentialRequest(data: $data, where: $where) {
+    id
+    userId
+    issuerId
+    credentialTypeId
+    status
+    createdAt
+    updatedAt
+  }
+}
+    `;
+export type UpdateOneCredentialRequestMutationFn = Apollo.MutationFunction<UpdateOneCredentialRequestMutation, UpdateOneCredentialRequestMutationVariables>;
+
+/**
+ * __useUpdateOneCredentialRequestMutation__
+ *
+ * To run a mutation, you first call `useUpdateOneCredentialRequestMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateOneCredentialRequestMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateOneCredentialRequestMutation, { data, loading, error }] = useUpdateOneCredentialRequestMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useUpdateOneCredentialRequestMutation(baseOptions?: Apollo.MutationHookOptions<UpdateOneCredentialRequestMutation, UpdateOneCredentialRequestMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateOneCredentialRequestMutation, UpdateOneCredentialRequestMutationVariables>(UpdateOneCredentialRequestDocument, options);
+      }
+export type UpdateOneCredentialRequestMutationHookResult = ReturnType<typeof useUpdateOneCredentialRequestMutation>;
+export type UpdateOneCredentialRequestMutationResult = Apollo.MutationResult<UpdateOneCredentialRequestMutation>;
+export type UpdateOneCredentialRequestMutationOptions = Apollo.BaseMutationOptions<UpdateOneCredentialRequestMutation, UpdateOneCredentialRequestMutationVariables>;
 export const UpdateOneOrganizationDocument = gql`
     mutation UpdateOneOrganization($data: OrganizationUpdateInput!, $where: OrganizationWhereUniqueInput!) {
   updateOneOrganization(data: $data, where: $where) {
@@ -6258,6 +6378,47 @@ export function useAggregateCredentialRequestLazyQuery(baseOptions?: Apollo.Lazy
 export type AggregateCredentialRequestQueryHookResult = ReturnType<typeof useAggregateCredentialRequestQuery>;
 export type AggregateCredentialRequestLazyQueryHookResult = ReturnType<typeof useAggregateCredentialRequestLazyQuery>;
 export type AggregateCredentialRequestQueryResult = Apollo.QueryResult<AggregateCredentialRequestQuery, AggregateCredentialRequestQueryVariables>;
+export const CredentialRequestDocument = gql`
+    query CredentialRequest($where: CredentialRequestWhereUniqueInput!) {
+  credentialRequest(where: $where) {
+    id
+    userId
+    issuerId
+    credentialTypeId
+    status
+    createdAt
+    updatedAt
+  }
+}
+    `;
+
+/**
+ * __useCredentialRequestQuery__
+ *
+ * To run a query within a React component, call `useCredentialRequestQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCredentialRequestQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCredentialRequestQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useCredentialRequestQuery(baseOptions: Apollo.QueryHookOptions<CredentialRequestQuery, CredentialRequestQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<CredentialRequestQuery, CredentialRequestQueryVariables>(CredentialRequestDocument, options);
+      }
+export function useCredentialRequestLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<CredentialRequestQuery, CredentialRequestQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<CredentialRequestQuery, CredentialRequestQueryVariables>(CredentialRequestDocument, options);
+        }
+export type CredentialRequestQueryHookResult = ReturnType<typeof useCredentialRequestQuery>;
+export type CredentialRequestLazyQueryHookResult = ReturnType<typeof useCredentialRequestLazyQuery>;
+export type CredentialRequestQueryResult = Apollo.QueryResult<CredentialRequestQuery, CredentialRequestQueryVariables>;
 export const CredentialRequestsDocument = gql`
     query CredentialRequests($where: CredentialRequestWhereInput, $orderBy: [CredentialRequestOrderByWithRelationInput!], $cursor: CredentialRequestWhereUniqueInput, $take: Int, $skip: Int, $distinct: [CredentialRequestScalarFieldEnum!]) {
   credentialRequests(
@@ -6337,6 +6498,47 @@ export function useCredentialRequestsLazyQuery(baseOptions?: Apollo.LazyQueryHoo
 export type CredentialRequestsQueryHookResult = ReturnType<typeof useCredentialRequestsQuery>;
 export type CredentialRequestsLazyQueryHookResult = ReturnType<typeof useCredentialRequestsLazyQuery>;
 export type CredentialRequestsQueryResult = Apollo.QueryResult<CredentialRequestsQuery, CredentialRequestsQueryVariables>;
+export const CredentialTypeDocument = gql`
+    query CredentialType($where: CredentialTypeWhereUniqueInput!) {
+  credentialType(where: $where) {
+    id
+    name
+    typename
+    attributes
+    allowedOrganizationsIds
+    createdAt
+    updatedAt
+  }
+}
+    `;
+
+/**
+ * __useCredentialTypeQuery__
+ *
+ * To run a query within a React component, call `useCredentialTypeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCredentialTypeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCredentialTypeQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useCredentialTypeQuery(baseOptions: Apollo.QueryHookOptions<CredentialTypeQuery, CredentialTypeQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<CredentialTypeQuery, CredentialTypeQueryVariables>(CredentialTypeDocument, options);
+      }
+export function useCredentialTypeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<CredentialTypeQuery, CredentialTypeQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<CredentialTypeQuery, CredentialTypeQueryVariables>(CredentialTypeDocument, options);
+        }
+export type CredentialTypeQueryHookResult = ReturnType<typeof useCredentialTypeQuery>;
+export type CredentialTypeLazyQueryHookResult = ReturnType<typeof useCredentialTypeLazyQuery>;
+export type CredentialTypeQueryResult = Apollo.QueryResult<CredentialTypeQuery, CredentialTypeQueryVariables>;
 export const CredentialTypesDocument = gql`
     query CredentialTypes($where: CredentialTypeWhereInput, $orderBy: [CredentialTypeOrderByWithRelationInput!], $cursor: CredentialTypeWhereUniqueInput, $take: Int, $skip: Int, $distinct: [CredentialTypeScalarFieldEnum!]) {
   credentialTypes(
@@ -6407,6 +6609,7 @@ export const OrganizationDocument = gql`
       createdAt
       updatedAt
     }
+    allowedCredentialTypesIds
     createdAt
     updatedAt
   }
@@ -6535,3 +6738,47 @@ export function useProfileLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Pr
 export type ProfileQueryHookResult = ReturnType<typeof useProfileQuery>;
 export type ProfileLazyQueryHookResult = ReturnType<typeof useProfileLazyQuery>;
 export type ProfileQueryResult = Apollo.QueryResult<ProfileQuery, ProfileQueryVariables>;
+export const UserDocument = gql`
+    query User($where: UserWhereUniqueInput!) {
+  user(where: $where) {
+    id
+    username
+    phoneNumber
+    email
+    name
+    logoUrl
+    verified
+    trustedOrganizationsIds
+    createdAt
+    updatedAt
+  }
+}
+    `;
+
+/**
+ * __useUserQuery__
+ *
+ * To run a query within a React component, call `useUserQuery` and pass it any options that fit your needs.
+ * When your component renders, `useUserQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useUserQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useUserQuery(baseOptions: Apollo.QueryHookOptions<UserQuery, UserQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<UserQuery, UserQueryVariables>(UserDocument, options);
+      }
+export function useUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<UserQuery, UserQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<UserQuery, UserQueryVariables>(UserDocument, options);
+        }
+export type UserQueryHookResult = ReturnType<typeof useUserQuery>;
+export type UserLazyQueryHookResult = ReturnType<typeof useUserLazyQuery>;
+export type UserQueryResult = Apollo.QueryResult<UserQuery, UserQueryVariables>;
