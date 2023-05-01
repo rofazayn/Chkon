@@ -62,9 +62,9 @@ export const AuthProvider = ({ children }: any) => {
         try {
           const user = await profileQuery.refetch()
 
-          if (refreshStatus === 'error') {
-            logout()
-          }
+          // if (refreshStatus === 'error') {
+          //   logout()
+          // }
 
           if (user) {
             setTimeout(() => {

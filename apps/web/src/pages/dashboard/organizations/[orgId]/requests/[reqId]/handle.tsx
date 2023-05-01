@@ -11,12 +11,16 @@ import {
   Loader,
   Stack,
   Text,
+  TextInput,
   useMantineTheme,
 } from '@mantine/core'
+import { DateInput } from '@mantine/dates'
+import { notifications } from '@mantine/notifications'
 import {
   IconAlertCircle,
   IconAlertHexagon,
   IconArrowBack,
+  IconBulb,
   IconCheck,
   IconChecks,
   IconUserCheck,
@@ -26,12 +30,14 @@ import {
 } from '@tabler/icons-react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { ReactNode } from 'react'
+import { ReactNode, useState } from 'react'
 import DashboardLayout from '../../../../../../components/_layouts/dashboard-layout'
 import {
+  useCreateOneCredentialMutation,
   useCredentialRequestQuery,
   useCredentialTypeQuery,
   useOrganizationQuery,
+  useUpdateOneCredentialRequestMutation,
   useUserQuery,
 } from '../../../../../../generated/graphql'
 import useUI from '../../../../../../hooks/useUI'
@@ -84,6 +90,86 @@ const OrgCredentialRequestHandle = ({ children }: { children: ReactNode }) => {
     fetchPolicy: 'network-only',
     skip: !userData,
   })
+
+  const [credValues, setCredValues] = useState<any>({})
+
+  const [createOneCredentialMutation] = useCreateOneCredentialMutation()
+  const [updateOneCredentialRequestMutation] =
+    useUpdateOneCredentialRequestMutation()
+  const [loading, setLoading] = useState<boolean>(false)
+
+  async function handleIssueCredential() {
+    try {
+      const res = await createOneCredentialMutation({
+        variables: {
+          data: {
+            user: {
+              connect: { id: (userData?.user?.id as string) || undefined },
+            },
+            issuer: {
+              connect: {
+                id: (orgData?.organization?.id as string) || undefined,
+              },
+            },
+            type: {
+              connect: {
+                id: (credTypeData?.credentialType?.id as string) || undefined,
+              },
+            },
+            request: {
+              connect: {
+                id: (credReqData?.credentialRequest?.id as string) || undefined,
+              },
+            },
+            payload: credValues,
+            expiryDate: credValues.expiresAt,
+            issuerConsent: true,
+          },
+        },
+      })
+      if (res.data?.createOneCredential) {
+        const updateReq = await updateOneCredentialRequestMutation({
+          variables: {
+            data: {
+              status: { set: 'fulfilled' },
+            },
+            where: {
+              id: (credReqData?.credentialRequest?.id as string) || undefined,
+            },
+          },
+        })
+        if (updateReq.data) {
+          notifications.show({
+            title: 'Success!',
+            message: `You have successfully issued a credential of type <${credTypeData?.credentialType?.typename}> to the target user`,
+            icon: <IconCheck />,
+            color: 'violet',
+            autoClose: 5000,
+          })
+          router.push(`/dashboard/organizations/${orgId}/requests/pending`)
+        } else {
+          notifications.show({
+            title: 'Request update filled',
+            message:
+              'Something went wrong while trying to update the credential request',
+            icon: <IconBulb />,
+            color: 'yellow',
+            autoClose: 5000,
+          })
+          router.push(`/dashboard/organizations/${orgId}/requests/pending`)
+        }
+      }
+    } catch (error) {
+      notifications.show({
+        title: 'Credential issuance failed!',
+        message:
+          'Something went wrong while trying to request issue this credential!',
+        icon: <IconAlertCircle />,
+        color: 'red',
+        autoClose: 5000,
+      })
+    }
+  }
 
   return (
     <DashboardLayout>
@@ -457,6 +543,92 @@ const OrgCredentialRequestHandle = ({ children }: { children: ReactNode }) => {
             </Grid.Col>
           )}
         </Grid>
+        {orgData &&
+          credReqData &&
+          userData &&
+          credTypeData &&
+          orgData?.organization?.allowedCredentialTypesIds.includes(
+            credTypeData.credentialType!.id
+          ) && (
+            <>
+              <Divider variant='dashed' my={24} />
+              <Flex
+                sx={{
+                  flexDirection: 'column',
+                  width: '100%',
+                  gap: 24,
+                }}
+              >
+                <Grid gutter={32}>
+                  {credTypeData.credentialType?.attributes.map((attr) => (
+                    <Grid.Col span={4} key={attr.name}>
+                      {attr.inputType === 'text' ? (
+                        <TextInput
+                          label={attr.label}
+                          name={attr.name}
+                          placeholder={`Enter ${attr.label.toLowerCase()} here`}
+                          description={`This field is reserved for ${attr.label.toLowerCase()}`}
+                          onChange={(e) => {
+                            let val = e.target.value
+                            let newValues = credValues
+                            newValues[attr.name] = val
+                            setCredValues({ ...newValues })
+                          }}
+                          required
+                        />
+                      ) : attr.inputType === 'date' ? (
+                        <DateInput
+                          label={attr.label}
+                          name={attr.name}
+                          placeholder={`Enter ${attr.label.toLowerCase()} here`}
+                          description={`This field is reserved for ${attr.label.toLowerCase()}`}
+                          onChange={(value) => {
+                            let newValues = credValues
+                            newValues[attr.name] = value
+                            setCredValues({ ...newValues })
+                          }}
+                          required
+                        />
+                      ) : (
+                        <TextInput
+                          label={attr.label}
+                          name={attr.name}
+                          placeholder={`Enter ${attr.label.toLowerCase()} here`}
+                          description={`This field is reserved for ${attr.label.toLowerCase()}`}
+                          onChange={(e) => {
+                            let val = e.target.value
+                            let newValues = credValues
+                            newValues[attr.name] = val
+                            setCredValues({ ...newValues })
+                          }}
+                          required
+                        />
+                      )}
+                    </Grid.Col>
+                  ))}
+                </Grid>
+                <Divider variant='dashed' />
+                <Box sx={{ maxWidth: 420 }}>
+                  <Stack spacing={12}>
+                    <Text color='gray.6' size='sm'>
+                      When you are done verifying the data you entered, press on
+                      the confirm issue credential button to continue
+                    </Text>
+                    <Box>
+                      <Button
+                        rightIcon={<IconCheck size={18} />}
+                        variant='light'
+                        onClick={handleIssueCredential}
+                        loading={loading}
+                      >
+                        Confirm credential issuance
+                      </Button>
+                    </Box>
+                  </Stack>
+                </Box>
+              </Flex>
+            </>
+          )}
       </Box>
     </DashboardLayout>
   )

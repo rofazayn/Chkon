@@ -5883,6 +5883,13 @@ export type CreateOneCredentialRequestMutationVariables = Exact<{
 
 export type CreateOneCredentialRequestMutation = { __typename?: 'Mutation', createOneCredentialRequest: { __typename?: 'CredentialRequest', id: string, userId: string, issuerId: string, status: string, createdAt: any, updatedAt: any, credentialType: { __typename?: 'CredentialType', id: string, name: string, typename: string, attributes: Array<any>, createdAt?: any | null, updatedAt?: any | null } } };
 
+export type CreateOneCredentialMutationVariables = Exact<{
+  data: CredentialCreateInput;
+}>;
+
+
+export type CreateOneCredentialMutation = { __typename?: 'Mutation', createOneCredential: { __typename?: 'Credential', id: string, typeId: string, payload: any, required: Array<string>, issuerConsent: boolean, holderConsent: boolean, userId: string, issuerId: string, requestId?: string | null, expiryDate: any, createdAt: any, updatedAt: any } };
+
 export type CreateOneOrganizationMutationVariables = Exact<{
   data: OrganizationCreateInput;
 }>;
@@ -5907,6 +5914,14 @@ export type RegisterMutationVariables = Exact<{
 
 
 export type RegisterMutation = { __typename?: 'Mutation', register: { __typename?: 'AuthResponse', accessToken?: string | null, refreshToken?: string | null } };
+
+export type UpdateOneCredentialRequestMutationVariables = Exact<{
+  data: CredentialRequestUpdateInput;
+  where: CredentialRequestWhereUniqueInput;
+}>;
+
+
+export type UpdateOneCredentialRequestMutation = { __typename?: 'Mutation', updateOneCredentialRequest?: { __typename?: 'CredentialRequest', id: string, userId: string, issuerId: string, credentialTypeId: string, status: string, createdAt: any, updatedAt: any } | null };
 
 export type UpdateOneOrganizationMutationVariables = Exact<{
   data: OrganizationUpdateInput;
@@ -6047,6 +6062,50 @@ export function useCreateOneCredentialRequestMutation(baseOptions?: Apollo.Mutat
 export type CreateOneCredentialRequestMutationHookResult = ReturnType<typeof useCreateOneCredentialRequestMutation>;
 export type CreateOneCredentialRequestMutationResult = Apollo.MutationResult<CreateOneCredentialRequestMutation>;
 export type CreateOneCredentialRequestMutationOptions = Apollo.BaseMutationOptions<CreateOneCredentialRequestMutation, CreateOneCredentialRequestMutationVariables>;
+export const CreateOneCredentialDocument = gql`
+    mutation CreateOneCredential($data: CredentialCreateInput!) {
+  createOneCredential(data: $data) {
+    id
+    typeId
+    payload
+    required
+    issuerConsent
+    holderConsent
+    userId
+    issuerId
+    requestId
+    expiryDate
+    createdAt
+    updatedAt
+  }
+}
+    `;
+export type CreateOneCredentialMutationFn = Apollo.MutationFunction<CreateOneCredentialMutation, CreateOneCredentialMutationVariables>;
+
+/**
+ * __useCreateOneCredentialMutation__
+ *
+ * To run a mutation, you first call `useCreateOneCredentialMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateOneCredentialMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createOneCredentialMutation, { data, loading, error }] = useCreateOneCredentialMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useCreateOneCredentialMutation(baseOptions?: Apollo.MutationHookOptions<CreateOneCredentialMutation, CreateOneCredentialMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateOneCredentialMutation, CreateOneCredentialMutationVariables>(CreateOneCredentialDocument, options);
+      }
+export type CreateOneCredentialMutationHookResult = ReturnType<typeof useCreateOneCredentialMutation>;
+export type CreateOneCredentialMutationResult = Apollo.MutationResult<CreateOneCredentialMutation>;
+export type CreateOneCredentialMutationOptions = Apollo.BaseMutationOptions<CreateOneCredentialMutation, CreateOneCredentialMutationVariables>;
 export const CreateOneOrganizationDocument = gql`
     mutation CreateOneOrganization($data: OrganizationCreateInput!) {
   createOneOrganization(data: $data) {
@@ -6158,6 +6217,46 @@ export function useRegisterMutation(baseOptions?: Apollo.MutationHookOptions<Reg
 export type RegisterMutationHookResult = ReturnType<typeof useRegisterMutation>;
 export type RegisterMutationResult = Apollo.MutationResult<RegisterMutation>;
 export type RegisterMutationOptions = Apollo.BaseMutationOptions<RegisterMutation, RegisterMutationVariables>;
+export const UpdateOneCredentialRequestDocument = gql`
+    mutation UpdateOneCredentialRequest($data: CredentialRequestUpdateInput!, $where: CredentialRequestWhereUniqueInput!) {
+  updateOneCredentialRequest(data: $data, where: $where) {
+    id
+    userId
+    issuerId
+    credentialTypeId
+    status
+    createdAt
+    updatedAt
+  }
+}
+    `;
+export type UpdateOneCredentialRequestMutationFn = Apollo.MutationFunction<UpdateOneCredentialRequestMutation, UpdateOneCredentialRequestMutationVariables>;
+
+/**
+ * __useUpdateOneCredentialRequestMutation__
+ *
+ * To run a mutation, you first call `useUpdateOneCredentialRequestMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateOneCredentialRequestMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateOneCredentialRequestMutation, { data, loading, error }] = useUpdateOneCredentialRequestMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useUpdateOneCredentialRequestMutation(baseOptions?: Apollo.MutationHookOptions<UpdateOneCredentialRequestMutation, UpdateOneCredentialRequestMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateOneCredentialRequestMutation, UpdateOneCredentialRequestMutationVariables>(UpdateOneCredentialRequestDocument, options);
+      }
+export type UpdateOneCredentialRequestMutationHookResult = ReturnType<typeof useUpdateOneCredentialRequestMutation>;
+export type UpdateOneCredentialRequestMutationResult = Apollo.MutationResult<UpdateOneCredentialRequestMutation>;
+export type UpdateOneCredentialRequestMutationOptions = Apollo.BaseMutationOptions<UpdateOneCredentialRequestMutation, UpdateOneCredentialRequestMutationVariables>;
 export const UpdateOneOrganizationDocument = gql`
     mutation UpdateOneOrganization($data: OrganizationUpdateInput!, $where: OrganizationWhereUniqueInput!) {
   updateOneOrganization(data: $data, where: $where) {
