@@ -14,7 +14,7 @@ const data = [
   {
     link: '/dashboard',
     label: 'Home',
-    labelExtended: 'Dashboard Home',
+    labelExtended: 'Dashboard home',
     icon: IconHome,
   },
   {
@@ -23,25 +23,21 @@ const data = [
     labelExtended: 'Browse verified issuers',
     icon: IconBuildingArch,
   },
-  {
-    link: '/dashboard/presentations',
-    label: 'presentations',
-    labelExtended: 'Verifiable Presentations',
-    icon: IconIdBadge,
-  },
+  // {
+  //   link: '/dashboard/presentations',
+  //   label: 'presentations',
+  //   labelExtended: 'Verifiable Presentations',
+  //   icon: IconIdBadge,
+  // },
   {
     link: '/dashboard/credentials',
     label: 'credentials',
-    labelExtended: 'Verifiable Credentials',
+    labelExtended: 'My verifiable credentials',
     icon: IconIdBadge2,
   },
 ]
 
-export function DashboardLinks({
-  withSettings = false,
-}: {
-  withSettings?: boolean
-}) {
+export function DashboardLinks() {
   const { user } = useUser()
   return (
     <Box>
@@ -57,18 +53,6 @@ export function DashboardLinks({
               icon: IconSeeding,
             }}
           />
-        )}
-        {withSettings && (
-          <>
-            <NavLink
-              item={{
-                link: '/dashboard/settings',
-                label: 'Settings',
-                labelExtended: 'Account Settings',
-                icon: IconSettings,
-              }}
-            />
-          </>
         )}
       </Stack>
     </Box>

@@ -6,6 +6,7 @@ import {
   Flex,
   Grid,
   Group,
+  Loader,
   Text,
   useMantineTheme,
 } from '@mantine/core'
@@ -26,7 +27,10 @@ const OrgSettingsHome = ({ children }: { children: ReactNode }) => {
   const theme = useMantineTheme()
   const { orgId } = router.query
 
-  const credentialTypesQuery = useCredentialTypesQuery()
+  const credentialTypesQuery = useCredentialTypesQuery({
+    fetchPolicy: 'network-only',
+    pollInterval: 5000,
+  })
   const {
     data: credTypesData,
     loading: credTypesLoading,
@@ -72,8 +76,14 @@ const OrgSettingsHome = ({ children }: { children: ReactNode }) => {
       </Flex>
       <Divider variant='dashed' my={16} />
       <Box sx={{ width: '100%' }}>
-        {credTypesData?.credentialTypes &&
-        credTypesData?.credentialTypes.length > 0 ? (
+        {credTypesLoading ? (
+          <Loader size='sm' />
+        ) : credTypesError ? (
+          <Alert color='red'>
+            Something went wrong trying to fetch the credential types
+          </Alert>
+        ) : credTypesData?.credentialTypes &&
+          credTypesData?.credentialTypes.length > 0 ? (
           <Grid>
             {credTypesData?.credentialTypes.map((credType): any => (
               <Grid.Col span={3} key={credType.id}>

@@ -14,7 +14,7 @@ query Organization($where: OrganizationWhereUniqueInput!) {
       createdAt
       updatedAt
     }
-
+    allowedCredentialTypesIds
     createdAt
     updatedAt
   }

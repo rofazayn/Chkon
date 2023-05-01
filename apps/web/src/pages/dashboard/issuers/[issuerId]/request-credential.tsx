@@ -135,18 +135,24 @@ const IssuerCredentialRequestPage = () => {
             orgData.organization?.allowedCredentialTypes &&
             orgData.organization.allowedCredentialTypes.length > 0 ? (
             <>
-              <Select
-                variant='filled'
-                label='Credential type'
-                placeholder='Please pick one of the available credential types'
-                data={orgData.organization.allowedCredentialTypes.map(
-                  (cred): any => ({ label: cred.name, value: cred.id })
-                )}
-                searchable
-                maxDropdownHeight={400}
-                nothingFound='Search returned nothing'
-                onChange={(value) => setSelectedCredentialTypeId(value)}
-              />
+              <Box sx={{ maxWidth: 520 }}>
+                <Select
+                  variant='filled'
+                  label='Credential type'
+                  placeholder='Please pick one of the available credential types'
+                  data={orgData.organization.allowedCredentialTypes.map(
+                    (cred): any => ({
+                      label: `${cred.name} <${cred.typename}>`,
+                      value: cred.id,
+                    })
+                  )}
+                  searchable
+                  maxDropdownHeight={400}
+                  nothingFound='Search returned nothing'
+                  description='Each credential type provides certain data about you'
+                  onChange={(value) => setSelectedCredentialTypeId(value)}
+                />
+              </Box>
               <Box mt={12}>
                 <Button
                   onClick={handleRequestCredential}

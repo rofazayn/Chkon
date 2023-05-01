@@ -8,6 +8,8 @@ import { useProfileQuery } from '../generated/graphql'
 import { setRefreshToken } from '../utils/jwt-operations'
 import { useRouter } from 'next/router'
 import useUser from '../hooks/useUser'
+import { refreshStatusVar } from '../configs/apollo-client'
+import { useReactiveVar } from '@apollo/client'
 
 export const AuthContext = createContext({} as any)
 export const AuthProvider = ({ children }: any) => {
@@ -19,6 +21,7 @@ export const AuthProvider = ({ children }: any) => {
   const [isCheckingAuth, setIsCheckingAuth] = useState<boolean>(true)
   const [lastRequestedURL, setLastRequestedURL] = useState<string | null>(null)
   const { user } = useUser()
+  const refreshStatus = useReactiveVar(refreshStatusVar)
 
   useEffect(() => {
     if (
@@ -59,6 +62,10 @@ export const AuthProvider = ({ children }: any) => {
         try {
           const user = await profileQuery.refetch()
 
+          if (refreshStatus === 'error') {
+            logout()
+          }
+
           if (user) {
             setTimeout(() => {
               setIsAuthenticated(true)
@@ -78,7 +85,7 @@ export const AuthProvider = ({ children }: any) => {
     }
 
     checkAuth()
-  }, [profileQuery])
+  }, [profileQuery, refreshStatus])
 
   return (
     <AuthContext.Provider

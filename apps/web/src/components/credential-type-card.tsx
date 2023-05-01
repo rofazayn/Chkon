@@ -15,7 +15,6 @@ import {
   IconPlus,
   IconWorld,
 } from '@tabler/icons-react'
-import { useRouter } from 'next/router'
 import {
   useOrganizationQuery,
   useUpdateOneOrganizationMutation,
@@ -26,7 +25,7 @@ const CredentialTypeCard = ({ credType, orgId }: any) => {
   const theme = useMantineTheme()
   const { colors } = theme
   const { bgColor } = useUI()
-  const router = useRouter()
+
   const organizationQuery = useOrganizationQuery({
     variables: { where: { id: (orgId as string) || undefined } },
   })
@@ -111,7 +110,6 @@ const CredentialTypeCard = ({ credType, orgId }: any) => {
           {!credType.allowedOrganizationsIds.includes(orgId) ? (
             <Button
               variant='light'
-              color='indigo'
               size='xs'
               rightIcon={<IconPlus size={16} />}
               onClick={handleRequestCredentialType}
