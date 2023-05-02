@@ -5984,6 +5984,18 @@ export type CredentialTypesQueryVariables = Exact<{
 
 export type CredentialTypesQuery = { __typename?: 'Query', credentialTypes: Array<{ __typename?: 'CredentialType', id: string, name: string, typename: string, attributes: Array<any>, createdAt?: any | null, updatedAt?: any | null, allowedOrganizationsIds: Array<string> }> };
 
+export type CredentialsQueryVariables = Exact<{
+  where?: InputMaybe<CredentialWhereInput>;
+  orderBy?: InputMaybe<Array<CredentialOrderByWithRelationInput> | CredentialOrderByWithRelationInput>;
+  cursor?: InputMaybe<CredentialWhereUniqueInput>;
+  take?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  distinct?: InputMaybe<Array<CredentialScalarFieldEnum> | CredentialScalarFieldEnum>;
+}>;
+
+
+export type CredentialsQuery = { __typename?: 'Query', credentials: Array<{ __typename?: 'Credential', id: string, typeId: string, payload: any, required: Array<string>, issuerConsent: boolean, holderConsent: boolean, userId: string, issuerId: string, requestId?: string | null, expiryDate: any, createdAt: any, updatedAt: any, type: { __typename?: 'CredentialType', id: string, name: string, typename: string, attributes: Array<any>, createdAt?: any | null, updatedAt?: any | null, allowedOrganizationsIds: Array<string> }, issuer: { __typename?: 'Organization', id: string, name: string, description?: string | null, logoUrl?: string | null, status: string, allowedCredentialTypesIds: Array<string>, usersWhoTrustIds: Array<string>, createdAt?: any | null, updatedAt?: any | null }, user: { __typename?: 'User', id: string, username: string, phoneNumber?: string | null, email: string, name: string, logoUrl?: string | null, verified: boolean, trustedOrganizationsIds: Array<string>, createdAt?: any | null, updatedAt?: any | null } }> };
+
 export type OrganizationQueryVariables = Exact<{
   where: OrganizationWhereUniqueInput;
 }>;
@@ -6592,6 +6604,96 @@ export function useCredentialTypesLazyQuery(baseOptions?: Apollo.LazyQueryHookOp
 export type CredentialTypesQueryHookResult = ReturnType<typeof useCredentialTypesQuery>;
 export type CredentialTypesLazyQueryHookResult = ReturnType<typeof useCredentialTypesLazyQuery>;
 export type CredentialTypesQueryResult = Apollo.QueryResult<CredentialTypesQuery, CredentialTypesQueryVariables>;
+export const CredentialsDocument = gql`
+    query Credentials($where: CredentialWhereInput, $orderBy: [CredentialOrderByWithRelationInput!], $cursor: CredentialWhereUniqueInput, $take: Int, $skip: Int, $distinct: [CredentialScalarFieldEnum!]) {
+  credentials(
+    where: $where
+    orderBy: $orderBy
+    cursor: $cursor
+    take: $take
+    skip: $skip
+    distinct: $distinct
+  ) {
+    id
+    typeId
+    payload
+    required
+    issuerConsent
+    holderConsent
+    userId
+    issuerId
+    requestId
+    expiryDate
+    type {
+      id
+      name
+      typename
+      attributes
+      createdAt
+      updatedAt
+      allowedOrganizationsIds
+    }
+    issuer {
+      id
+      name
+      description
+      logoUrl
+      status
+      allowedCredentialTypesIds
+      usersWhoTrustIds
+      createdAt
+      updatedAt
+    }
+    user {
+      id
+      username
+      phoneNumber
+      email
+      name
+      logoUrl
+      verified
+      trustedOrganizationsIds
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}
+    `;
+
+/**
+ * __useCredentialsQuery__
+ *
+ * To run a query within a React component, call `useCredentialsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCredentialsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCredentialsQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *      orderBy: // value for 'orderBy'
+ *      cursor: // value for 'cursor'
+ *      take: // value for 'take'
+ *      skip: // value for 'skip'
+ *      distinct: // value for 'distinct'
+ *   },
+ * });
+ */
+export function useCredentialsQuery(baseOptions?: Apollo.QueryHookOptions<CredentialsQuery, CredentialsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<CredentialsQuery, CredentialsQueryVariables>(CredentialsDocument, options);
+      }
+export function useCredentialsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<CredentialsQuery, CredentialsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<CredentialsQuery, CredentialsQueryVariables>(CredentialsDocument, options);
+        }
+export type CredentialsQueryHookResult = ReturnType<typeof useCredentialsQuery>;
+export type CredentialsLazyQueryHookResult = ReturnType<typeof useCredentialsLazyQuery>;
+export type CredentialsQueryResult = Apollo.QueryResult<CredentialsQuery, CredentialsQueryVariables>;
 export const OrganizationDocument = gql`
     query Organization($where: OrganizationWhereUniqueInput!) {
   organization(where: $where) {
