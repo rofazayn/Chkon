@@ -100,6 +100,7 @@ const OrgCredentialRequestHandle = ({ children }: { children: ReactNode }) => {
 
   async function handleIssueCredential() {
     try {
+      setLoading(true)
       const res = await createOneCredentialMutation({
         variables: {
           data: {
@@ -139,6 +140,7 @@ const OrgCredentialRequestHandle = ({ children }: { children: ReactNode }) => {
           },
         })
         if (updateReq.data) {
+          setLoading(false)
           notifications.show({
             title: 'Success!',
             message: `You have successfully issued a credential of type <${credTypeData?.credentialType?.typename}> to the target user`,
@@ -146,8 +148,10 @@ const OrgCredentialRequestHandle = ({ children }: { children: ReactNode }) => {
             color: 'violet',
             autoClose: 5000,
           })
+
           router.push(`/dashboard/organizations/${orgId}/requests/pending`)
         } else {
+          setLoading(false)
           notifications.show({
             title: 'Request update filled',
             message:
