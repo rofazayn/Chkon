@@ -578,6 +578,7 @@ const OrgCredentialRequestHandle = ({ children }: { children: ReactNode }) => {
                             newValues[attr.name] = val
                             setCredValues({ ...newValues })
                           }}
+                          variant='filled'
                           required
                         />
                       ) : attr.inputType === 'date' ? (
@@ -591,6 +592,7 @@ const OrgCredentialRequestHandle = ({ children }: { children: ReactNode }) => {
                             newValues[attr.name] = value
                             setCredValues({ ...newValues })
                           }}
+                          variant='filled'
                           required
                         />
                       ) : (
@@ -605,6 +607,7 @@ const OrgCredentialRequestHandle = ({ children }: { children: ReactNode }) => {
                             newValues[attr.name] = val
                             setCredValues({ ...newValues })
                           }}
+                          variant='filled'
                           required
                         />
                       )}

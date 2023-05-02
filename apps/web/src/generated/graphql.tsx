@@ -5994,7 +5994,7 @@ export type CredentialsQueryVariables = Exact<{
 }>;
 
 
-export type CredentialsQuery = { __typename?: 'Query', credentials: Array<{ __typename?: 'Credential', id: string, typeId: string, payload: any, required: Array<string>, issuerConsent: boolean, holderConsent: boolean, userId: string, issuerId: string, requestId?: string | null, expiryDate: any, createdAt: any, updatedAt: any }> };
+export type CredentialsQuery = { __typename?: 'Query', credentials: Array<{ __typename?: 'Credential', id: string, typeId: string, payload: any, required: Array<string>, issuerConsent: boolean, holderConsent: boolean, userId: string, issuerId: string, requestId?: string | null, expiryDate: any, createdAt: any, updatedAt: any, type: { __typename?: 'CredentialType', id: string, name: string, typename: string, attributes: Array<any>, createdAt?: any | null, updatedAt?: any | null, allowedOrganizationsIds: Array<string> }, issuer: { __typename?: 'Organization', id: string, name: string, description?: string | null, logoUrl?: string | null, status: string, allowedCredentialTypesIds: Array<string>, usersWhoTrustIds: Array<string>, createdAt?: any | null, updatedAt?: any | null }, user: { __typename?: 'User', id: string, username: string, phoneNumber?: string | null, email: string, name: string, logoUrl?: string | null, verified: boolean, trustedOrganizationsIds: Array<string>, createdAt?: any | null, updatedAt?: any | null } }> };
 
 export type OrganizationQueryVariables = Exact<{
   where: OrganizationWhereUniqueInput;
@@ -6624,6 +6624,38 @@ export const CredentialsDocument = gql`
     issuerId
     requestId
     expiryDate
+    type {
+      id
+      name
+      typename
+      attributes
+      createdAt
+      updatedAt
+      allowedOrganizationsIds
+    }
+    issuer {
+      id
+      name
+      description
+      logoUrl
+      status
+      allowedCredentialTypesIds
+      usersWhoTrustIds
+      createdAt
+      updatedAt
+    }
+    user {
+      id
+      username
+      phoneNumber
+      email
+      name
+      logoUrl
+      verified
+      trustedOrganizationsIds
+      createdAt
+      updatedAt
+    }
     createdAt
     updatedAt
   }
