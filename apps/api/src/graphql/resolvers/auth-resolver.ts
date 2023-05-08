@@ -95,7 +95,7 @@ class AuthResolver {
         }
       }
 
-      throw new ApolloError('registration_arror')
+      throw new ApolloError('registration_error')
     } catch {
       throw new ApolloError('server_error')
     }

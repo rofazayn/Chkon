@@ -37,6 +37,7 @@ const IssuerCredentialRequestPage = () => {
   >('')
   const organizationQuery = useOrganizationQuery({
     variables: { where: { id: (issuerId as string) || undefined } },
+    fetchPolicy: 'network-only',
   })
   const {
     data: orgData,

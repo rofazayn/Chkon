@@ -7,6 +7,8 @@ import { useOrganizationsQuery } from '../../../generated/graphql'
 const IssuersHome = () => {
   const orgsQuery = useOrganizationsQuery({
     variables: { take: 20, where: { status: { equals: 'verified' } } },
+    fetchPolicy: 'network-only',
+    pollInterval: 10000,
   })
   console.log(orgsQuery.data?.organizations)
   return (

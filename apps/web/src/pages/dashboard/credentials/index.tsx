@@ -6,19 +6,26 @@ import {
   Divider,
   Flex,
   Grid,
+  Group,
   Loader,
   Text,
   TextInput,
+  useMantineTheme,
 } from '@mantine/core'
-import { IconSearch, IconSeeding } from '@tabler/icons-react'
+import { IconCheck, IconSearch, IconSeeding } from '@tabler/icons-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import DashboardLayout from '../../../components/_layouts/dashboard-layout'
-import { useCredentialsQuery } from '../../../generated/graphql'
+import {
+  useCredentialsQuery,
+  useUpdateOneCredentialMutation,
+} from '../../../generated/graphql'
 import useUI from '../../../hooks/useUI'
 import useUser from '../../../hooks/useUser'
+import { notifications } from '@mantine/notifications'
 
 const VerifiableCredentialsHome = () => {
+  const theme = useMantineTheme()
   const { user } = useUser()
   const consentedCredentialsQuery = useCredentialsQuery({
     variables: {
@@ -45,6 +52,40 @@ const VerifiableCredentialsHome = () => {
   })
 
   const { bgColor } = useUI()
+  const [updateOneCredentialMutation, { loading }] =
+    useUpdateOneCredentialMutation()
+  const handleConsent = async (credId: string | null) => {
+    try {
+      if (!credId) return
+      const res = await updateOneCredentialMutation({
+        variables: {
+          data: {
+            holderConsent: { set: true },
+          },
+          where: { id: credId || undefined },
+        },
+      })
+      if (res.data?.updateOneCredential?.holderConsent) {
+        notifications.show({
+          title: 'Success!',
+          message: `You have successfully consented to this credential`,
+          icon: <IconCheck />,
+          color: 'violet',
+          autoClose: 5000,
+        })
+        await consentedCredentialsQuery.refetch()
+        await unconsentedCredentialsQuery.refetch()
+      }
+    } catch (error) {
+      notifications.show({
+        title: 'Consent failed!',
+        message: `Something went wrong while trying to update the credential`,
+        icon: <IconCheck />,
+        color: 'red',
+        autoClose: 5000,
+      })
+    }
+  }
 
   return (
     <DashboardLayout>
@@ -61,7 +102,7 @@ const VerifiableCredentialsHome = () => {
           >
             <Box sx={{ width: '100%' }}>
               <Text weight='bold' size='lg'>
-                {user?.name}&apos; credentials
+                {user?.name}&apos;s credentials
               </Text>
               <Text color='dimmed' mt={-3}>
                 Here are credentials that have been issued to you
@@ -135,7 +176,7 @@ const VerifiableCredentialsHome = () => {
                               <Box
                                 sx={{
                                   paddingInlineEnd: 6,
-                                  paddingBlockStart: 6,
+                                  // paddingBlockStart: 6,
                                 }}
                               >
                                 <Image
@@ -215,15 +256,35 @@ const VerifiableCredentialsHome = () => {
                                   <Text weight='500'>{cred.user.name}</Text>
                                 </Box>
                                 <Box>
-                                  <Text weight='500' size='xs' color='orange.5'>
-                                    Awaiting your consent
-                                  </Text>
+                                  <Group spacing={8}>
+                                    <Text
+                                      weight='500'
+                                      size='xs'
+                                      color='orange.5'
+                                      sx={{
+                                        transition: 'all ease-out 200ms',
+                                        cursor: 'pointer',
+                                        '&:hover': {
+                                          textDecoration: 'underline',
+                                          color: theme.colors.orange[7],
+                                        },
+                                      }}
+                                      onClick={() =>
+                                        handleConsent(cred.id || null)
+                                      }
+                                    >
+                                      Awaiting your consent{' '}
+                                    </Text>
+                                    {loading && (
+                                      <Loader size={16} color='orange' />
+                                    )}
+                                  </Group>
                                 </Box>
                               </Box>
                               <Box
                                 sx={{
                                   paddingInlineEnd: 6,
-                                  paddingBlockStart: 6,
+                                  // paddingBlockStart: 6,
                                 }}
                               >
                                 <Image
