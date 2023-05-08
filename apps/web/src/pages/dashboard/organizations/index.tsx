@@ -29,6 +29,8 @@ const OrganizationsHome = () => {
         memberships: { some: { user: { is: { id: { equals: user?.id } } } } },
       },
     },
+    pollInterval: 10000,
+    fetchPolicy: 'network-only',
   })
   return (
     <DashboardLayout>
