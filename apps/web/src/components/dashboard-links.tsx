@@ -42,7 +42,7 @@ export function DashboardLinks() {
   return (
     <Box>
       <Stack spacing={4}>
-        {user?.verified ? (
+        {user?.status === 'verified' ? (
           data.map((item: any, id) => <NavLink item={item} key={id} />)
         ) : (
           <NavLink

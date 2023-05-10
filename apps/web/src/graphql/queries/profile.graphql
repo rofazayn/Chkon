@@ -3,10 +3,11 @@ query Profile {
     id
     username
     phoneNumber
+    did
     email
     name
     logoUrl
-    verified
+    status
     createdAt
     updatedAt
   }

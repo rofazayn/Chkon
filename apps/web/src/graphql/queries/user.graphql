@@ -2,11 +2,12 @@ query User($where: UserWhereUniqueInput!) {
   user(where: $where) {
     id
     username
+    did
     phoneNumber
     email
     name
     logoUrl
-    verified
+    status
     trustedOrganizationsIds
     createdAt
     updatedAt

@@ -2,8 +2,10 @@ import {
   ActionIcon,
   Anchor,
   Avatar,
+  Badge,
   Box,
   Breadcrumbs,
+  Divider,
   Flex,
   Group,
   Indicator,
@@ -105,7 +107,18 @@ const Topbar = () => {
         ) : null}
       </Box>
       <Box>
-        <Group spacing={2}>
+        <Group spacing={2} align='center'>
+          {user?.did && (
+            <>
+              <Badge color='green' variant='dot' size='lg'>
+                {user.did}
+              </Badge>
+
+              <Box>
+                <Divider orientation='vertical' mx={16} sx={{ height: 24 }} />
+              </Box>
+            </>
+          )}
           <ActionIcon
             variant='subtle'
             size='lg'
@@ -122,7 +135,7 @@ const Topbar = () => {
           </ActionIcon>
           <Indicator
             position='bottom-end'
-            color={user?.verified ? 'green' : 'red'}
+            color={user?.status === 'verified' ? 'green' : 'orange'}
             withBorder
             size={16}
             offset={3}

@@ -3,6 +3,7 @@ query Organization($where: OrganizationWhereUniqueInput!) {
     id
     name
     description
+    did
     logoUrl
     status
     allowedCredentialTypes {

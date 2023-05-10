@@ -6,6 +6,7 @@ mutation UpdateOneOrganization(
     id
     name
     description
+    did
     logoUrl
     status
     allowedCredentialTypesIds
