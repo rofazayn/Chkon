@@ -16,42 +16,63 @@ import {
 } from '@tabler/icons-react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import DashboardLayout from '../../../components/_layouts/dashboard-layout'
-import { useUpdateOneUserMutation } from '../../../generated/graphql'
-import useUser from '../../../hooks/useUser'
+import DashboardLayout from '../../../../../components/_layouts/dashboard-layout'
+import {
+  useOrganizationQuery,
+  useUpdateOneOrganizationMutation,
+  useUpdateOneUserMutation,
+} from '../../../../../generated/graphql'
 
 const UserVerification = () => {
-  const { user } = useUser()
   const router = useRouter()
   const theme = useMantineTheme()
-  const [updateOneUserMutation, { loading }] = useUpdateOneUserMutation()
+  const [updateOneOrganizationMutation, { loading }] =
+    useUpdateOneOrganizationMutation()
+  const { orgId } = router.query
+
+  const {
+    data: orgData,
+    loading: orgLoading,
+    error: orgError,
+  } = useOrganizationQuery({
+    variables: { where: { id: orgId as string } },
+  })
 
   const handleVerifyUser = async () => {
     try {
-      const res = await updateOneUserMutation({
+      const res = await updateOneOrganizationMutation({
         variables: {
           data: {
             status: { set: 'verified' },
-            did: { set: `did:chkon:${user?.id}` },
+            did: { set: `did:chkon:${orgData?.organization?.id}` },
           },
           where: {
-            username: user?.username,
+            id: (orgData?.organization?.id as string) || undefined,
           },
         },
       })
 
-      if (res.data?.updateOneUser?.status === 'verified') {
+      if (res.data?.updateOneOrganization?.status === 'verified') {
         notifications.show({
           title: 'Congratulations!',
           message:
-            'Your identity was verified successfully, you can now use the application.',
+            'Your organization was verified successfully, you can now use the application.',
           icon: <IconCheck />,
           color: 'violet',
           autoClose: 5000,
         })
-        router.push('/dashboard')
+        router.push('/dashboard/organizations')
       }
-    } catch {}
+    } catch {
+      notifications.show({
+        title: 'Failure!',
+        message:
+          'Something went wrong while trying to verify your organization, please try again',
+        icon: <IconCheck />,
+        color: 'violet',
+        autoClose: 5000,
+      })
+    }
   }
   return (
     <DashboardLayout>
@@ -62,18 +83,18 @@ const UserVerification = () => {
         }}
       >
         <Text size='lg' weight='bold'>
-          Chkon account verification.
+          Chkon organization verification.
         </Text>
 
-        {user?.status === 'unverified' ? (
+        {orgData?.organization?.status !== 'verified' ? (
           <>
             <Text color='dimmed'>
-              Please verify your account by providing a scanned document of your
-              Passport/National-ID card
+              Please verify your organization by providing a scanned document(s)
+              that prove your authority.
             </Text>
             <FileInput
-              label='Identity Document'
-              placeholder='Upload your document here'
+              label='Proof Document(s)'
+              placeholder='Upload your document(s) here'
               icon={<IconUpload size={18} />}
               variant='filled'
               accept='.pdf,.png,.jpeg,.jpg'
@@ -85,7 +106,7 @@ const UserVerification = () => {
                 loading={loading}
                 variant='light'
               >
-                Verify my account
+                Verify the organization
               </Button>
             </Box>
           </>
@@ -94,7 +115,7 @@ const UserVerification = () => {
             <Group spacing={8}>
               <IconChecks color={theme.colors.green[5]} size={18} />
               <Text color='dimmed'>
-                Your account was successfully verified!
+                Your organization was successfully verified!
               </Text>
             </Group>
             <Group spacing={8}>

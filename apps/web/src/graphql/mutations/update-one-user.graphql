@@ -3,10 +3,11 @@ mutation UpdateOneUser($data: UserUpdateInput!, $where: UserWhereUniqueInput!) {
     id
     username
     phoneNumber
+    did
     email
     name
     logoUrl
-    verified
+    status
     createdAt
     updatedAt
   }

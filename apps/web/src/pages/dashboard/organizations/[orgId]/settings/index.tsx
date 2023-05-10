@@ -3,6 +3,7 @@ import {
   Badge,
   Box,
   Button,
+  Center,
   Divider,
   Flex,
   Group,
@@ -10,8 +11,10 @@ import {
   useMantineTheme,
 } from '@mantine/core'
 import {
+  IconAlertHexagon,
   IconArrowBack,
   IconBadge3d,
+  IconCheck,
   IconIdBadge,
   IconIdBadge2,
   IconInfoCircle,
@@ -77,6 +80,58 @@ const OrgSettingsHome = ({ children }: { children: ReactNode }) => {
           </Button>
         </Box>
       </Flex>
+      <Divider variant='dashed' my={16} />
+      <Box>
+        <Group spacing={8} align='center'>
+          <Text weight='bold' size='md'>
+            Organization verification status
+          </Text>
+          {orgData?.organization?.status === 'verified' ? (
+            <Badge
+              color='green'
+              size='md'
+              leftSection={
+                <Center>
+                  <IconCheck size={14} />
+                </Center>
+              }
+            >
+              Verified
+            </Badge>
+          ) : (
+            <Badge
+              color='red'
+              size='md'
+              leftSection={
+                <Center>
+                  <IconAlertHexagon size={14} />
+                </Center>
+              }
+            >
+              Not verified
+            </Badge>
+          )}
+        </Group>
+        {orgData?.organization?.status !== 'verified' && (
+          <Group spacing={8} mt={8}>
+            <Text size='sm'>
+              It seems that your organization is not yet vefrified
+            </Text>
+            <Button
+              size='xs'
+              color='violet'
+              variant='light'
+              rightIcon={<IconCheck size={18} />}
+              component={Link}
+              href={`/dashboard/organizations/${
+                orgId as string
+              }/settings/verification`}
+            >
+              Verify now
+            </Button>
+          </Group>
+        )}
+      </Box>
       <Divider variant='dashed' my={16} />
       <Box>
         <Group spacing={8} align='center'>

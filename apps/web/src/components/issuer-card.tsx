@@ -1,4 +1,5 @@
 import {
+  Badge,
   Box,
   Button,
   Flex,
@@ -23,7 +24,7 @@ const IssuerCard = ({ org }: any) => {
         backgroundColor: bgColor,
         padding: 16,
         borderRadius: 12,
-        height: 180,
+        minHeight: 180,
         flexDirection: 'column',
         justifyContent: 'space-between',
       }}
@@ -32,7 +33,6 @@ const IssuerCard = ({ org }: any) => {
         spacing={4}
         sx={{
           maxHeight: 100,
-          overflow: 'hidden',
         }}
       >
         <Flex
@@ -58,6 +58,13 @@ const IssuerCard = ({ org }: any) => {
           </Box>
         </Flex>
         {org.description && <Text size='sm'>{org.description}</Text>}
+        {org.did && (
+          <Box mb={8}>
+            <Badge color='green' variant='dot'>
+              {org.did}
+            </Badge>
+          </Box>
+        )}
       </Stack>
       <Box mt={12}>
         <Group spacing={8}>

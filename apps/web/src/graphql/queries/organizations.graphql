@@ -17,6 +17,7 @@ query Organizations(
     id
     name
     description
+    did
     logoUrl
     status
     createdAt

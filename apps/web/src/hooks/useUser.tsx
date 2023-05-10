@@ -22,7 +22,11 @@ const useUser = () => {
   const user = profileQuery?.data?.profile
 
   useEffect(() => {
-    if (user && !user.verified && router.pathname.startsWith('/dashboard')) {
+    if (
+      user &&
+      user.status !== 'verified' &&
+      router.pathname.startsWith('/dashboard')
+    ) {
       router.push('/dashboard/verification')
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

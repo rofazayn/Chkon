@@ -2,6 +2,7 @@ mutation CreateOneOrganization($data: OrganizationCreateInput!) {
   createOneOrganization(data: $data) {
     id
     name
+    did
     description
     logoUrl
     status
