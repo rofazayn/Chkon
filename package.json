@@ -12,7 +12,8 @@
       "packages/*"
     ],
     "nohoist": [
-      "**/mobile/**"
+      "**/mobile/**",
+      "**/prisma-erd-generator/**"
     ]
   },
   "scripts": {

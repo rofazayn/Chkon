@@ -110,12 +110,12 @@ const Topbar = () => {
         <Group spacing={2} align='center'>
           {user?.did && (
             <>
-              <Badge color='green' variant='dot' size='lg'>
+              <Badge color='green' variant='dot' size={'md'}>
                 {user.did}
               </Badge>
 
               <Box>
-                <Divider orientation='vertical' mx={16} sx={{ height: 24 }} />
+                <Divider orientation='vertical' mx={16} sx={{ height: 20 }} />
               </Box>
             </>
           )}

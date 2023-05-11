@@ -39,42 +39,42 @@ async function main() {
           },
         ],
       },
-      {
-        name: 'Teacher Card',
-        typename: 'TeacherCardV1',
-        attributes: [
-          {
-            name: 'firstName',
-            label: 'First name',
-            inputType: 'text',
-          },
-          {
-            name: 'lastName',
-            label: 'Last name',
-            inputType: 'text',
-          },
-          {
-            name: 'dob',
-            label: 'Date of birth',
-            inputType: 'date',
-          },
-          {
-            name: 'field',
-            label: 'Field of study',
-            inputType: 'text',
-          },
-          {
-            name: 'speciality',
-            label: 'Speciality of study',
-            inputType: 'text',
-          },
-          {
-            name: 'expiresAt',
-            label: 'Expiration date',
-            inputType: 'date',
-          },
-        ],
-      },
+      // {
+      //   name: 'Teacher Card',
+      //   typename: 'TeacherCardV1',
+      //   attributes: [
+      //     {
+      //       name: 'firstName',
+      //       label: 'First name',
+      //       inputType: 'text',
+      //     },
+      //     {
+      //       name: 'lastName',
+      //       label: 'Last name',
+      //       inputType: 'text',
+      //     },
+      //     {
+      //       name: 'dob',
+      //       label: 'Date of birth',
+      //       inputType: 'date',
+      //     },
+      //     {
+      //       name: 'field',
+      //       label: 'Field of teaching',
+      //       inputType: 'text',
+      //     },
+      //     {
+      //       name: 'speciality',
+      //       label: 'Speciality of teaching',
+      //       inputType: 'text',
+      //     },
+      //     {
+      //       name: 'expiresAt',
+      //       label: 'Expiration date',
+      //       inputType: 'date',
+      //     },
+      //   ],
+      // },
     ],
   })
 

@@ -20,7 +20,6 @@ import DashboardLayout from '../../../../../components/_layouts/dashboard-layout
 import {
   useOrganizationQuery,
   useUpdateOneOrganizationMutation,
-  useUpdateOneUserMutation,
 } from '../../../../../generated/graphql'
 
 const UserVerification = () => {
