@@ -6,22 +6,23 @@ import {
   Box,
   Breadcrumbs,
   Divider,
-  Flex,
   Group,
   Indicator,
+  Text,
   useMantineColorScheme,
   useMantineTheme,
 } from '@mantine/core'
 import {
+  IconAnchor,
   IconAntenna,
   IconBell,
-  IconCheck,
   IconMoon,
   IconSun,
 } from '@tabler/icons-react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
+import useUI from '../hooks/useUI'
 import useUser from '../hooks/useUser'
 
 const Topbar = () => {
@@ -29,6 +30,7 @@ const Topbar = () => {
   const { colorScheme, toggleColorScheme } = useMantineColorScheme()
   const router = useRouter()
   const { user } = useUser()
+  const { bgColor } = useUI()
 
   const [breadcrumbs, setBreadcrumbs] = useState<any>()
   const [items, setItems] = useState<any[]>([])
@@ -110,9 +112,21 @@ const Topbar = () => {
         <Group spacing={2} align='center'>
           {user?.did && (
             <>
-              <Badge color='green' variant='dot' size={'md'}>
-                {user.did}
-              </Badge>
+              <Box
+                sx={{
+                  backgroundColor: bgColor,
+                  paddingBlock: 6,
+                  paddingInline: 12,
+                  borderRadius: 6,
+                }}
+              >
+                <Group align='center' spacing={8}>
+                  <IconAnchor size={16} />
+                  <Text size='sm' weight='500'>
+                    {user.did}
+                  </Text>
+                </Group>
+              </Box>
 
               <Box>
                 <Divider orientation='vertical' mx={16} sx={{ height: 20 }} />
