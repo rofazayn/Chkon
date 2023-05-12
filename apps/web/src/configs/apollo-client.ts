@@ -111,7 +111,7 @@ const tokenRefreshLink = new TokenRefreshLink({
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${refreshToken}`,
+          'x-refresh-token': `Bearer ${refreshToken}`,
         },
         body: JSON.stringify({
           query: refreshMutation,
@@ -136,8 +136,6 @@ const tokenRefreshLink = new TokenRefreshLink({
     ) {
       setRefreshToken(response.data.refresh.refreshToken)
       setAccessToken(response.data.refresh.accessToken)
-    } else {
-      refreshStatusVar('error')
     }
     return { accessToken: response.data?.refresh?.accessToken }
   },

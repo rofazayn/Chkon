@@ -1,5 +1,5 @@
 import { ApolloError } from 'apollo-server-core'
-import { allow, and, rule, shield } from 'graphql-shield'
+import { allow, rule, shield } from 'graphql-shield'
 
 const isAuthenticated = rule()((parent, args, ctx, info) => {
   return !!ctx.user || new Error('you are not authenticated')

@@ -15,10 +15,10 @@ import { ReactNode } from 'react'
 import DashboardLayout from '../../../../../components/_layouts/dashboard-layout'
 import { useOrganizationQuery } from '../../../../../generated/graphql'
 import useUI from '../../../../../hooks/useUI'
-import useUser from '../../../../../hooks/useUser'
+import useAuth from '../../../../../hooks/useAuth'
 
 const OrgControlPanelHome = ({ children }: { children: ReactNode }) => {
-  const { user } = useUser()
+  const { user } = useAuth()
   const router = useRouter()
   const { bgColor } = useUI()
   const theme = useMantineTheme()

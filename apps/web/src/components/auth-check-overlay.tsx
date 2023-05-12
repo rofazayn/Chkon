@@ -1,12 +1,10 @@
 import { Box, Loader, Stack, Text, useMantineTheme } from '@mantine/core'
 import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
-import useAuth from '../hooks/useAuth'
 import AnimateWrapper from './animate-wrapper'
 
 const AuthCheckOverlay = () => {
   const theme = useMantineTheme()
-  const { isCheckingAuth } = useAuth()
 
   const [phase, setPhase] = useState<number>(0)
 
@@ -14,7 +12,7 @@ const AuthCheckOverlay = () => {
     if (phase === 0) {
       setTimeout(() => setPhase(1), 2000)
     }
-  }, [isCheckingAuth, phase])
+  }, [phase])
 
   const statusMessages = ['Performing checks...', 'Please be patient...']
 
@@ -22,7 +20,7 @@ const AuthCheckOverlay = () => {
     hidden: { opacity: 0.5 },
     visible: { opacity: 1 },
   }
-  return isCheckingAuth ? (
+  return (
     <AnimateWrapper>
       <Box
         sx={{
@@ -63,7 +61,7 @@ const AuthCheckOverlay = () => {
         </Stack>
       </Box>
     </AnimateWrapper>
-  ) : null
+  )
 }
 
 export default AuthCheckOverlay

@@ -29,11 +29,11 @@ import {
   useOrganizationQuery,
 } from '../../../../../generated/graphql'
 import useUI from '../../../../../hooks/useUI'
-import useUser from '../../../../../hooks/useUser'
+import useAuth from '../../../../../hooks/useAuth'
 import humanizeDate from '../../../../../utils/humanize-date'
 
 const OrgControlPanelHome = ({ children }: { children: ReactNode }) => {
-  const { user } = useUser()
+  const { user } = useAuth()
   const router = useRouter()
   const { bgColor } = useUI()
   const theme = useMantineTheme()

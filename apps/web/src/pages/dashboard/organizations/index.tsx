@@ -17,10 +17,10 @@ import Link from 'next/link'
 import DashboardLayout from '../../../components/_layouts/dashboard-layout'
 import OrganizationCard from '../../../components/organization-card'
 import { useOrganizationsQuery } from '../../../generated/graphql'
-import useUser from '../../../hooks/useUser'
+import useAuth from '../../../hooks/useAuth'
 
 const OrganizationsHome = () => {
-  const { user } = useUser()
+  const { user } = useAuth()
   const orgsQuery = useOrganizationsQuery({
     variables: {
       take: 20,

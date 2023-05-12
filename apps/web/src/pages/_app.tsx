@@ -51,51 +51,49 @@ export default function App(props: AppProps) {
 
       <ApolloProvider client={apolloClient}>
         <AuthProvider>
-          <UserProvider>
-            <OrganizationProvider>
-              <ColorSchemeProvider
-                colorScheme={colorScheme}
-                toggleColorScheme={toggleColorScheme}
-              >
-                <div dir={rtl ? 'rtl' : 'ltr'}>
-                  <MantineProvider
-                    withGlobalStyles
-                    withNormalizeCSS
-                    theme={{
-                      ...mantineTheme,
-                      colorScheme,
-                      dir: rtl ? 'rtl' : 'ltr',
-                    }}
-                    emotionCache={rtl ? rtlCache : emotionCache}
-                  >
-                    <UiProvider>
-                      <Notifications position='bottom-center' limit={3} />
-                      <Box
-                        sx={(theme) => ({
-                          display: 'flex',
-                          alignItems: 'stretch',
-                          justifyContent: 'stretch',
-                          flexDireciotn: 'column',
-                          minHeight: '100vh',
-                          width: '100%',
-                          maxWidth: '100%',
-                          backgroundColor:
-                            theme.colorScheme === 'dark'
-                              ? // ? theme.fn.darken(theme.colors.violet[9], 0.92)
-                                theme.fn.darken(theme.colors.dark[8], 0.4)
-                              : theme.fn.lighten(theme.colors.gray[1], 0.4),
-                        })}
-                      >
-                        <Box sx={{ width: '100%' }}>
-                          <Component {...pageProps} />
-                        </Box>
+          <OrganizationProvider>
+            <ColorSchemeProvider
+              colorScheme={colorScheme}
+              toggleColorScheme={toggleColorScheme}
+            >
+              <div dir={rtl ? 'rtl' : 'ltr'}>
+                <MantineProvider
+                  withGlobalStyles
+                  withNormalizeCSS
+                  theme={{
+                    ...mantineTheme,
+                    colorScheme,
+                    dir: rtl ? 'rtl' : 'ltr',
+                  }}
+                  emotionCache={rtl ? rtlCache : emotionCache}
+                >
+                  <UiProvider>
+                    <Notifications position='bottom-center' limit={3} />
+                    <Box
+                      sx={(theme) => ({
+                        display: 'flex',
+                        alignItems: 'stretch',
+                        justifyContent: 'stretch',
+                        flexDireciotn: 'column',
+                        minHeight: '100vh',
+                        width: '100%',
+                        maxWidth: '100%',
+                        backgroundColor:
+                          theme.colorScheme === 'dark'
+                            ? // ? theme.fn.darken(theme.colors.violet[9], 0.92)
+                              theme.fn.darken(theme.colors.dark[8], 0.4)
+                            : theme.fn.lighten(theme.colors.gray[1], 0.4),
+                      })}
+                    >
+                      <Box sx={{ width: '100%' }}>
+                        <Component {...pageProps} />
                       </Box>
-                    </UiProvider>
-                  </MantineProvider>
-                </div>
-              </ColorSchemeProvider>
-            </OrganizationProvider>
-          </UserProvider>
+                    </Box>
+                  </UiProvider>
+                </MantineProvider>
+              </div>
+            </ColorSchemeProvider>
+          </OrganizationProvider>
         </AuthProvider>
       </ApolloProvider>
     </>

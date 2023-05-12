@@ -2,7 +2,6 @@ import {
   ActionIcon,
   Anchor,
   Avatar,
-  Badge,
   Box,
   Breadcrumbs,
   Divider,
@@ -23,13 +22,13 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import useUI from '../hooks/useUI'
-import useUser from '../hooks/useUser'
+import useAuth from '../hooks/useAuth'
 
 const Topbar = () => {
   const theme = useMantineTheme()
   const { colorScheme, toggleColorScheme } = useMantineColorScheme()
   const router = useRouter()
-  const { user } = useUser()
+  const { user } = useAuth()
   const { bgColor } = useUI()
 
   const [breadcrumbs, setBreadcrumbs] = useState<any>()
@@ -121,8 +120,8 @@ const Topbar = () => {
                 }}
               >
                 <Group align='center' spacing={8}>
-                  <IconAnchor size={16} />
-                  <Text size='sm' weight='500'>
+                  <IconAnchor size={14} />
+                  <Text size='sm' weight='500' sx={{ fontFamily: 'monospace' }}>
                     {user.did}
                   </Text>
                 </Group>

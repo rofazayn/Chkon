@@ -1,11 +1,4 @@
-import {
-  Anchor,
-  Box,
-  Loader,
-  Stack,
-  Text,
-  useMantineTheme,
-} from '@mantine/core'
+import { Box, Loader, Stack, Text, useMantineTheme } from '@mantine/core'
 import { motion } from 'framer-motion'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'

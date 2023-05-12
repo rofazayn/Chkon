@@ -7,8 +7,8 @@ import {
   IconSeeding,
   IconSettings,
 } from '@tabler/icons-react'
-import useUser from '../hooks/useUser'
 import NavLink from './nav-link'
+import useAuth from '../hooks/useAuth'
 
 const data = [
   {
@@ -38,7 +38,7 @@ const data = [
 ]
 
 export function DashboardLinks() {
-  const { user } = useUser()
+  const { user } = useAuth()
   return (
     <Box>
       <Stack spacing={4}>

@@ -11,30 +11,29 @@ import {
   Group,
   Loader,
   Modal,
-  Stack,
   Text,
   TextInput,
   useMantineTheme,
 } from '@mantine/core'
+import { useDisclosure } from '@mantine/hooks'
+import { notifications } from '@mantine/notifications'
+import { Prism } from '@mantine/prism'
 import { IconCheck, IconSearch, IconSeeding, IconX } from '@tabler/icons-react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useEffect, useState } from 'react'
 import DashboardLayout from '../../../components/_layouts/dashboard-layout'
 import {
   useCredentialsQuery,
   useUpdateOneCredentialMutation,
 } from '../../../generated/graphql'
 import useUI from '../../../hooks/useUI'
-import useUser from '../../../hooks/useUser'
-import { notifications } from '@mantine/notifications'
-import { useEffect, useState } from 'react'
-import { useDisclosure } from '@mantine/hooks'
-import { Prism } from '@mantine/prism'
+import useAuth from '../../../hooks/useAuth'
 import humanizeDate from '../../../utils/humanize-date'
 
 const VerifiableCredentialsHome = () => {
   const theme = useMantineTheme()
-  const { user } = useUser()
+  const { user } = useAuth()
   const consentedCredentialsQuery = useCredentialsQuery({
     variables: {
       where: {
@@ -178,6 +177,7 @@ const VerifiableCredentialsHome = () => {
                     </Text>
                     <Text
                       size='md'
+                      weight='500'
                       color={
                         selectedCredential?.holderConsent
                           ? 'green.5'
@@ -217,6 +217,7 @@ const VerifiableCredentialsHome = () => {
                     </Text>
                     <Text
                       size='md'
+                      weight='500'
                       color={
                         selectedCredential?.issuerConsent
                           ? 'green.5'
@@ -435,7 +436,21 @@ const VerifiableCredentialsHome = () => {
                               <Text weight='500' size='xs' color='dimmed'>
                                 {cred.issuer.name}
                               </Text>
-                              <Text size='lg' mt={-4}>
+                              <Text
+                                size='lg'
+                                mt={-4}
+                                onClick={() => {
+                                  setSelectedCredential(cred)
+                                  open()
+                                }}
+                                sx={{
+                                  transition: 'all ease-out 250ms',
+                                  cursor: 'pointer',
+                                  '&:hover': {
+                                    color: theme.colors.indigo[5],
+                                  },
+                                }}
+                              >
                                 {cred.type.name}
                               </Text>
                             </Box>
@@ -565,7 +580,21 @@ const VerifiableCredentialsHome = () => {
                                 <Text weight='500' size='xs' color='dimmed'>
                                   {cred.issuer.name}
                                 </Text>
-                                <Text size='lg' mt={-4}>
+                                <Text
+                                  size='lg'
+                                  mt={-4}
+                                  onClick={() => {
+                                    setSelectedCredential(cred)
+                                    open()
+                                  }}
+                                  sx={{
+                                    transition: 'all ease-out 250ms',
+                                    cursor: 'pointer',
+                                    '&:hover': {
+                                      color: theme.colors.indigo[5],
+                                    },
+                                  }}
+                                >
                                   {cred.type.name}
                                 </Text>
                               </Box>
@@ -643,7 +672,21 @@ const VerifiableCredentialsHome = () => {
                               <Text weight='500' size='xs' color='dimmed'>
                                 {cred.issuer.name}
                               </Text>
-                              <Text size='lg' mt={-4}>
+                              <Text
+                                size='lg'
+                                mt={-4}
+                                onClick={() => {
+                                  setSelectedCredential(cred)
+                                  open()
+                                }}
+                                sx={{
+                                  transition: 'all ease-out 250ms',
+                                  cursor: 'pointer',
+                                  '&:hover': {
+                                    color: theme.colors.indigo[5],
+                                  },
+                                }}
+                              >
                                 {cred.type.name}
                               </Text>
                             </Box>

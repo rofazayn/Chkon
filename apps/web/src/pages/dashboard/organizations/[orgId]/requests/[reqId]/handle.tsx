@@ -41,10 +41,10 @@ import {
   useUserQuery,
 } from '../../../../../../generated/graphql'
 import useUI from '../../../../../../hooks/useUI'
-import useUser from '../../../../../../hooks/useUser'
+import useAuth from '../../../../../../hooks/useAuth'
 
 const OrgCredentialRequestHandle = ({ children }: { children: ReactNode }) => {
-  const { user } = useUser()
+  const { user } = useAuth()
   const router = useRouter()
   const { bgColor } = useUI()
   const theme = useMantineTheme()
@@ -421,7 +421,7 @@ const OrgCredentialRequestHandle = ({ children }: { children: ReactNode }) => {
                           </Text>
                         </Box>
                         <Box>
-                          {userData?.user?.verified ? (
+                          {userData?.user?.status === 'verified' ? (
                             <IconUserCheck
                               size={20}
                               color={theme.colors.green[5]}
@@ -445,8 +445,18 @@ const OrgCredentialRequestHandle = ({ children }: { children: ReactNode }) => {
                     </Stack>
                     <Box mt={12}>
                       <Group spacing={8}>
-                        <Text color='green.6' size='sm' weight='500'>
-                          User is verified
+                        <Text
+                          color={
+                            userData?.user?.status === 'verified'
+                              ? 'green.6'
+                              : 'orange.6'
+                          }
+                          size='sm'
+                          weight='500'
+                        >
+                          {userData?.user?.status === 'verified'
+                            ? 'User is verified'
+                            : 'User is not verified'}
                         </Text>
                       </Group>
                     </Box>

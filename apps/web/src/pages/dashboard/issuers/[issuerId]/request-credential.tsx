@@ -25,12 +25,12 @@ import {
   useOrganizationQuery,
 } from '../../../../generated/graphql'
 import { useState } from 'react'
-import useUser from '../../../../hooks/useUser'
+import useAuth from '../../../../hooks/useAuth'
 import { notifications } from '@mantine/notifications'
 
 const IssuerCredentialRequestPage = () => {
   const router = useRouter()
-  const { user } = useUser()
+  const { user } = useAuth()
   const { issuerId } = router.query
   const [selectedCredentialTypeId, setSelectedCredentialTypeId] = useState<
     string | null

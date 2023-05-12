@@ -107,7 +107,7 @@ class AuthResolver {
 
     if (refreshToken) {
       const token = verify(refreshToken, JWT_PUB_KEY) as {
-        userId: string
+        id: string
         guid: string
       }
 
@@ -116,7 +116,7 @@ class AuthResolver {
       }
 
       const user = await prisma.user.findUnique({
-        where: { id: token.userId },
+        where: { id: token.id },
       })
 
       if (user) {
