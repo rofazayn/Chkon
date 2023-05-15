@@ -109,7 +109,10 @@ const OrgCredentialRequestHandle = ({ children }: { children: ReactNode }) => {
             },
             issuer: {
               connect: {
-                id: (orgData?.organization?.id as string) || undefined,
+                id:
+                  (orgData?.organization?.id as string) ||
+                  (orgId as string) ||
+                  undefined,
               },
             },
             type: {
@@ -164,6 +167,8 @@ const OrgCredentialRequestHandle = ({ children }: { children: ReactNode }) => {
         }
       }
     } catch (error) {
+      console.log(error)
+      setLoading(false)
       notifications.show({
         title: 'Credential issuance failed!',
         message:

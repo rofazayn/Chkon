@@ -1,7 +1,13 @@
 import { useRouter } from 'next/router'
 import { createContext, useCallback, useEffect, useState } from 'react'
-import { setAccessToken, setRefreshToken } from '../utils/jwt-operations'
+import {
+  getAccessToken,
+  setAccessToken,
+  setRefreshToken,
+} from '../utils/jwt-operations'
 import { useProfileQuery } from '../generated/graphql'
+import { useReactiveVar } from '@apollo/client'
+import { refreshStatusVar } from '../configs/apollo-client'
 
 export const AuthContext = createContext({} as any)
 export const AuthProvider = ({ children }: any) => {
@@ -13,7 +19,7 @@ export const AuthProvider = ({ children }: any) => {
     fetchPolicy: 'network-only',
   })
 
-  console.log(authStatus)
+  const refreshVar = useReactiveVar(refreshStatusVar)
 
   const logout = useCallback(() => {
     setAccessToken(null)
@@ -22,20 +28,30 @@ export const AuthProvider = ({ children }: any) => {
     setUser(null)
   }, [])
 
+  // useEffect(() => {
+  //   if (refreshVar === 'fail') logout()
+  // }, [refreshVar, logout, authStatus])
+
   useEffect(() => {
     async function authCheck() {
-      if (authStatus === 'check') {
+      if (!getAccessToken()) {
+        setUser(null)
+        setAuthStatus('no')
+      } else if (authStatus === 'check' || authStatus === 'stale') {
         const res = await profileQuery.refetch()
         if (res.data.profile) {
           setUser(res.data.profile)
           setAuthStatus('yes')
+        } else {
+          setUser(null)
+          setAuthStatus('no')
         }
       }
     }
 
     authCheck()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [authStatus])
+  }, [authStatus, profileQuery])
 
   useEffect(() => {
     if (profileQuery.loading) {
@@ -47,10 +63,10 @@ export const AuthProvider = ({ children }: any) => {
       setAuthStatus('yes')
     }
 
-    if (authStatus !== 'check' && !profileQuery.data && profileQuery.error) {
-      setUser(null)
-      setAuthStatus('no')
-    }
+    // if (authStatus !== 'check' && !profileQuery.data && profileQuery.error) {
+    //   setUser(null)
+    //   setAuthStatus('no')
+    // }
   }, [profileQuery, authStatus])
 
   return (

@@ -22,17 +22,18 @@ import {
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { ReactNode } from 'react'
-import DashboardLayout from '../../../../../components/_layouts/dashboard-layout'
+import DashboardLayout from '../../../../components/_layouts/dashboard-layout'
 import {
   SortOrder,
   useCredentialRequestsQuery,
   useOrganizationQuery,
-} from '../../../../../generated/graphql'
-import useUI from '../../../../../hooks/useUI'
-import useAuth from '../../../../../hooks/useAuth'
-import humanizeDate from '../../../../../utils/humanize-date'
+  usePresentationsQuery,
+} from '../../../../generated/graphql'
+import useAuth from '../../../../hooks/useAuth'
+import useUI from '../../../../hooks/useUI'
+import humanizeDate from '../../../../utils/humanize-date'
 
-const OrgControlPending = ({ children }: { children: ReactNode }) => {
+const OrgControlPresentations = ({ children }: { children: ReactNode }) => {
   const { user } = useAuth()
   const router = useRouter()
   const { bgColor } = useUI()
@@ -45,11 +46,11 @@ const OrgControlPending = ({ children }: { children: ReactNode }) => {
   } = useOrganizationQuery({
     variables: { where: { id: orgId as string } },
   })
-  const credentialRequestsQuery = useCredentialRequestsQuery({
+  const presentationsQuery = usePresentationsQuery({
     variables: {
       where: {
-        status: { equals: 'pending' },
-        issuerId: { equals: (orgId as string) || undefined },
+        organizationId: { equals: (orgId as string) || undefined },
+        holderConsent: { equals: true },
       },
       take: 20,
       orderBy: { createdAt: SortOrder.Desc },
@@ -57,35 +58,35 @@ const OrgControlPending = ({ children }: { children: ReactNode }) => {
     pollInterval: 5000,
     fetchPolicy: 'network-only',
   })
-  const rows = credentialRequestsQuery.loading
+  const rows = presentationsQuery.loading
     ? null
-    : credentialRequestsQuery.data?.credentialRequests.map((credReq) => (
-        <tr key={credReq.id} style={{ cursor: 'pointer' }}>
+    : presentationsQuery.data?.presentations.map((presentation) => (
+        <tr key={presentation.id} style={{ cursor: 'pointer' }}>
           <td>
             <Stack spacing={0}>
               <Box sx={{ fontWeight: 500, fontSize: theme.fontSizes.md }}>
                 {' '}
-                {credReq.credentialType.name}
+                {presentation.credential.type.name}
               </Box>
               <Box>
                 <Code sx={{ weight: 'bold' }} color='indigo'>
-                  {credReq.credentialType.typename}
+                  {presentation.credential.type.typename}
                 </Code>
               </Box>
             </Stack>
           </td>
 
           <td>
-            <Box sx={{ fontWeight: 500 }}>{credReq.user.name}</Box>
+            <Box sx={{ fontWeight: 500 }}>{presentation.user.name}</Box>
           </td>
 
           <td>
-            <Box>{credReq.issuer.name}</Box>
+            <Box>{presentation.credential.issuer.name}</Box>
           </td>
           <td>
-            <Badge color='yellow'>{credReq.status.toUpperCase()}</Badge>
+            <Badge color='green'>Consented</Badge>
           </td>
-          <td>{humanizeDate(credReq.createdAt)}</td>
+          <td>{humanizeDate(presentation.createdAt)}</td>
           <td>
             <Flex
               sx={{
@@ -98,24 +99,15 @@ const OrgControlPending = ({ children }: { children: ReactNode }) => {
             >
               <Group spacing={12}>
                 <Button
-                  leftIcon={<IconTrash size={14} />}
-                  size='sm'
-                  variant='subtle'
-                  color='red'
-                >
-                  Revoke
-                </Button>
-                <Button
                   rightIcon={<IconSettings2 size={14} />}
-                  size='sm'
+                  size='xs'
                   variant='light'
+                  color='indigo'
                   onClick={() =>
-                    router.push(
-                      `/dashboard/organizations/${orgId}/requests/${credReq.id}/handle/`
-                    )
+                    router.push(`/presentation/${presentation.id}`)
                   }
                 >
-                  Handle
+                  Access presentation
                 </Button>
               </Group>
             </Flex>
@@ -137,14 +129,13 @@ const OrgControlPending = ({ children }: { children: ReactNode }) => {
         <Box>
           <Group spacing={8} align='center'>
             <Text weight='bold' size='lg'>
-              Pending credential requests
+              Presentations to this organization
             </Text>
           </Group>
 
           <Text color='dimmed'>
-            This page shows you pending credential requests from users in
-            real-time, you can issue credentials based on the requests shown
-            here
+            This page shows you presentations from users in real-time, you can
+            access the payload of the presentation here
           </Text>
         </Box>
 
@@ -177,8 +168,8 @@ const OrgControlPending = ({ children }: { children: ReactNode }) => {
               <tr>
                 <th>Credential Type</th>
                 <th>Requested by</th>
-                <th>Target Issuer</th>
-                <th>Status</th>
+                <th>Issued by</th>
+                <th>Holder Consent</th>
                 <th>Requested</th>
                 <th style={{ textAlign: 'end' }}>Options</th>
               </tr>
@@ -193,4 +184,4 @@ const OrgControlPending = ({ children }: { children: ReactNode }) => {
   )
 }
 
-export default OrgControlPending
+export default OrgControlPresentations

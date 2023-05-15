@@ -73,7 +73,7 @@ const DashboardLayout = ({ children }: any) => {
                   {children}
                 </Box>
                 <Box
-                  mt={12}
+                  mt={8}
                   px={12}
                   sx={{
                     display: 'flex',
@@ -82,7 +82,17 @@ const DashboardLayout = ({ children }: any) => {
                   }}
                 >
                   <Text size='xs' color='dimmed' weight='500'>
-                    Chkon&trade;, Property of AuresX SPAS
+                    Chkon&trade;, Property of AuresX SPAS{' '}
+                    <Text
+                      component='span'
+                      size='md'
+                      sx={{
+                        display: 'inline-flex',
+                        transform: 'translateY(2px)',
+                      }}
+                    >
+                      🇩🇿
+                    </Text>
                   </Text>
                   <Group spacing={8}>
                     <Text size='xs' color='dimmed'>

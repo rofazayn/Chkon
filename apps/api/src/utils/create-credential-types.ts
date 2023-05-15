@@ -75,6 +75,62 @@ async function main() {
       //     },
       //   ],
       // },
+      {
+        name: 'Identity Card',
+        typename: 'IdentityCardV1',
+        attributes: [
+          {
+            name: 'issuingAuthority',
+            label: 'Issuing authority',
+            inputType: 'text',
+          },
+          {
+            name: 'dateOfIssuance',
+            label: 'Date of issuance',
+            inputType: 'date',
+          },
+          {
+            name: 'expiresAt',
+            label: 'Date of expiration',
+            inputType: 'date',
+          },
+          {
+            name: 'nationalIdentifyingNumber',
+            label: 'National identifying number',
+            inputType: 'text',
+          },
+          {
+            name: 'lastName',
+            label: 'Last name',
+            inputType: 'text',
+          },
+          {
+            name: 'firstName',
+            label: 'First name',
+            inputType: 'text',
+          },
+          {
+            name: 'dateOfBirth',
+            label: 'Date of birth',
+            inputType: 'date',
+          },
+          {
+            name: 'placeOfBirth',
+            label: 'Place of birth',
+            inputType: 'text',
+          },
+          {
+            name: 'gender',
+            label: 'Gender',
+            inputType: 'text',
+          },
+          {
+            name: 'bloodType',
+            label: 'Blood type',
+            inputType: 'text',
+          },
+        ],
+      },
     ],
   })
 

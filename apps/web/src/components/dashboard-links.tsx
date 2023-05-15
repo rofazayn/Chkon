@@ -23,17 +23,17 @@ const data = [
     labelExtended: 'Browse verified issuers',
     icon: IconBuildingArch,
   },
-  // {
-  //   link: '/dashboard/presentations',
-  //   label: 'presentations',
-  //   labelExtended: 'Verifiable Presentations',
-  //   icon: IconIdBadge,
-  // },
   {
     link: '/dashboard/credentials',
     label: 'credentials',
     labelExtended: 'My verifiable credentials',
     icon: IconIdBadge2,
+  },
+  {
+    link: '/dashboard/presentations',
+    label: 'presentations',
+    labelExtended: 'My Presentations',
+    icon: IconIdBadge,
   },
 ]
 

@@ -116,7 +116,7 @@ const Topbar = () => {
                   backgroundColor: bgColor,
                   paddingBlock: 6,
                   paddingInline: 12,
-                  borderRadius: 6,
+                  borderRadius: 12,
                 }}
               >
                 <Group align='center' spacing={8}>

@@ -14,7 +14,7 @@ export const createAccessToken = (payload: { id: string }) => {
 export const createRefreshToken = (id: string, guid: string) => {
   if (!id) return
   const refreshToken = sign({ id, guid }, JWT_PRIV_KEY, {
-    expiresIn: '1h',
+    expiresIn: '15min',
     algorithm: 'RS256',
   })
 
