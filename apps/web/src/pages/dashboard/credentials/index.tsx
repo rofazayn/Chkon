@@ -1,5 +1,6 @@
 import logoImage from '@/../public/assets/png/chip.png'
 import {
+  Accordion,
   ActionIcon,
   Alert,
   Box,
@@ -9,26 +10,30 @@ import {
   Grid,
   Group,
   Loader,
+  Modal,
   Text,
   TextInput,
   useMantineTheme,
 } from '@mantine/core'
+import { useDisclosure } from '@mantine/hooks'
+import { notifications } from '@mantine/notifications'
+import { Prism } from '@mantine/prism'
 import { IconCheck, IconSearch, IconSeeding, IconX } from '@tabler/icons-react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useEffect, useState } from 'react'
 import DashboardLayout from '../../../components/_layouts/dashboard-layout'
 import {
   useCredentialsQuery,
   useUpdateOneCredentialMutation,
 } from '../../../generated/graphql'
 import useUI from '../../../hooks/useUI'
-import useUser from '../../../hooks/useUser'
-import { notifications } from '@mantine/notifications'
-import { useEffect, useState } from 'react'
+import useAuth from '../../../hooks/useAuth'
+import humanizeDate from '../../../utils/humanize-date'
 
 const VerifiableCredentialsHome = () => {
   const theme = useMantineTheme()
-  const { user } = useUser()
+  const { user } = useAuth()
   const consentedCredentialsQuery = useCredentialsQuery({
     variables: {
       where: {
@@ -129,10 +134,128 @@ const VerifiableCredentialsHome = () => {
     unconsentedCredentialsQuery.data,
   ])
 
+  const [opened, { open, close }] = useDisclosure(false)
+  const [selectedCredential, setSelectedCredential] = useState<any>(null)
+
   return (
     <DashboardLayout>
       {user ? (
         <>
+          {selectedCredential && (
+            <Modal
+              opened={opened}
+              onClose={close}
+              // title='Credential details'
+              size='xl'
+              centered
+              lockScroll
+              withCloseButton={false}
+              radius={16}
+              padding={32}
+            >
+              <Grid>
+                <Grid.Col span={4}>
+                  <Box sx={{ width: '100%' }}>
+                    <Text color='gray.6' size='xs'>
+                      Credential type
+                    </Text>
+                    <Text size='md'>{selectedCredential?.type.name}</Text>
+                  </Box>
+                </Grid.Col>
+                <Grid.Col span={4}>
+                  <Box sx={{ width: '100%' }}>
+                    <Text color='gray.6' size='xs'>
+                      Credential holder
+                    </Text>
+                    <Text size='md'>{selectedCredential?.user.name}</Text>
+                  </Box>
+                </Grid.Col>
+                <Grid.Col span={4}>
+                  <Box sx={{ width: '100%' }}>
+                    <Text color='gray.6' size='xs'>
+                      Holder consent
+                    </Text>
+                    <Text
+                      size='md'
+                      weight='500'
+                      color={
+                        selectedCredential?.holderConsent
+                          ? 'green.5'
+                          : 'orange.5'
+                      }
+                    >
+                      {selectedCredential?.holderConsent
+                        ? 'Consented'
+                        : 'Awaiting consent'}
+                    </Text>
+                  </Box>
+                </Grid.Col>
+
+                <Grid.Col span={4}>
+                  <Box sx={{ width: '100%' }}>
+                    <Text color='gray.6' size='xs'>
+                      Credential issuer
+                    </Text>
+                    <Text size='md'>{selectedCredential?.issuer.name}</Text>
+                  </Box>
+                </Grid.Col>
+                <Grid.Col span={4}>
+                  <Box sx={{ width: '100%' }}>
+                    <Text color='gray.6' size='xs'>
+                      Issue date
+                    </Text>
+                    <Text size='md'>{selectedCredential.createdAt}</Text>
+                    <Text size='sm' color='gray.5' mt={-2}>
+                      ({humanizeDate(selectedCredential.createdAt)})
+                    </Text>
+                  </Box>
+                </Grid.Col>
+                <Grid.Col span={4}>
+                  <Box sx={{ width: '100%' }}>
+                    <Text color='gray.6' size='xs'>
+                      Issuer consent
+                    </Text>
+                    <Text
+                      size='md'
+                      weight='500'
+                      color={
+                        selectedCredential?.issuerConsent
+                          ? 'green.5'
+                          : 'orange.5'
+                      }
+                    >
+                      {selectedCredential?.issuerConsent
+                        ? 'Consented'
+                        : 'Awaiting consent'}
+                    </Text>
+                  </Box>
+                </Grid.Col>
+              </Grid>
+
+              <Box mt={16}>
+                <Accordion variant='contained' defaultValue={'payload'}>
+                  <Accordion.Item value='payload'>
+                    <Accordion.Control>Credential payload</Accordion.Control>
+                    <Accordion.Panel>
+                      <Prism language='json' withLineNumbers color='violet'>
+                        {JSON.stringify(selectedCredential.payload, null, 4)}
+                      </Prism>
+                    </Accordion.Panel>
+                  </Accordion.Item>
+                  <Accordion.Item value='full-credential'>
+                    <Accordion.Control>
+                      Full credential (JSON)
+                    </Accordion.Control>
+                    <Accordion.Panel>
+                      <Prism language='json' withLineNumbers color='violet'>
+                        {JSON.stringify(selectedCredential, null, 4)}
+                      </Prism>
+                    </Accordion.Panel>
+                  </Accordion.Item>
+                </Accordion>
+              </Box>
+            </Modal>
+          )}
           <Flex
             sx={{
               width: '100%',
@@ -188,7 +311,7 @@ const VerifiableCredentialsHome = () => {
           <Box sx={{ width: '100%' }}>
             <Box>
               <Text weight='bold' size='md'>
-                Credentials you consent to
+                Credentials you showed consent to
               </Text>
               <Text color='dimmed' mt={-3}>
                 These are the credentials that you already accepted to be yours
@@ -248,7 +371,21 @@ const VerifiableCredentialsHome = () => {
                                 <Text weight='500' size='xs' color='dimmed'>
                                   {cred.issuer.name}
                                 </Text>
-                                <Text size='lg' mt={-4}>
+                                <Text
+                                  size='lg'
+                                  mt={-4}
+                                  onClick={() => {
+                                    setSelectedCredential(cred)
+                                    open()
+                                  }}
+                                  sx={{
+                                    transition: 'all ease-out 250ms',
+                                    cursor: 'pointer',
+                                    '&:hover': {
+                                      color: theme.colors.indigo[5],
+                                    },
+                                  }}
+                                >
                                   {cred.type.name}
                                 </Text>
                               </Box>
@@ -299,7 +436,21 @@ const VerifiableCredentialsHome = () => {
                               <Text weight='500' size='xs' color='dimmed'>
                                 {cred.issuer.name}
                               </Text>
-                              <Text size='lg' mt={-4}>
+                              <Text
+                                size='lg'
+                                mt={-4}
+                                onClick={() => {
+                                  setSelectedCredential(cred)
+                                  open()
+                                }}
+                                sx={{
+                                  transition: 'all ease-out 250ms',
+                                  cursor: 'pointer',
+                                  '&:hover': {
+                                    color: theme.colors.indigo[5],
+                                  },
+                                }}
+                              >
                                 {cred.type.name}
                               </Text>
                             </Box>
@@ -429,7 +580,21 @@ const VerifiableCredentialsHome = () => {
                                 <Text weight='500' size='xs' color='dimmed'>
                                   {cred.issuer.name}
                                 </Text>
-                                <Text size='lg' mt={-4}>
+                                <Text
+                                  size='lg'
+                                  mt={-4}
+                                  onClick={() => {
+                                    setSelectedCredential(cred)
+                                    open()
+                                  }}
+                                  sx={{
+                                    transition: 'all ease-out 250ms',
+                                    cursor: 'pointer',
+                                    '&:hover': {
+                                      color: theme.colors.indigo[5],
+                                    },
+                                  }}
+                                >
                                   {cred.type.name}
                                 </Text>
                               </Box>
@@ -507,7 +672,21 @@ const VerifiableCredentialsHome = () => {
                               <Text weight='500' size='xs' color='dimmed'>
                                 {cred.issuer.name}
                               </Text>
-                              <Text size='lg' mt={-4}>
+                              <Text
+                                size='lg'
+                                mt={-4}
+                                onClick={() => {
+                                  setSelectedCredential(cred)
+                                  open()
+                                }}
+                                sx={{
+                                  transition: 'all ease-out 250ms',
+                                  cursor: 'pointer',
+                                  '&:hover': {
+                                    color: theme.colors.indigo[5],
+                                  },
+                                }}
+                              >
                                 {cred.type.name}
                               </Text>
                             </Box>

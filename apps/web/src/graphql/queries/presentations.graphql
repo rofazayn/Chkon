@@ -1,0 +1,89 @@
+query Presentations(
+  $where: PresentationWhereInput
+  $orderBy: [PresentationOrderByWithRelationInput!]
+  $cursor: PresentationWhereUniqueInput
+  $take: Int
+  $skip: Int
+  $distinct: [PresentationScalarFieldEnum!]
+) {
+  presentations(
+    where: $where
+    orderBy: $orderBy
+    cursor: $cursor
+    take: $take
+    skip: $skip
+    distinct: $distinct
+  ) {
+    id
+    credentialId
+    holderConsent
+    signature
+    userId
+    organizationId
+    requestId
+    createdAt
+    updatedAt
+    credential {
+      id
+      typeId
+      payload
+      required
+      issuerConsent
+      holderConsent
+      userId
+      issuer {
+        name
+      }
+      issuerId
+      requestId
+      expiryDate
+      createdAt
+      updatedAt
+      type {
+        id
+        name
+        typename
+        attributes
+        createdAt
+        updatedAt
+        allowedOrganizationsIds
+      }
+    }
+    user {
+      id
+      username
+      did
+      phoneNumber
+      email
+      name
+      logoUrl
+      status
+      trustedOrganizationsIds
+      createdAt
+      updatedAt
+    }
+    organization {
+      id
+      name
+      description
+      did
+      logoUrl
+      status
+      allowedCredentialTypesIds
+      usersWhoTrustIds
+      createdAt
+      updatedAt
+    }
+    request {
+      id
+      userId
+      verifierId
+      organizationMemberId
+      credentialType
+      attributes
+      status
+      createdAt
+      updatedAt
+    }
+  }
+}

@@ -2,9 +2,12 @@ import { useMantineTheme } from '@mantine/core'
 import Head from 'next/head'
 import PageLayout from '../components/_layouts/page-layout'
 import HeroSection from '../components/hero-section'
+import useAuth from '../hooks/useAuth'
 
 export default function Home() {
   const theme = useMantineTheme()
+  const { authStatus } = useAuth()
+
   return (
     <>
       <Head>

@@ -2,32 +2,23 @@ import jwtDecode from 'jwt-decode'
 import { refreshStatusVar } from '../configs/apollo-client'
 
 export const setAccessToken = (token: string | null = null): void => {
-  if (token && checkTokenFormat(token) && !checkTokenExpiry(token)) {
-    localStorage.setItem('access_token', token as string)
-  } else {
-    localStorage.removeItem('access_token')
-  }
+  token
+    ? localStorage.setItem('access_token', token as string)
+    : localStorage.removeItem('access_token')
 }
 
 export const getAccessToken = (): string | null => {
-  const token = localStorage.getItem('access_token') || ''
-  if (!checkTokenExpiry(token) && checkTokenFormat(token)) return token
-  return null
+  return localStorage.getItem('access_token') || null
 }
 
 export const setRefreshToken = (token: string | null = null): void => {
-  if (token && checkTokenFormat(token) && !checkTokenExpiry(token)) {
-    localStorage.setItem('refresh_token', token as string)
-  } else {
-    localStorage.removeItem('refresh_token')
-  }
+  token
+    ? localStorage.setItem('refresh_token', token as string)
+    : localStorage.removeItem('refresh_token')
 }
 
 export const getRefreshToken = (): string | null => {
-  const token = localStorage.getItem('refresh_token') || ''
-  // if (!checkTokenExpiry(token) && checkTokenFormat(token)) return token
-  // return null
-  return token
+  return localStorage.getItem('refresh_token') || null
 }
 
 export const checkTokenExpiry = (token?: string): boolean => {

@@ -1,33 +1,36 @@
 import { Box } from '@mantine/core'
+import { useRouter } from 'next/router'
+import { useEffect } from 'react'
 import useAuth from '../../hooks/useAuth'
-import AuthCheckOverlay from '../auth-check-overlay'
 import AuthLoadingOverlay from '../auth-loading-overlay'
+import AuthCheckOverlay from '../auth-check-overlay'
 
 const AuthLayout = ({ children }: any) => {
-  const { isAuthenticated, isCheckingAuth } = useAuth()
+  const router = useRouter()
+  const { authStatus } = useAuth()
+  useEffect(() => {
+    if (authStatus === 'yes') {
+      router.replace('/dashboard')
+    }
+  }, [authStatus, router])
 
-  if (isCheckingAuth) {
-    return <AuthCheckOverlay />
-  }
+  if (authStatus === 'no')
+    return (
+      <Box
+        sx={{
+          minHeight: '100%',
+          width: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <Box sx={{ width: '100%' }}>{children}</Box>
+      </Box>
+    )
 
-  if (isAuthenticated) {
-    return <AuthLoadingOverlay />
-  }
-
-  return (
-    <Box
-      sx={{
-        minHeight: '100%',
-        width: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}
-    >
-      <Box sx={{ width: '100%' }}>{children}</Box>
-    </Box>
-  )
+  return <AuthCheckOverlay />
 }
 
 export default AuthLayout

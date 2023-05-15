@@ -1,0 +1,19 @@
+query AggregatePresentation(
+  $where: PresentationWhereInput
+  $orderBy: [PresentationOrderByWithRelationInput!]
+  $cursor: PresentationWhereUniqueInput
+  $take: Int
+  $skip: Int
+) {
+  aggregatePresentation(
+    where: $where
+    orderBy: $orderBy
+    cursor: $cursor
+    take: $take
+    skip: $skip
+  ) {
+    _count {
+      id
+    }
+  }
+}

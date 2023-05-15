@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "dotenv -e ../../.env.local -- nodemon --exec ts-node src/index.ts",
     "build": "webpack",
-    "serve": "NODE_ENV=\"production\" node build/index.js",
+    "start": "NODE_ENV=\"production\" node build/index.js",
     "gen:prisma": "prisma generate",
     "gen:keys": "ts-node src/utils/keypair-generator.ts",
     "create:credential-types": "ts-node src/utils/create-credential-types.ts"
@@ -35,9 +35,11 @@
     "reflect-metadata": "^0.1.13",
     "type-graphql": "^1.1.1",
     "typegraphql-prisma": "^0.21.3",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "webpack-node-externals": "^3.0.0"
   },
   "devDependencies": {
+    "@mermaid-js/mermaid-cli": "^10.1.0",
     "@types/bcrypt": "^5.0.0",
     "@types/cookie-parser": "^1.4.3",
     "@types/cors": "^2.8.13",
@@ -55,6 +57,8 @@
     "dotenv-webpack": "^8.0.1",
     "nodemon": "^2.0.22",
     "prisma": "4.3.0",
+    "prisma-dbml-generator": "^0.10.0",
+    "prisma-erd-generator": "^1.7.0",
     "ts-loader": "^9.4.2",
     "ts-node": "^10.9.1",
     "webpack": "^5.74.0",

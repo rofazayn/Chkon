@@ -18,10 +18,10 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import DashboardLayout from '../../../components/_layouts/dashboard-layout'
 import { useUpdateOneUserMutation } from '../../../generated/graphql'
-import useUser from '../../../hooks/useUser'
+import useAuth from '../../../hooks/useAuth'
 
 const UserVerification = () => {
-  const { user } = useUser()
+  const { user } = useAuth()
   const router = useRouter()
   const theme = useMantineTheme()
   const [updateOneUserMutation, { loading }] = useUpdateOneUserMutation()

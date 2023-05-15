@@ -20,6 +20,7 @@ import {
 import { Formik } from 'formik'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { useLoginMutation } from '../generated/graphql'
 import useAuth from '../hooks/useAuth'
 import { setAccessToken, setRefreshToken } from '../utils/jwt-operations'
@@ -27,7 +28,8 @@ import { setAccessToken, setRefreshToken } from '../utils/jwt-operations'
 const LoginForm = () => {
   const theme = useMantineTheme()
   const [loginMutation] = useLoginMutation()
-  const { setIsAuthenticated, setIsCheckingAuth } = useAuth()
+  const { setAuthStatus } = useAuth()
+  const router = useRouter()
 
   return (
     <Box w='100%'>
@@ -48,8 +50,7 @@ const LoginForm = () => {
                 const { accessToken, refreshToken } = loginResponse.data.login
                 setAccessToken(accessToken)
                 setRefreshToken(refreshToken)
-                setIsAuthenticated(true)
-                setIsCheckingAuth(false)
+                setAuthStatus('check')
               }
             } catch (error) {
               console.log(error)

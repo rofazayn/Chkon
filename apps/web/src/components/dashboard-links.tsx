@@ -7,8 +7,8 @@ import {
   IconSeeding,
   IconSettings,
 } from '@tabler/icons-react'
-import useUser from '../hooks/useUser'
 import NavLink from './nav-link'
+import useAuth from '../hooks/useAuth'
 
 const data = [
   {
@@ -23,22 +23,22 @@ const data = [
     labelExtended: 'Browse verified issuers',
     icon: IconBuildingArch,
   },
-  // {
-  //   link: '/dashboard/presentations',
-  //   label: 'presentations',
-  //   labelExtended: 'Verifiable Presentations',
-  //   icon: IconIdBadge,
-  // },
   {
     link: '/dashboard/credentials',
     label: 'credentials',
     labelExtended: 'My verifiable credentials',
     icon: IconIdBadge2,
   },
+  {
+    link: '/dashboard/presentations',
+    label: 'presentations',
+    labelExtended: 'My Presentations',
+    icon: IconIdBadge,
+  },
 ]
 
 export function DashboardLinks() {
-  const { user } = useUser()
+  const { user } = useAuth()
   return (
     <Box>
       <Stack spacing={4}>

@@ -27,6 +27,7 @@ import {
 import { useFormik } from 'formik'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { useRegisterMutation } from '../generated/graphql'
 import useAuth from '../hooks/useAuth'
@@ -38,8 +39,8 @@ import PasswordRequirement, {
 
 const RegisterForm = () => {
   const theme = useMantineTheme()
-  const { setIsAuthenticated, setIsCheckingAuth } = useAuth()
-
+  const { setAuthStatus } = useAuth()
+  const router = useRouter()
   const [registerMutation] = useRegisterMutation()
 
   const registerForm = useFormik({
@@ -65,8 +66,7 @@ const RegisterForm = () => {
           const { accessToken, refreshToken } = loginResponse.data.register
           setAccessToken(accessToken)
           setRefreshToken(refreshToken)
-          setIsAuthenticated(true)
-          setIsCheckingAuth(false)
+          setAuthStatus('check')
         }
       } catch (error) {
         console.log(error)

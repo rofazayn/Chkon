@@ -1,0 +1,176 @@
+//// ------------------------------------------------------
+//// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+//// ------------------------------------------------------
+
+Table User {
+  id String [pk]
+  username String [unique, not null]
+  did String [default: '']
+  phoneNumber String [unique]
+  email String [unique, not null]
+  name String [not null]
+  logoUrl String
+  status String [not null, default: 'unverified']
+  password String [not null, note: '@TypeGraphQL.omit(output: true, input: true)']
+  credentials Credential [not null]
+  presentations Presentation [not null]
+  presentationRequests PresentationRequest [not null]
+  credentialRequests CredentialRequest [not null]
+  memberships OrganizationMember [not null]
+  trustedOrganizations Organization [not null]
+  trustedOrganizationsIds String[] [not null]
+  createdAt DateTime [default: `now()`]
+  updatedAt DateTime
+}
+
+Table Organization {
+  id String [pk]
+  name String [not null, default: 'Unnamed Organization']
+  description String
+  did String [default: '']
+  logoUrl String
+  status String [not null, default: 'unverified']
+  issuedCredentials Credential [not null]
+  receivedPresentations Presentation [not null]
+  credentialRequests CredentialRequest [not null]
+  presentationRequests PresentationRequest [not null]
+  memberships OrganizationMember [not null]
+  allowedCredentialTypes CredentialType [not null]
+  allowedCredentialTypesIds String[] [not null]
+  usersWhoTrust User [not null]
+  usersWhoTrustIds String[] [not null]
+  createdAt DateTime [default: `now()`]
+  updatedAt DateTime
+}
+
+Table OrganizationMember {
+  id String [pk]
+  user User
+  userId String
+  role String [default: 'member']
+  blocked Boolean [not null, default: false]
+  organization Organization [not null]
+  organizationId String [not null]
+  presentationRequests PresentationRequest [not null]
+  createdAt DateTime [default: `now()`]
+  updatedAt DateTime
+}
+
+Table CredentialType {
+  id String [pk]
+  name String [unique, not null]
+  typename String [unique, not null]
+  attributes Json[] [not null]
+  credentials Credential [not null]
+  requests CredentialRequest [not null]
+  createdAt DateTime [default: `now()`]
+  updatedAt DateTime
+  allowedOrganizations Organization [not null]
+  allowedOrganizationsIds String[] [not null]
+}
+
+Table Credential {
+  id String [pk]
+  type CredentialType [not null]
+  typeId String [not null]
+  payload Json [not null]
+  required String[] [not null]
+  issuerConsent Boolean [not null, default: false]
+  holderConsent Boolean [not null, default: false]
+  user User [not null]
+  userId String [not null]
+  issuer Organization [not null]
+  issuerId String [not null]
+  request CredentialRequest
+  presentations Presentation [not null]
+  requestId String [unique]
+  expiryDate DateTime [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+}
+
+Table Presentation {
+  id String [pk]
+  credential Credential [not null]
+  credentialId String [not null]
+  holderConsent Boolean [not null, default: false]
+  signature String [default: '']
+  user User [not null]
+  userId String [not null]
+  organization Organization [not null]
+  organizationId String [not null]
+  request PresentationRequest
+  requestId String [unique]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+}
+
+Table CredentialRequest {
+  id String [pk]
+  user User [not null]
+  userId String [not null]
+  issuer Organization [not null]
+  issuerId String [not null]
+  credentialType CredentialType [not null]
+  credentialTypeId String [not null]
+  credential Credential
+  status String [not null, default: 'pending']
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+}
+
+Table PresentationRequest {
+  id String [pk]
+  user User [not null]
+  userId String [not null]
+  verifier Organization [not null]
+  verifierId String [not null]
+  requestedBy OrganizationMember [not null]
+  organizationMemberId String [not null]
+  credentialType String [not null]
+  attributes Json [not null]
+  presentation Presentation
+  status String [not null, default: 'requested']
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+}
+
+Ref: User.trustedOrganizationsIds > Organization.id
+
+Ref: Organization.allowedCredentialTypesIds > CredentialType.id
+
+Ref: Organization.usersWhoTrustIds > User.id
+
+Ref: OrganizationMember.userId > User.id
+
+Ref: OrganizationMember.organizationId > Organization.id
+
+Ref: CredentialType.allowedOrganizationsIds > Organization.id
+
+Ref: Credential.typeId > CredentialType.id
+
+Ref: Credential.userId > User.id
+
+Ref: Credential.issuerId > Organization.id
+
+Ref: Credential.requestId - CredentialRequest.id
+
+Ref: Presentation.credentialId > Credential.id
+
+Ref: Presentation.userId > User.id
+
+Ref: Presentation.organizationId > Organization.id
+
+Ref: Presentation.requestId - PresentationRequest.id
+
+Ref: CredentialRequest.userId > User.id
+
+Ref: CredentialRequest.issuerId > Organization.id
+
+Ref: CredentialRequest.credentialTypeId > CredentialType.id
+
+Ref: PresentationRequest.userId > User.id
+
+Ref: PresentationRequest.verifierId > Organization.id
+
+Ref: PresentationRequest.organizationMemberId > OrganizationMember.id

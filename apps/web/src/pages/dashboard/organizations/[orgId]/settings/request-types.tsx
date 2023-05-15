@@ -18,10 +18,10 @@ import DashboardLayout from '../../../../../components/_layouts/dashboard-layout
 import CredentialTypeCard from '../../../../../components/credential-type-card'
 import { useCredentialTypesQuery } from '../../../../../generated/graphql'
 import useUI from '../../../../../hooks/useUI'
-import useUser from '../../../../../hooks/useUser'
+import useAuth from '../../../../../hooks/useAuth'
 
 const OrgSettingsHome = ({ children }: { children: ReactNode }) => {
-  const { user } = useUser()
+  const { user } = useAuth()
   const router = useRouter()
   const { bgColor } = useUI()
   const theme = useMantineTheme()

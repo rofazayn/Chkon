@@ -16,7 +16,7 @@ const useStyles = createStyles((theme, _params, _getRef) => {
           : theme.colors.gray[7],
       paddingInline: 12,
       paddingBlock: 10,
-      borderRadius: 7,
+      borderRadius: 12,
       fontWeight: 500,
       // transitionProperty: 'color, background-color',
       // transition: 'ease-in-out 200ms',

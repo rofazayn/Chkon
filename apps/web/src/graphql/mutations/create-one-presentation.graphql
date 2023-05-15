@@ -1,0 +1,13 @@
+mutation CreateOnePresentation($data: PresentationCreateInput!) {
+  createOnePresentation(data: $data) {
+    id
+    credentialId
+    holderConsent
+    signature
+    userId
+    organizationId
+    requestId
+    createdAt
+    updatedAt
+  }
+}

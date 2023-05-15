@@ -12,6 +12,15 @@ generator typegraphql {
   output   = "../src/graphql/type-graphql"
 }
 
+generator dbml {
+  provider = "prisma-dbml-generator"
+}
+
+generator erd {
+  provider = "prisma-erd-generator"
+  output   = "./entity-relation.svg"
+}
+
 model User {
   id                      String                @id @default(auto()) @map("_id") @db.ObjectId
   username                String                @unique
@@ -94,6 +103,7 @@ model Credential {
   issuer        Organization       @relation(fields: [issuerId], references: [id])
   issuerId      String             @db.ObjectId
   request       CredentialRequest? @relation(fields: [requestId], references: [id])
+  presentations Presentation[]
   requestId     String?            @unique @db.ObjectId
   expiryDate    DateTime           @db.Timestamp
   createdAt     DateTime           @default(now())
@@ -102,9 +112,8 @@ model Credential {
 
 model Presentation {
   id             String               @id @default(auto()) @map("_id") @db.ObjectId
-  type           String
-  payload        Json
-  issuerConsent  Boolean              @default(false)
+  credential     Credential           @relation(fields: [credentialId], references: [id])
+  credentialId   String               @db.ObjectId
   holderConsent  Boolean              @default(false)
   signature      String?              @default("")
   user           User                 @relation(fields: [userId], references: [id])
@@ -113,7 +122,8 @@ model Presentation {
   organizationId String               @db.ObjectId
   request        PresentationRequest? @relation(fields: [requestId], references: [id])
   requestId      String?              @unique @db.ObjectId
-  expiryDate     DateTime             @db.Timestamp
+  allowedAccess  String[]             @default([])
+  isPublic       Boolean              @default(false)
   createdAt      DateTime             @default(now())
   updatedAt      DateTime             @updatedAt
 }

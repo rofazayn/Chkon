@@ -103,6 +103,7 @@ export type BoolWithAggregatesFilter = {
 
 export type Credential = {
   __typename?: 'Credential';
+  _count?: Maybe<CredentialCount>;
   createdAt: Scalars['DateTime'];
   expiryDate: Scalars['DateTime'];
   holderConsent: Scalars['Boolean'];
@@ -111,6 +112,7 @@ export type Credential = {
   issuerConsent: Scalars['Boolean'];
   issuerId: Scalars['String'];
   payload: Scalars['JSON'];
+  presentations: Array<Presentation>;
   request?: Maybe<CredentialRequest>;
   requestId?: Maybe<Scalars['String']>;
   required: Array<Scalars['String']>;
@@ -119,6 +121,21 @@ export type Credential = {
   updatedAt: Scalars['DateTime'];
   user: User;
   userId: Scalars['String'];
+};
+
+
+export type CredentialPresentationsArgs = {
+  cursor?: InputMaybe<PresentationWhereUniqueInput>;
+  distinct?: InputMaybe<Array<PresentationScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<PresentationOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']>;
+  take?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<PresentationWhereInput>;
+};
+
+export type CredentialCount = {
+  __typename?: 'CredentialCount';
+  presentations: Scalars['Int'];
 };
 
 export type CredentialCountAggregate = {
@@ -161,6 +178,7 @@ export type CredentialCreateInput = {
   issuer: OrganizationCreateNestedOneWithoutIssuedCredentialsInput;
   issuerConsent?: InputMaybe<Scalars['Boolean']>;
   payload: Scalars['JSON'];
+  presentations?: InputMaybe<PresentationCreateNestedManyWithoutCredentialInput>;
   request?: InputMaybe<CredentialRequestCreateNestedOneWithoutCredentialInput>;
   required?: InputMaybe<CredentialCreaterequiredInput>;
   type: CredentialTypeCreateNestedOneWithoutCredentialsInput;
@@ -258,6 +276,12 @@ export type CredentialCreateNestedManyWithoutUserInput = {
   createMany?: InputMaybe<CredentialCreateManyUserInputEnvelope>;
 };
 
+export type CredentialCreateNestedOneWithoutPresentationsInput = {
+  connect?: InputMaybe<CredentialWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<CredentialCreateOrConnectWithoutPresentationsInput>;
+  create?: InputMaybe<CredentialCreateWithoutPresentationsInput>;
+};
+
 export type CredentialCreateNestedOneWithoutRequestInput = {
   connect?: InputMaybe<CredentialWhereUniqueInput>;
   connectOrCreate?: InputMaybe<CredentialCreateOrConnectWithoutRequestInput>;
@@ -266,6 +290,11 @@ export type CredentialCreateNestedOneWithoutRequestInput = {
 
 export type CredentialCreateOrConnectWithoutIssuerInput = {
   create: CredentialCreateWithoutIssuerInput;
+  where: CredentialWhereUniqueInput;
+};
+
+export type CredentialCreateOrConnectWithoutPresentationsInput = {
+  create: CredentialCreateWithoutPresentationsInput;
   where: CredentialWhereUniqueInput;
 };
 
@@ -291,6 +320,22 @@ export type CredentialCreateWithoutIssuerInput = {
   id?: InputMaybe<Scalars['String']>;
   issuerConsent?: InputMaybe<Scalars['Boolean']>;
   payload: Scalars['JSON'];
+  presentations?: InputMaybe<PresentationCreateNestedManyWithoutCredentialInput>;
+  request?: InputMaybe<CredentialRequestCreateNestedOneWithoutCredentialInput>;
+  required?: InputMaybe<CredentialCreaterequiredInput>;
+  type: CredentialTypeCreateNestedOneWithoutCredentialsInput;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+  user: UserCreateNestedOneWithoutCredentialsInput;
+};
+
+export type CredentialCreateWithoutPresentationsInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  expiryDate: Scalars['DateTime'];
+  holderConsent?: InputMaybe<Scalars['Boolean']>;
+  id?: InputMaybe<Scalars['String']>;
+  issuer: OrganizationCreateNestedOneWithoutIssuedCredentialsInput;
+  issuerConsent?: InputMaybe<Scalars['Boolean']>;
+  payload: Scalars['JSON'];
   request?: InputMaybe<CredentialRequestCreateNestedOneWithoutCredentialInput>;
   required?: InputMaybe<CredentialCreaterequiredInput>;
   type: CredentialTypeCreateNestedOneWithoutCredentialsInput;
@@ -306,6 +351,7 @@ export type CredentialCreateWithoutRequestInput = {
   issuer: OrganizationCreateNestedOneWithoutIssuedCredentialsInput;
   issuerConsent?: InputMaybe<Scalars['Boolean']>;
   payload: Scalars['JSON'];
+  presentations?: InputMaybe<PresentationCreateNestedManyWithoutCredentialInput>;
   required?: InputMaybe<CredentialCreaterequiredInput>;
   type: CredentialTypeCreateNestedOneWithoutCredentialsInput;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
@@ -320,6 +366,7 @@ export type CredentialCreateWithoutTypeInput = {
   issuer: OrganizationCreateNestedOneWithoutIssuedCredentialsInput;
   issuerConsent?: InputMaybe<Scalars['Boolean']>;
   payload: Scalars['JSON'];
+  presentations?: InputMaybe<PresentationCreateNestedManyWithoutCredentialInput>;
   request?: InputMaybe<CredentialRequestCreateNestedOneWithoutCredentialInput>;
   required?: InputMaybe<CredentialCreaterequiredInput>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
@@ -334,6 +381,7 @@ export type CredentialCreateWithoutUserInput = {
   issuer: OrganizationCreateNestedOneWithoutIssuedCredentialsInput;
   issuerConsent?: InputMaybe<Scalars['Boolean']>;
   payload: Scalars['JSON'];
+  presentations?: InputMaybe<PresentationCreateNestedManyWithoutCredentialInput>;
   request?: InputMaybe<CredentialRequestCreateNestedOneWithoutCredentialInput>;
   required?: InputMaybe<CredentialCreaterequiredInput>;
   type: CredentialTypeCreateNestedOneWithoutCredentialsInput;
@@ -454,6 +502,7 @@ export type CredentialOrderByWithRelationInput = {
   issuerConsent?: InputMaybe<SortOrder>;
   issuerId?: InputMaybe<SortOrder>;
   payload?: InputMaybe<SortOrder>;
+  presentations?: InputMaybe<PresentationOrderByRelationAggregateInput>;
   request?: InputMaybe<CredentialRequestOrderByWithRelationInput>;
   requestId?: InputMaybe<SortOrder>;
   required?: InputMaybe<SortOrder>;
@@ -1463,6 +1512,7 @@ export type CredentialUpdateInput = {
   issuer?: InputMaybe<OrganizationUpdateOneRequiredWithoutIssuedCredentialsNestedInput>;
   issuerConsent?: InputMaybe<BoolFieldUpdateOperationsInput>;
   payload?: InputMaybe<Scalars['JSON']>;
+  presentations?: InputMaybe<PresentationUpdateManyWithoutCredentialNestedInput>;
   request?: InputMaybe<CredentialRequestUpdateOneWithoutCredentialNestedInput>;
   required?: InputMaybe<CredentialUpdaterequiredInput>;
   type?: InputMaybe<CredentialTypeUpdateOneRequiredWithoutCredentialsNestedInput>;
@@ -1537,6 +1587,14 @@ export type CredentialUpdateManyWithoutUserNestedInput = {
   upsert?: InputMaybe<Array<CredentialUpsertWithWhereUniqueWithoutUserInput>>;
 };
 
+export type CredentialUpdateOneRequiredWithoutPresentationsNestedInput = {
+  connect?: InputMaybe<CredentialWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<CredentialCreateOrConnectWithoutPresentationsInput>;
+  create?: InputMaybe<CredentialCreateWithoutPresentationsInput>;
+  update?: InputMaybe<CredentialUpdateWithoutPresentationsInput>;
+  upsert?: InputMaybe<CredentialUpsertWithoutPresentationsInput>;
+};
+
 export type CredentialUpdateOneWithoutRequestNestedInput = {
   connect?: InputMaybe<CredentialWhereUniqueInput>;
   connectOrCreate?: InputMaybe<CredentialCreateOrConnectWithoutRequestInput>;
@@ -1568,6 +1626,21 @@ export type CredentialUpdateWithoutIssuerInput = {
   holderConsent?: InputMaybe<BoolFieldUpdateOperationsInput>;
   issuerConsent?: InputMaybe<BoolFieldUpdateOperationsInput>;
   payload?: InputMaybe<Scalars['JSON']>;
+  presentations?: InputMaybe<PresentationUpdateManyWithoutCredentialNestedInput>;
+  request?: InputMaybe<CredentialRequestUpdateOneWithoutCredentialNestedInput>;
+  required?: InputMaybe<CredentialUpdaterequiredInput>;
+  type?: InputMaybe<CredentialTypeUpdateOneRequiredWithoutCredentialsNestedInput>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  user?: InputMaybe<UserUpdateOneRequiredWithoutCredentialsNestedInput>;
+};
+
+export type CredentialUpdateWithoutPresentationsInput = {
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  expiryDate?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  holderConsent?: InputMaybe<BoolFieldUpdateOperationsInput>;
+  issuer?: InputMaybe<OrganizationUpdateOneRequiredWithoutIssuedCredentialsNestedInput>;
+  issuerConsent?: InputMaybe<BoolFieldUpdateOperationsInput>;
+  payload?: InputMaybe<Scalars['JSON']>;
   request?: InputMaybe<CredentialRequestUpdateOneWithoutCredentialNestedInput>;
   required?: InputMaybe<CredentialUpdaterequiredInput>;
   type?: InputMaybe<CredentialTypeUpdateOneRequiredWithoutCredentialsNestedInput>;
@@ -1582,6 +1655,7 @@ export type CredentialUpdateWithoutRequestInput = {
   issuer?: InputMaybe<OrganizationUpdateOneRequiredWithoutIssuedCredentialsNestedInput>;
   issuerConsent?: InputMaybe<BoolFieldUpdateOperationsInput>;
   payload?: InputMaybe<Scalars['JSON']>;
+  presentations?: InputMaybe<PresentationUpdateManyWithoutCredentialNestedInput>;
   required?: InputMaybe<CredentialUpdaterequiredInput>;
   type?: InputMaybe<CredentialTypeUpdateOneRequiredWithoutCredentialsNestedInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
@@ -1595,6 +1669,7 @@ export type CredentialUpdateWithoutTypeInput = {
   issuer?: InputMaybe<OrganizationUpdateOneRequiredWithoutIssuedCredentialsNestedInput>;
   issuerConsent?: InputMaybe<BoolFieldUpdateOperationsInput>;
   payload?: InputMaybe<Scalars['JSON']>;
+  presentations?: InputMaybe<PresentationUpdateManyWithoutCredentialNestedInput>;
   request?: InputMaybe<CredentialRequestUpdateOneWithoutCredentialNestedInput>;
   required?: InputMaybe<CredentialUpdaterequiredInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
@@ -1608,6 +1683,7 @@ export type CredentialUpdateWithoutUserInput = {
   issuer?: InputMaybe<OrganizationUpdateOneRequiredWithoutIssuedCredentialsNestedInput>;
   issuerConsent?: InputMaybe<BoolFieldUpdateOperationsInput>;
   payload?: InputMaybe<Scalars['JSON']>;
+  presentations?: InputMaybe<PresentationUpdateManyWithoutCredentialNestedInput>;
   request?: InputMaybe<CredentialRequestUpdateOneWithoutCredentialNestedInput>;
   required?: InputMaybe<CredentialUpdaterequiredInput>;
   type?: InputMaybe<CredentialTypeUpdateOneRequiredWithoutCredentialsNestedInput>;
@@ -1637,6 +1713,11 @@ export type CredentialUpsertWithWhereUniqueWithoutUserInput = {
   where: CredentialWhereUniqueInput;
 };
 
+export type CredentialUpsertWithoutPresentationsInput = {
+  create: CredentialCreateWithoutPresentationsInput;
+  update: CredentialUpdateWithoutPresentationsInput;
+};
+
 export type CredentialUpsertWithoutRequestInput = {
   create: CredentialCreateWithoutRequestInput;
   update: CredentialUpdateWithoutRequestInput;
@@ -1654,6 +1735,7 @@ export type CredentialWhereInput = {
   issuerConsent?: InputMaybe<BoolFilter>;
   issuerId?: InputMaybe<StringFilter>;
   payload?: InputMaybe<JsonFilter>;
+  presentations?: InputMaybe<PresentationListRelationFilter>;
   request?: InputMaybe<CredentialRequestRelationFilter>;
   requestId?: InputMaybe<StringNullableFilter>;
   required?: InputMaybe<StringNullableListFilter>;
@@ -3597,17 +3679,15 @@ export type OrganizationWhereUniqueInput = {
 export type Presentation = {
   __typename?: 'Presentation';
   createdAt: Scalars['DateTime'];
-  expiryDate: Scalars['DateTime'];
+  credential: Credential;
+  credentialId: Scalars['String'];
   holderConsent: Scalars['Boolean'];
   id: Scalars['String'];
-  issuerConsent: Scalars['Boolean'];
   organization: Organization;
   organizationId: Scalars['String'];
-  payload: Scalars['JSON'];
   request?: Maybe<PresentationRequest>;
   requestId?: Maybe<Scalars['String']>;
   signature?: Maybe<Scalars['String']>;
-  type: Scalars['String'];
   updatedAt: Scalars['DateTime'];
   user: User;
   userId: Scalars['String'];
@@ -3617,74 +3697,74 @@ export type PresentationCountAggregate = {
   __typename?: 'PresentationCountAggregate';
   _all: Scalars['Int'];
   createdAt: Scalars['Int'];
-  expiryDate: Scalars['Int'];
+  credentialId: Scalars['Int'];
   holderConsent: Scalars['Int'];
   id: Scalars['Int'];
-  issuerConsent: Scalars['Int'];
   organizationId: Scalars['Int'];
-  payload: Scalars['Int'];
   requestId: Scalars['Int'];
   signature: Scalars['Int'];
-  type: Scalars['Int'];
   updatedAt: Scalars['Int'];
   userId: Scalars['Int'];
 };
 
 export type PresentationCountOrderByAggregateInput = {
   createdAt?: InputMaybe<SortOrder>;
-  expiryDate?: InputMaybe<SortOrder>;
+  credentialId?: InputMaybe<SortOrder>;
   holderConsent?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
-  issuerConsent?: InputMaybe<SortOrder>;
   organizationId?: InputMaybe<SortOrder>;
-  payload?: InputMaybe<SortOrder>;
   requestId?: InputMaybe<SortOrder>;
   signature?: InputMaybe<SortOrder>;
-  type?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
   userId?: InputMaybe<SortOrder>;
 };
 
 export type PresentationCreateInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
-  expiryDate: Scalars['DateTime'];
+  credential: CredentialCreateNestedOneWithoutPresentationsInput;
   holderConsent?: InputMaybe<Scalars['Boolean']>;
   id?: InputMaybe<Scalars['String']>;
-  issuerConsent?: InputMaybe<Scalars['Boolean']>;
   organization: OrganizationCreateNestedOneWithoutReceivedPresentationsInput;
-  payload: Scalars['JSON'];
   request?: InputMaybe<PresentationRequestCreateNestedOneWithoutPresentationInput>;
   signature?: InputMaybe<Scalars['String']>;
-  type: Scalars['String'];
   updatedAt?: InputMaybe<Scalars['DateTime']>;
   user: UserCreateNestedOneWithoutPresentationsInput;
 };
 
-export type PresentationCreateManyInput = {
+export type PresentationCreateManyCredentialInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
-  expiryDate: Scalars['DateTime'];
   holderConsent?: InputMaybe<Scalars['Boolean']>;
   id?: InputMaybe<Scalars['String']>;
-  issuerConsent?: InputMaybe<Scalars['Boolean']>;
   organizationId: Scalars['String'];
-  payload: Scalars['JSON'];
   requestId?: InputMaybe<Scalars['String']>;
   signature?: InputMaybe<Scalars['String']>;
-  type: Scalars['String'];
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+  userId: Scalars['String'];
+};
+
+export type PresentationCreateManyCredentialInputEnvelope = {
+  data: Array<PresentationCreateManyCredentialInput>;
+};
+
+export type PresentationCreateManyInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  credentialId: Scalars['String'];
+  holderConsent?: InputMaybe<Scalars['Boolean']>;
+  id?: InputMaybe<Scalars['String']>;
+  organizationId: Scalars['String'];
+  requestId?: InputMaybe<Scalars['String']>;
+  signature?: InputMaybe<Scalars['String']>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
   userId: Scalars['String'];
 };
 
 export type PresentationCreateManyOrganizationInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
-  expiryDate: Scalars['DateTime'];
+  credentialId: Scalars['String'];
   holderConsent?: InputMaybe<Scalars['Boolean']>;
   id?: InputMaybe<Scalars['String']>;
-  issuerConsent?: InputMaybe<Scalars['Boolean']>;
-  payload: Scalars['JSON'];
   requestId?: InputMaybe<Scalars['String']>;
   signature?: InputMaybe<Scalars['String']>;
-  type: Scalars['String'];
   updatedAt?: InputMaybe<Scalars['DateTime']>;
   userId: Scalars['String'];
 };
@@ -3695,20 +3775,24 @@ export type PresentationCreateManyOrganizationInputEnvelope = {
 
 export type PresentationCreateManyUserInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
-  expiryDate: Scalars['DateTime'];
+  credentialId: Scalars['String'];
   holderConsent?: InputMaybe<Scalars['Boolean']>;
   id?: InputMaybe<Scalars['String']>;
-  issuerConsent?: InputMaybe<Scalars['Boolean']>;
   organizationId: Scalars['String'];
-  payload: Scalars['JSON'];
   requestId?: InputMaybe<Scalars['String']>;
   signature?: InputMaybe<Scalars['String']>;
-  type: Scalars['String'];
   updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
 
 export type PresentationCreateManyUserInputEnvelope = {
   data: Array<PresentationCreateManyUserInput>;
+};
+
+export type PresentationCreateNestedManyWithoutCredentialInput = {
+  connect?: InputMaybe<Array<PresentationWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<PresentationCreateOrConnectWithoutCredentialInput>>;
+  create?: InputMaybe<Array<PresentationCreateWithoutCredentialInput>>;
+  createMany?: InputMaybe<PresentationCreateManyCredentialInputEnvelope>;
 };
 
 export type PresentationCreateNestedManyWithoutOrganizationInput = {
@@ -3731,6 +3815,11 @@ export type PresentationCreateNestedOneWithoutRequestInput = {
   create?: InputMaybe<PresentationCreateWithoutRequestInput>;
 };
 
+export type PresentationCreateOrConnectWithoutCredentialInput = {
+  create: PresentationCreateWithoutCredentialInput;
+  where: PresentationWhereUniqueInput;
+};
+
 export type PresentationCreateOrConnectWithoutOrganizationInput = {
   create: PresentationCreateWithoutOrganizationInput;
   where: PresentationWhereUniqueInput;
@@ -3746,45 +3835,47 @@ export type PresentationCreateOrConnectWithoutUserInput = {
   where: PresentationWhereUniqueInput;
 };
 
-export type PresentationCreateWithoutOrganizationInput = {
+export type PresentationCreateWithoutCredentialInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
-  expiryDate: Scalars['DateTime'];
   holderConsent?: InputMaybe<Scalars['Boolean']>;
   id?: InputMaybe<Scalars['String']>;
-  issuerConsent?: InputMaybe<Scalars['Boolean']>;
-  payload: Scalars['JSON'];
+  organization: OrganizationCreateNestedOneWithoutReceivedPresentationsInput;
   request?: InputMaybe<PresentationRequestCreateNestedOneWithoutPresentationInput>;
   signature?: InputMaybe<Scalars['String']>;
-  type: Scalars['String'];
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+  user: UserCreateNestedOneWithoutPresentationsInput;
+};
+
+export type PresentationCreateWithoutOrganizationInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  credential: CredentialCreateNestedOneWithoutPresentationsInput;
+  holderConsent?: InputMaybe<Scalars['Boolean']>;
+  id?: InputMaybe<Scalars['String']>;
+  request?: InputMaybe<PresentationRequestCreateNestedOneWithoutPresentationInput>;
+  signature?: InputMaybe<Scalars['String']>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
   user: UserCreateNestedOneWithoutPresentationsInput;
 };
 
 export type PresentationCreateWithoutRequestInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
-  expiryDate: Scalars['DateTime'];
+  credential: CredentialCreateNestedOneWithoutPresentationsInput;
   holderConsent?: InputMaybe<Scalars['Boolean']>;
   id?: InputMaybe<Scalars['String']>;
-  issuerConsent?: InputMaybe<Scalars['Boolean']>;
   organization: OrganizationCreateNestedOneWithoutReceivedPresentationsInput;
-  payload: Scalars['JSON'];
   signature?: InputMaybe<Scalars['String']>;
-  type: Scalars['String'];
   updatedAt?: InputMaybe<Scalars['DateTime']>;
   user: UserCreateNestedOneWithoutPresentationsInput;
 };
 
 export type PresentationCreateWithoutUserInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
-  expiryDate: Scalars['DateTime'];
+  credential: CredentialCreateNestedOneWithoutPresentationsInput;
   holderConsent?: InputMaybe<Scalars['Boolean']>;
   id?: InputMaybe<Scalars['String']>;
-  issuerConsent?: InputMaybe<Scalars['Boolean']>;
   organization: OrganizationCreateNestedOneWithoutReceivedPresentationsInput;
-  payload: Scalars['JSON'];
   request?: InputMaybe<PresentationRequestCreateNestedOneWithoutPresentationInput>;
   signature?: InputMaybe<Scalars['String']>;
-  type: Scalars['String'];
   updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
 
@@ -3794,15 +3885,12 @@ export type PresentationGroupBy = {
   _max?: Maybe<PresentationMaxAggregate>;
   _min?: Maybe<PresentationMinAggregate>;
   createdAt: Scalars['DateTime'];
-  expiryDate: Scalars['DateTime'];
+  credentialId: Scalars['String'];
   holderConsent: Scalars['Boolean'];
   id: Scalars['String'];
-  issuerConsent: Scalars['Boolean'];
   organizationId: Scalars['String'];
-  payload: Scalars['JSON'];
   requestId?: Maybe<Scalars['String']>;
   signature?: Maybe<Scalars['String']>;
-  type: Scalars['String'];
   updatedAt: Scalars['DateTime'];
   userId: Scalars['String'];
 };
@@ -3816,28 +3904,24 @@ export type PresentationListRelationFilter = {
 export type PresentationMaxAggregate = {
   __typename?: 'PresentationMaxAggregate';
   createdAt?: Maybe<Scalars['DateTime']>;
-  expiryDate?: Maybe<Scalars['DateTime']>;
+  credentialId?: Maybe<Scalars['String']>;
   holderConsent?: Maybe<Scalars['Boolean']>;
   id?: Maybe<Scalars['String']>;
-  issuerConsent?: Maybe<Scalars['Boolean']>;
   organizationId?: Maybe<Scalars['String']>;
   requestId?: Maybe<Scalars['String']>;
   signature?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   userId?: Maybe<Scalars['String']>;
 };
 
 export type PresentationMaxOrderByAggregateInput = {
   createdAt?: InputMaybe<SortOrder>;
-  expiryDate?: InputMaybe<SortOrder>;
+  credentialId?: InputMaybe<SortOrder>;
   holderConsent?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
-  issuerConsent?: InputMaybe<SortOrder>;
   organizationId?: InputMaybe<SortOrder>;
   requestId?: InputMaybe<SortOrder>;
   signature?: InputMaybe<SortOrder>;
-  type?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
   userId?: InputMaybe<SortOrder>;
 };
@@ -3845,28 +3929,24 @@ export type PresentationMaxOrderByAggregateInput = {
 export type PresentationMinAggregate = {
   __typename?: 'PresentationMinAggregate';
   createdAt?: Maybe<Scalars['DateTime']>;
-  expiryDate?: Maybe<Scalars['DateTime']>;
+  credentialId?: Maybe<Scalars['String']>;
   holderConsent?: Maybe<Scalars['Boolean']>;
   id?: Maybe<Scalars['String']>;
-  issuerConsent?: Maybe<Scalars['Boolean']>;
   organizationId?: Maybe<Scalars['String']>;
   requestId?: Maybe<Scalars['String']>;
   signature?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   userId?: Maybe<Scalars['String']>;
 };
 
 export type PresentationMinOrderByAggregateInput = {
   createdAt?: InputMaybe<SortOrder>;
-  expiryDate?: InputMaybe<SortOrder>;
+  credentialId?: InputMaybe<SortOrder>;
   holderConsent?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
-  issuerConsent?: InputMaybe<SortOrder>;
   organizationId?: InputMaybe<SortOrder>;
   requestId?: InputMaybe<SortOrder>;
   signature?: InputMaybe<SortOrder>;
-  type?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
   userId?: InputMaybe<SortOrder>;
 };
@@ -3880,32 +3960,27 @@ export type PresentationOrderByWithAggregationInput = {
   _max?: InputMaybe<PresentationMaxOrderByAggregateInput>;
   _min?: InputMaybe<PresentationMinOrderByAggregateInput>;
   createdAt?: InputMaybe<SortOrder>;
-  expiryDate?: InputMaybe<SortOrder>;
+  credentialId?: InputMaybe<SortOrder>;
   holderConsent?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
-  issuerConsent?: InputMaybe<SortOrder>;
   organizationId?: InputMaybe<SortOrder>;
-  payload?: InputMaybe<SortOrder>;
   requestId?: InputMaybe<SortOrder>;
   signature?: InputMaybe<SortOrder>;
-  type?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
   userId?: InputMaybe<SortOrder>;
 };
 
 export type PresentationOrderByWithRelationInput = {
   createdAt?: InputMaybe<SortOrder>;
-  expiryDate?: InputMaybe<SortOrder>;
+  credential?: InputMaybe<CredentialOrderByWithRelationInput>;
+  credentialId?: InputMaybe<SortOrder>;
   holderConsent?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
-  issuerConsent?: InputMaybe<SortOrder>;
   organization?: InputMaybe<OrganizationOrderByWithRelationInput>;
   organizationId?: InputMaybe<SortOrder>;
-  payload?: InputMaybe<SortOrder>;
   request?: InputMaybe<PresentationRequestOrderByWithRelationInput>;
   requestId?: InputMaybe<SortOrder>;
   signature?: InputMaybe<SortOrder>;
-  type?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
   user?: InputMaybe<UserOrderByWithRelationInput>;
   userId?: InputMaybe<SortOrder>;
@@ -4468,15 +4543,12 @@ export type PresentationRequestWhereUniqueInput = {
 
 export enum PresentationScalarFieldEnum {
   CreatedAt = 'createdAt',
-  ExpiryDate = 'expiryDate',
+  CredentialId = 'credentialId',
   HolderConsent = 'holderConsent',
   Id = 'id',
-  IssuerConsent = 'issuerConsent',
   OrganizationId = 'organizationId',
-  Payload = 'payload',
   RequestId = 'requestId',
   Signature = 'signature',
-  Type = 'type',
   UpdatedAt = 'updatedAt',
   UserId = 'userId'
 }
@@ -4486,15 +4558,12 @@ export type PresentationScalarWhereInput = {
   NOT?: InputMaybe<Array<PresentationScalarWhereInput>>;
   OR?: InputMaybe<Array<PresentationScalarWhereInput>>;
   createdAt?: InputMaybe<DateTimeFilter>;
-  expiryDate?: InputMaybe<DateTimeFilter>;
+  credentialId?: InputMaybe<StringFilter>;
   holderConsent?: InputMaybe<BoolFilter>;
   id?: InputMaybe<StringFilter>;
-  issuerConsent?: InputMaybe<BoolFilter>;
   organizationId?: InputMaybe<StringFilter>;
-  payload?: InputMaybe<JsonFilter>;
   requestId?: InputMaybe<StringNullableFilter>;
   signature?: InputMaybe<StringNullableFilter>;
-  type?: InputMaybe<StringFilter>;
   updatedAt?: InputMaybe<DateTimeFilter>;
   userId?: InputMaybe<StringFilter>;
 };
@@ -4504,42 +4573,37 @@ export type PresentationScalarWhereWithAggregatesInput = {
   NOT?: InputMaybe<Array<PresentationScalarWhereWithAggregatesInput>>;
   OR?: InputMaybe<Array<PresentationScalarWhereWithAggregatesInput>>;
   createdAt?: InputMaybe<DateTimeWithAggregatesFilter>;
-  expiryDate?: InputMaybe<DateTimeWithAggregatesFilter>;
+  credentialId?: InputMaybe<StringWithAggregatesFilter>;
   holderConsent?: InputMaybe<BoolWithAggregatesFilter>;
   id?: InputMaybe<StringWithAggregatesFilter>;
-  issuerConsent?: InputMaybe<BoolWithAggregatesFilter>;
   organizationId?: InputMaybe<StringWithAggregatesFilter>;
-  payload?: InputMaybe<JsonWithAggregatesFilter>;
   requestId?: InputMaybe<StringNullableWithAggregatesFilter>;
   signature?: InputMaybe<StringNullableWithAggregatesFilter>;
-  type?: InputMaybe<StringWithAggregatesFilter>;
   updatedAt?: InputMaybe<DateTimeWithAggregatesFilter>;
   userId?: InputMaybe<StringWithAggregatesFilter>;
 };
 
 export type PresentationUpdateInput = {
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
-  expiryDate?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  credential?: InputMaybe<CredentialUpdateOneRequiredWithoutPresentationsNestedInput>;
   holderConsent?: InputMaybe<BoolFieldUpdateOperationsInput>;
-  issuerConsent?: InputMaybe<BoolFieldUpdateOperationsInput>;
   organization?: InputMaybe<OrganizationUpdateOneRequiredWithoutReceivedPresentationsNestedInput>;
-  payload?: InputMaybe<Scalars['JSON']>;
   request?: InputMaybe<PresentationRequestUpdateOneWithoutPresentationNestedInput>;
   signature?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
-  type?: InputMaybe<StringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   user?: InputMaybe<UserUpdateOneRequiredWithoutPresentationsNestedInput>;
 };
 
 export type PresentationUpdateManyMutationInput = {
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
-  expiryDate?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   holderConsent?: InputMaybe<BoolFieldUpdateOperationsInput>;
-  issuerConsent?: InputMaybe<BoolFieldUpdateOperationsInput>;
-  payload?: InputMaybe<Scalars['JSON']>;
   signature?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
-  type?: InputMaybe<StringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+};
+
+export type PresentationUpdateManyWithWhereWithoutCredentialInput = {
+  data: PresentationUpdateManyMutationInput;
+  where: PresentationScalarWhereInput;
 };
 
 export type PresentationUpdateManyWithWhereWithoutOrganizationInput = {
@@ -4550,6 +4614,20 @@ export type PresentationUpdateManyWithWhereWithoutOrganizationInput = {
 export type PresentationUpdateManyWithWhereWithoutUserInput = {
   data: PresentationUpdateManyMutationInput;
   where: PresentationScalarWhereInput;
+};
+
+export type PresentationUpdateManyWithoutCredentialNestedInput = {
+  connect?: InputMaybe<Array<PresentationWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<PresentationCreateOrConnectWithoutCredentialInput>>;
+  create?: InputMaybe<Array<PresentationCreateWithoutCredentialInput>>;
+  createMany?: InputMaybe<PresentationCreateManyCredentialInputEnvelope>;
+  delete?: InputMaybe<Array<PresentationWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<PresentationScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<PresentationWhereUniqueInput>>;
+  set?: InputMaybe<Array<PresentationWhereUniqueInput>>;
+  update?: InputMaybe<Array<PresentationUpdateWithWhereUniqueWithoutCredentialInput>>;
+  updateMany?: InputMaybe<Array<PresentationUpdateManyWithWhereWithoutCredentialInput>>;
+  upsert?: InputMaybe<Array<PresentationUpsertWithWhereUniqueWithoutCredentialInput>>;
 };
 
 export type PresentationUpdateManyWithoutOrganizationNestedInput = {
@@ -4590,6 +4668,11 @@ export type PresentationUpdateOneWithoutRequestNestedInput = {
   upsert?: InputMaybe<PresentationUpsertWithoutRequestInput>;
 };
 
+export type PresentationUpdateWithWhereUniqueWithoutCredentialInput = {
+  data: PresentationUpdateWithoutCredentialInput;
+  where: PresentationWhereUniqueInput;
+};
+
 export type PresentationUpdateWithWhereUniqueWithoutOrganizationInput = {
   data: PresentationUpdateWithoutOrganizationInput;
   where: PresentationWhereUniqueInput;
@@ -4600,43 +4683,50 @@ export type PresentationUpdateWithWhereUniqueWithoutUserInput = {
   where: PresentationWhereUniqueInput;
 };
 
-export type PresentationUpdateWithoutOrganizationInput = {
+export type PresentationUpdateWithoutCredentialInput = {
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
-  expiryDate?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   holderConsent?: InputMaybe<BoolFieldUpdateOperationsInput>;
-  issuerConsent?: InputMaybe<BoolFieldUpdateOperationsInput>;
-  payload?: InputMaybe<Scalars['JSON']>;
+  organization?: InputMaybe<OrganizationUpdateOneRequiredWithoutReceivedPresentationsNestedInput>;
   request?: InputMaybe<PresentationRequestUpdateOneWithoutPresentationNestedInput>;
   signature?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
-  type?: InputMaybe<StringFieldUpdateOperationsInput>;
+  updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  user?: InputMaybe<UserUpdateOneRequiredWithoutPresentationsNestedInput>;
+};
+
+export type PresentationUpdateWithoutOrganizationInput = {
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  credential?: InputMaybe<CredentialUpdateOneRequiredWithoutPresentationsNestedInput>;
+  holderConsent?: InputMaybe<BoolFieldUpdateOperationsInput>;
+  request?: InputMaybe<PresentationRequestUpdateOneWithoutPresentationNestedInput>;
+  signature?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   user?: InputMaybe<UserUpdateOneRequiredWithoutPresentationsNestedInput>;
 };
 
 export type PresentationUpdateWithoutRequestInput = {
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
-  expiryDate?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  credential?: InputMaybe<CredentialUpdateOneRequiredWithoutPresentationsNestedInput>;
   holderConsent?: InputMaybe<BoolFieldUpdateOperationsInput>;
-  issuerConsent?: InputMaybe<BoolFieldUpdateOperationsInput>;
   organization?: InputMaybe<OrganizationUpdateOneRequiredWithoutReceivedPresentationsNestedInput>;
-  payload?: InputMaybe<Scalars['JSON']>;
   signature?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
-  type?: InputMaybe<StringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
   user?: InputMaybe<UserUpdateOneRequiredWithoutPresentationsNestedInput>;
 };
 
 export type PresentationUpdateWithoutUserInput = {
   createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
-  expiryDate?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  credential?: InputMaybe<CredentialUpdateOneRequiredWithoutPresentationsNestedInput>;
   holderConsent?: InputMaybe<BoolFieldUpdateOperationsInput>;
-  issuerConsent?: InputMaybe<BoolFieldUpdateOperationsInput>;
   organization?: InputMaybe<OrganizationUpdateOneRequiredWithoutReceivedPresentationsNestedInput>;
-  payload?: InputMaybe<Scalars['JSON']>;
   request?: InputMaybe<PresentationRequestUpdateOneWithoutPresentationNestedInput>;
   signature?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
-  type?: InputMaybe<StringFieldUpdateOperationsInput>;
   updatedAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+};
+
+export type PresentationUpsertWithWhereUniqueWithoutCredentialInput = {
+  create: PresentationCreateWithoutCredentialInput;
+  update: PresentationUpdateWithoutCredentialInput;
+  where: PresentationWhereUniqueInput;
 };
 
 export type PresentationUpsertWithWhereUniqueWithoutOrganizationInput = {
@@ -4661,17 +4751,15 @@ export type PresentationWhereInput = {
   NOT?: InputMaybe<Array<PresentationWhereInput>>;
   OR?: InputMaybe<Array<PresentationWhereInput>>;
   createdAt?: InputMaybe<DateTimeFilter>;
-  expiryDate?: InputMaybe<DateTimeFilter>;
+  credential?: InputMaybe<CredentialRelationFilter>;
+  credentialId?: InputMaybe<StringFilter>;
   holderConsent?: InputMaybe<BoolFilter>;
   id?: InputMaybe<StringFilter>;
-  issuerConsent?: InputMaybe<BoolFilter>;
   organization?: InputMaybe<OrganizationRelationFilter>;
   organizationId?: InputMaybe<StringFilter>;
-  payload?: InputMaybe<JsonFilter>;
   request?: InputMaybe<PresentationRequestRelationFilter>;
   requestId?: InputMaybe<StringNullableFilter>;
   signature?: InputMaybe<StringNullableFilter>;
-  type?: InputMaybe<StringFilter>;
   updatedAt?: InputMaybe<DateTimeFilter>;
   user?: InputMaybe<UserRelationFilter>;
   userId?: InputMaybe<StringFilter>;
@@ -5985,6 +6073,13 @@ export type CreateOneOrganizationMutationVariables = Exact<{
 
 export type CreateOneOrganizationMutation = { __typename?: 'Mutation', createOneOrganization: { __typename?: 'Organization', id: string, name: string, did?: string | null, description?: string | null, logoUrl?: string | null, status: string, createdAt?: any | null, updatedAt?: any | null } };
 
+export type CreateOnePresentationMutationVariables = Exact<{
+  data: PresentationCreateInput;
+}>;
+
+
+export type CreateOnePresentationMutation = { __typename?: 'Mutation', createOnePresentation: { __typename?: 'Presentation', id: string, credentialId: string, holderConsent: boolean, signature?: string | null, userId: string, organizationId: string, requestId?: string | null, createdAt: any, updatedAt: any } };
+
 export type LoginMutationVariables = Exact<{
   password: Scalars['String'];
   username: Scalars['String'];
@@ -6041,6 +6136,17 @@ export type AggregateCredentialRequestQueryVariables = Exact<{
 
 
 export type AggregateCredentialRequestQuery = { __typename?: 'Query', aggregateCredentialRequest: { __typename?: 'AggregateCredentialRequest', _count?: { __typename?: 'CredentialRequestCountAggregate', id: number } | null } };
+
+export type AggregatePresentationQueryVariables = Exact<{
+  where?: InputMaybe<PresentationWhereInput>;
+  orderBy?: InputMaybe<Array<PresentationOrderByWithRelationInput> | PresentationOrderByWithRelationInput>;
+  cursor?: InputMaybe<PresentationWhereUniqueInput>;
+  take?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+}>;
+
+
+export type AggregatePresentationQuery = { __typename?: 'Query', aggregatePresentation: { __typename?: 'AggregatePresentation', _count?: { __typename?: 'PresentationCountAggregate', id: number } | null } };
 
 export type CredentialRequestQueryVariables = Exact<{
   where: CredentialRequestWhereUniqueInput;
@@ -6110,6 +6216,18 @@ export type OrganizationsQueryVariables = Exact<{
 
 
 export type OrganizationsQuery = { __typename?: 'Query', organizations: Array<{ __typename?: 'Organization', id: string, name: string, description?: string | null, did?: string | null, logoUrl?: string | null, status: string, createdAt?: any | null, updatedAt?: any | null }> };
+
+export type PresentationsQueryVariables = Exact<{
+  where?: InputMaybe<PresentationWhereInput>;
+  orderBy?: InputMaybe<Array<PresentationOrderByWithRelationInput> | PresentationOrderByWithRelationInput>;
+  cursor?: InputMaybe<PresentationWhereUniqueInput>;
+  take?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  distinct?: InputMaybe<Array<PresentationScalarFieldEnum> | PresentationScalarFieldEnum>;
+}>;
+
+
+export type PresentationsQuery = { __typename?: 'Query', presentations: Array<{ __typename?: 'Presentation', id: string, credentialId: string, holderConsent: boolean, signature?: string | null, userId: string, organizationId: string, requestId?: string | null, createdAt: any, updatedAt: any, credential: { __typename?: 'Credential', id: string, typeId: string, payload: any, required: Array<string>, issuerConsent: boolean, holderConsent: boolean, userId: string, issuerId: string, requestId?: string | null, expiryDate: any, createdAt: any, updatedAt: any, issuer: { __typename?: 'Organization', name: string }, type: { __typename?: 'CredentialType', id: string, name: string, typename: string, attributes: Array<any>, createdAt?: any | null, updatedAt?: any | null, allowedOrganizationsIds: Array<string> } }, user: { __typename?: 'User', id: string, username: string, did?: string | null, phoneNumber?: string | null, email: string, name: string, logoUrl?: string | null, status: string, trustedOrganizationsIds: Array<string>, createdAt?: any | null, updatedAt?: any | null }, organization: { __typename?: 'Organization', id: string, name: string, description?: string | null, did?: string | null, logoUrl?: string | null, status: string, allowedCredentialTypesIds: Array<string>, usersWhoTrustIds: Array<string>, createdAt?: any | null, updatedAt?: any | null }, request?: { __typename?: 'PresentationRequest', id: string, userId: string, verifierId: string, organizationMemberId: string, credentialType: string, attributes: any, status: string, createdAt: any, updatedAt: any } | null }> };
 
 export type ProfileQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -6254,6 +6372,47 @@ export function useCreateOneOrganizationMutation(baseOptions?: Apollo.MutationHo
 export type CreateOneOrganizationMutationHookResult = ReturnType<typeof useCreateOneOrganizationMutation>;
 export type CreateOneOrganizationMutationResult = Apollo.MutationResult<CreateOneOrganizationMutation>;
 export type CreateOneOrganizationMutationOptions = Apollo.BaseMutationOptions<CreateOneOrganizationMutation, CreateOneOrganizationMutationVariables>;
+export const CreateOnePresentationDocument = gql`
+    mutation CreateOnePresentation($data: PresentationCreateInput!) {
+  createOnePresentation(data: $data) {
+    id
+    credentialId
+    holderConsent
+    signature
+    userId
+    organizationId
+    requestId
+    createdAt
+    updatedAt
+  }
+}
+    `;
+export type CreateOnePresentationMutationFn = Apollo.MutationFunction<CreateOnePresentationMutation, CreateOnePresentationMutationVariables>;
+
+/**
+ * __useCreateOnePresentationMutation__
+ *
+ * To run a mutation, you first call `useCreateOnePresentationMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateOnePresentationMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createOnePresentationMutation, { data, loading, error }] = useCreateOnePresentationMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useCreateOnePresentationMutation(baseOptions?: Apollo.MutationHookOptions<CreateOnePresentationMutation, CreateOnePresentationMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateOnePresentationMutation, CreateOnePresentationMutationVariables>(CreateOnePresentationDocument, options);
+      }
+export type CreateOnePresentationMutationHookResult = ReturnType<typeof useCreateOnePresentationMutation>;
+export type CreateOnePresentationMutationResult = Apollo.MutationResult<CreateOnePresentationMutation>;
+export type CreateOnePresentationMutationOptions = Apollo.BaseMutationOptions<CreateOnePresentationMutation, CreateOnePresentationMutationVariables>;
 export const LoginDocument = gql`
     mutation Login($password: String!, $username: String!) {
   login(password: $password, username: $username) {
@@ -6534,6 +6693,53 @@ export function useAggregateCredentialRequestLazyQuery(baseOptions?: Apollo.Lazy
 export type AggregateCredentialRequestQueryHookResult = ReturnType<typeof useAggregateCredentialRequestQuery>;
 export type AggregateCredentialRequestLazyQueryHookResult = ReturnType<typeof useAggregateCredentialRequestLazyQuery>;
 export type AggregateCredentialRequestQueryResult = Apollo.QueryResult<AggregateCredentialRequestQuery, AggregateCredentialRequestQueryVariables>;
+export const AggregatePresentationDocument = gql`
+    query AggregatePresentation($where: PresentationWhereInput, $orderBy: [PresentationOrderByWithRelationInput!], $cursor: PresentationWhereUniqueInput, $take: Int, $skip: Int) {
+  aggregatePresentation(
+    where: $where
+    orderBy: $orderBy
+    cursor: $cursor
+    take: $take
+    skip: $skip
+  ) {
+    _count {
+      id
+    }
+  }
+}
+    `;
+
+/**
+ * __useAggregatePresentationQuery__
+ *
+ * To run a query within a React component, call `useAggregatePresentationQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAggregatePresentationQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAggregatePresentationQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *      orderBy: // value for 'orderBy'
+ *      cursor: // value for 'cursor'
+ *      take: // value for 'take'
+ *      skip: // value for 'skip'
+ *   },
+ * });
+ */
+export function useAggregatePresentationQuery(baseOptions?: Apollo.QueryHookOptions<AggregatePresentationQuery, AggregatePresentationQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<AggregatePresentationQuery, AggregatePresentationQueryVariables>(AggregatePresentationDocument, options);
+      }
+export function useAggregatePresentationLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AggregatePresentationQuery, AggregatePresentationQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<AggregatePresentationQuery, AggregatePresentationQueryVariables>(AggregatePresentationDocument, options);
+        }
+export type AggregatePresentationQueryHookResult = ReturnType<typeof useAggregatePresentationQuery>;
+export type AggregatePresentationLazyQueryHookResult = ReturnType<typeof useAggregatePresentationLazyQuery>;
+export type AggregatePresentationQueryResult = Apollo.QueryResult<AggregatePresentationQuery, AggregatePresentationQueryVariables>;
 export const CredentialRequestDocument = gql`
     query CredentialRequest($where: CredentialRequestWhereUniqueInput!) {
   credentialRequest(where: $where) {
@@ -6944,6 +7150,123 @@ export function useOrganizationsLazyQuery(baseOptions?: Apollo.LazyQueryHookOpti
 export type OrganizationsQueryHookResult = ReturnType<typeof useOrganizationsQuery>;
 export type OrganizationsLazyQueryHookResult = ReturnType<typeof useOrganizationsLazyQuery>;
 export type OrganizationsQueryResult = Apollo.QueryResult<OrganizationsQuery, OrganizationsQueryVariables>;
+export const PresentationsDocument = gql`
+    query Presentations($where: PresentationWhereInput, $orderBy: [PresentationOrderByWithRelationInput!], $cursor: PresentationWhereUniqueInput, $take: Int, $skip: Int, $distinct: [PresentationScalarFieldEnum!]) {
+  presentations(
+    where: $where
+    orderBy: $orderBy
+    cursor: $cursor
+    take: $take
+    skip: $skip
+    distinct: $distinct
+  ) {
+    id
+    credentialId
+    holderConsent
+    signature
+    userId
+    organizationId
+    requestId
+    createdAt
+    updatedAt
+    credential {
+      id
+      typeId
+      payload
+      required
+      issuerConsent
+      holderConsent
+      userId
+      issuer {
+        name
+      }
+      issuerId
+      requestId
+      expiryDate
+      createdAt
+      updatedAt
+      type {
+        id
+        name
+        typename
+        attributes
+        createdAt
+        updatedAt
+        allowedOrganizationsIds
+      }
+    }
+    user {
+      id
+      username
+      did
+      phoneNumber
+      email
+      name
+      logoUrl
+      status
+      trustedOrganizationsIds
+      createdAt
+      updatedAt
+    }
+    organization {
+      id
+      name
+      description
+      did
+      logoUrl
+      status
+      allowedCredentialTypesIds
+      usersWhoTrustIds
+      createdAt
+      updatedAt
+    }
+    request {
+      id
+      userId
+      verifierId
+      organizationMemberId
+      credentialType
+      attributes
+      status
+      createdAt
+      updatedAt
+    }
+  }
+}
+    `;
+
+/**
+ * __usePresentationsQuery__
+ *
+ * To run a query within a React component, call `usePresentationsQuery` and pass it any options that fit your needs.
+ * When your component renders, `usePresentationsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = usePresentationsQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *      orderBy: // value for 'orderBy'
+ *      cursor: // value for 'cursor'
+ *      take: // value for 'take'
+ *      skip: // value for 'skip'
+ *      distinct: // value for 'distinct'
+ *   },
+ * });
+ */
+export function usePresentationsQuery(baseOptions?: Apollo.QueryHookOptions<PresentationsQuery, PresentationsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<PresentationsQuery, PresentationsQueryVariables>(PresentationsDocument, options);
+      }
+export function usePresentationsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<PresentationsQuery, PresentationsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<PresentationsQuery, PresentationsQueryVariables>(PresentationsDocument, options);
+        }
+export type PresentationsQueryHookResult = ReturnType<typeof usePresentationsQuery>;
+export type PresentationsLazyQueryHookResult = ReturnType<typeof usePresentationsLazyQuery>;
+export type PresentationsQueryResult = Apollo.QueryResult<PresentationsQuery, PresentationsQueryVariables>;
 export const ProfileDocument = gql`
     query Profile {
   profile {

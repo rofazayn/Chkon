@@ -67,7 +67,7 @@ const IssuerCard = ({ org }: any) => {
         )}
       </Stack>
       <Box mt={12}>
-        <Group spacing={8}>
+        <Group spacing={12}>
           <Button
             variant='light'
             size='xs'
@@ -82,8 +82,10 @@ const IssuerCard = ({ org }: any) => {
             rightIcon={<IconHeartPlus size={16} />}
             size='xs'
             color='pink'
+            component={Link}
+            href={`/dashboard/issuers/${org.id}/present-credential`}
           >
-            Add to trusted
+            Present credentials
           </Button>
         </Group>
       </Box>

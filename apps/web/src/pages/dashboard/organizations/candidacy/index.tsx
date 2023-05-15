@@ -15,7 +15,7 @@ import {
   useCreateOneOrganizationMutation,
   useOrganizationsQuery,
 } from '../../../../generated/graphql'
-import useUser from '../../../../hooks/useUser'
+import useAuth from '../../../../hooks/useAuth'
 
 type OrganizationValues = {
   name: string
@@ -24,7 +24,7 @@ type OrganizationValues = {
 
 const OrganizationCandidacy = () => {
   const theme = useMantineTheme()
-  const { user } = useUser()
+  const { user } = useAuth()
   const router = useRouter()
   const [createOneOrganizationMutation, { loading }] =
     useCreateOneOrganizationMutation()

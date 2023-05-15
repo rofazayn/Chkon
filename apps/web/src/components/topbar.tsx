@@ -2,33 +2,34 @@ import {
   ActionIcon,
   Anchor,
   Avatar,
-  Badge,
   Box,
   Breadcrumbs,
   Divider,
-  Flex,
   Group,
   Indicator,
+  Text,
   useMantineColorScheme,
   useMantineTheme,
 } from '@mantine/core'
 import {
+  IconAnchor,
   IconAntenna,
   IconBell,
-  IconCheck,
   IconMoon,
   IconSun,
 } from '@tabler/icons-react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import useUser from '../hooks/useUser'
+import useUI from '../hooks/useUI'
+import useAuth from '../hooks/useAuth'
 
 const Topbar = () => {
   const theme = useMantineTheme()
   const { colorScheme, toggleColorScheme } = useMantineColorScheme()
   const router = useRouter()
-  const { user } = useUser()
+  const { user } = useAuth()
+  const { bgColor } = useUI()
 
   const [breadcrumbs, setBreadcrumbs] = useState<any>()
   const [items, setItems] = useState<any[]>([])
@@ -110,12 +111,24 @@ const Topbar = () => {
         <Group spacing={2} align='center'>
           {user?.did && (
             <>
-              <Badge color='green' variant='dot' size='lg'>
-                {user.did}
-              </Badge>
+              <Box
+                sx={{
+                  backgroundColor: bgColor,
+                  paddingBlock: 6,
+                  paddingInline: 12,
+                  borderRadius: 12,
+                }}
+              >
+                <Group align='center' spacing={8}>
+                  <IconAnchor size={14} />
+                  <Text size='sm' weight='500' sx={{ fontFamily: 'monospace' }}>
+                    {user.did}
+                  </Text>
+                </Group>
+              </Box>
 
               <Box>
-                <Divider orientation='vertical' mx={16} sx={{ height: 24 }} />
+                <Divider orientation='vertical' mx={16} sx={{ height: 20 }} />
               </Box>
             </>
           )}

@@ -25,6 +25,7 @@ import useAuth from '../hooks/useAuth'
 const HeroSection = () => {
   const { colorScheme, toggleColorScheme } = useMantineColorScheme()
   const { isAuthenticated, isCheckingAuth } = useAuth()
+  const { user, authStatus } = useAuth()
   return (
     <Container size='xs'>
       <Box py={64}>
@@ -75,7 +76,29 @@ const HeroSection = () => {
           privacy. Discover the perfect blend of convenience and security with
           Chkon as we reshape the future of digital identity management.
         </Text>
-        {!isCheckingAuth && !isAuthenticated ? (
+        {authStatus === 'stale' ? (
+          <Box mt={32}>
+            <Button
+              // component={Link}
+              // href='/auth/register'
+              loading
+              // // loaderPosition='left'
+              // leftIcon={<IconFingerprint />}
+            >
+              Performing checks...
+            </Button>
+          </Box>
+        ) : authStatus === 'yes' && user ? (
+          <Box mt={32}>
+            <Button
+              component={Link}
+              href='/dashboard'
+              rightIcon={<IconRocket />}
+            >
+              Navigate to dashboard
+            </Button>
+          </Box>
+        ) : (
           <Group spacing={16} mt={32}>
             <Button
               component={Link}
@@ -96,28 +119,6 @@ const HeroSection = () => {
               Connect to Chkon
             </Button>
           </Group>
-        ) : isCheckingAuth ? (
-          <Box mt={32}>
-            <Button
-              component={Link}
-              href='/auth/register'
-              loading
-              // // loaderPosition='left'
-              // leftIcon={<IconFingerprint />}
-            >
-              Performing checks...
-            </Button>
-          </Box>
-        ) : (
-          <Box mt={32}>
-            <Button
-              component={Link}
-              href='/dashboard'
-              rightIcon={<IconRocket />}
-            >
-              Navigate to dashboard
-            </Button>
-          </Box>
         )}
         <Divider mt={80} mb={24} maw={120} />
         <Stack spacing={0}>

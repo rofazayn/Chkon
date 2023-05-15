@@ -39,13 +39,64 @@ async function main() {
           },
         ],
       },
+      // {
+      //   name: 'Teacher Card',
+      //   typename: 'TeacherCardV1',
+      //   attributes: [
+      //     {
+      //       name: 'firstName',
+      //       label: 'First name',
+      //       inputType: 'text',
+      //     },
+      //     {
+      //       name: 'lastName',
+      //       label: 'Last name',
+      //       inputType: 'text',
+      //     },
+      //     {
+      //       name: 'dob',
+      //       label: 'Date of birth',
+      //       inputType: 'date',
+      //     },
+      //     {
+      //       name: 'field',
+      //       label: 'Field of teaching',
+      //       inputType: 'text',
+      //     },
+      //     {
+      //       name: 'speciality',
+      //       label: 'Speciality of teaching',
+      //       inputType: 'text',
+      //     },
+      //     {
+      //       name: 'expiresAt',
+      //       label: 'Expiration date',
+      //       inputType: 'date',
+      //     },
+      //   ],
+      // },
       {
-        name: 'Teacher Card',
-        typename: 'TeacherCardV1',
+        name: 'Identity Card',
+        typename: 'IdentityCardV1',
         attributes: [
           {
-            name: 'firstName',
-            label: 'First name',
+            name: 'issuingAuthority',
+            label: 'Issuing authority',
+            inputType: 'text',
+          },
+          {
+            name: 'dateOfIssuance',
+            label: 'Date of issuance',
+            inputType: 'date',
+          },
+          {
+            name: 'expiresAt',
+            label: 'Date of expiration',
+            inputType: 'date',
+          },
+          {
+            name: 'nationalIdentifyingNumber',
+            label: 'National identifying number',
             inputType: 'text',
           },
           {
@@ -54,24 +105,29 @@ async function main() {
             inputType: 'text',
           },
           {
-            name: 'dob',
+            name: 'firstName',
+            label: 'First name',
+            inputType: 'text',
+          },
+          {
+            name: 'dateOfBirth',
             label: 'Date of birth',
             inputType: 'date',
           },
           {
-            name: 'field',
-            label: 'Field of study',
+            name: 'placeOfBirth',
+            label: 'Place of birth',
             inputType: 'text',
           },
           {
-            name: 'speciality',
-            label: 'Speciality of study',
+            name: 'gender',
+            label: 'Gender',
             inputType: 'text',
           },
           {
-            name: 'expiresAt',
-            label: 'Expiration date',
-            inputType: 'date',
+            name: 'bloodType',
+            label: 'Blood type',
+            inputType: 'text',
           },
         ],
       },

@@ -1,5 +1,5 @@
 const path = require('path')
-const EsmWebpackPlugin = require('@purtuga/esm-webpack-plugin')
+const nodeExternals = require('webpack-node-externals')
 
 const { NODE_ENV = 'production' } = process.env
 
@@ -23,8 +23,20 @@ const config = {
       },
     ],
   },
-
-  plugins: [new EsmWebpackPlugin()],
+  externals: [nodeExternals({ modulesFromFile: true })],
+  plugins: [
+    // new Dotenv({
+    //   path: './.env',
+    // }),
+    // new CopyWebpackPlugin({
+    //   patterns: [
+    //     {
+    //       from: './prisma/schema.prisma',
+    //       to: './schema.prisma',
+    //     },
+    //   ],
+    // }),
+  ],
 }
 
 module.exports = {

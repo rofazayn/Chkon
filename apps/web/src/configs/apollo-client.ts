@@ -27,6 +27,10 @@ const httpLink = createHttpLink({
   uri: serverEndpoint + '/graphql',
 })
 
+httpLink.setOnError((error) => {
+  console.log(error)
+})
+
 const requestLink = new ApolloLink(
   (operation, forward) =>
     new Observable((observer) => {
@@ -100,6 +104,7 @@ const tokenRefreshLink = new TokenRefreshLink({
       try {
         const { exp }: any = jwtDecode(refreshToken as string)
         if (Date.now() >= exp * 1000) {
+          refreshStatusVar('fail')
           return null
         }
       } catch {
@@ -111,7 +116,7 @@ const tokenRefreshLink = new TokenRefreshLink({
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${refreshToken}`,
+          'x-refresh-token': `Bearer ${refreshToken}`,
         },
         body: JSON.stringify({
           query: refreshMutation,
@@ -124,8 +129,10 @@ const tokenRefreshLink = new TokenRefreshLink({
   },
   handleFetch: (accessToken) => {
     if (accessToken) {
+      refreshStatusVar('stale')
       setAccessToken(accessToken)
     } else {
+      refreshStatusVar('fail')
       setAccessToken(null)
     }
   },
@@ -136,14 +143,10 @@ const tokenRefreshLink = new TokenRefreshLink({
     ) {
       setRefreshToken(response.data.refresh.refreshToken)
       setAccessToken(response.data.refresh.accessToken)
-    } else {
-      refreshStatusVar('error')
     }
     return { accessToken: response.data?.refresh?.accessToken }
   },
-  handleError: (err) => {
-    refreshStatusVar('error')
-  },
+  handleError: (err) => {},
 })
 
 const apolloClient = new ApolloClient({
