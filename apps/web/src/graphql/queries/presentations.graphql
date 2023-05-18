@@ -16,6 +16,8 @@ query Presentations(
   ) {
     id
     credentialId
+    allowedAccess
+    isPublic
     holderConsent
     signature
     userId

@@ -2,6 +2,8 @@ mutation CreateOnePresentation($data: PresentationCreateInput!) {
   createOnePresentation(data: $data) {
     id
     credentialId
+    allowedAccess
+    isPublic
     holderConsent
     signature
     userId

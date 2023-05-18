@@ -79,6 +79,8 @@ const IssuerCredentialPresentationPage = () => {
               },
             },
             holderConsent: true,
+            isPublic: false,
+            allowedAccess: { set: [orgData?.organization?.id as string] },
           },
         },
       })

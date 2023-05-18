@@ -91,6 +91,8 @@ Table Credential {
 
 Table Presentation {
   id String [pk]
+  allowedAccess String[] [not null]
+  isPublic Boolean [not null, default: false]
   credential Credential [not null]
   credentialId String [not null]
   holderConsent Boolean [not null, default: false]
