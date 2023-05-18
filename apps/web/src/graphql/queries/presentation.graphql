@@ -1,0 +1,63 @@
+query Presentation($where: PresentationWhereUniqueInput!) {
+  presentation(where: $where) {
+    id
+    allowedAccess
+    isPublic
+    credentialId
+    holderConsent
+    signature
+    userId
+    organizationId
+    requestId
+    createdAt
+    updatedAt
+    credential {
+      id
+      typeId
+      payload
+      required
+      issuerConsent
+      holderConsent
+      userId
+      issuerId
+      requestId
+      expiryDate
+      createdAt
+      updatedAt
+      user {
+        id
+        username
+        did
+        phoneNumber
+        email
+        name
+        logoUrl
+        status
+        trustedOrganizationsIds
+        createdAt
+        updatedAt
+      }
+      issuer {
+        id
+        name
+        description
+        did
+        logoUrl
+        status
+        allowedCredentialTypesIds
+        usersWhoTrustIds
+        createdAt
+        updatedAt
+      }
+      type {
+        id
+        name
+        typename
+        attributes
+        createdAt
+        updatedAt
+        allowedOrganizationsIds
+      }
+    }
+  }
+}
