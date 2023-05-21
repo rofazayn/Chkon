@@ -17,7 +17,6 @@ import {
   IconArrowBack,
   IconInfoCircle,
   IconSettings2,
-  IconTrash,
 } from '@tabler/icons-react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -25,7 +24,6 @@ import { ReactNode } from 'react'
 import DashboardLayout from '../../../../components/_layouts/dashboard-layout'
 import {
   SortOrder,
-  useCredentialRequestsQuery,
   useOrganizationQuery,
   usePresentationsQuery,
 } from '../../../../generated/graphql'
@@ -44,8 +42,10 @@ const OrgControlPresentations = ({ children }: { children: ReactNode }) => {
     loading: orgLoading,
     error: orgError,
   } = useOrganizationQuery({
-    variables: { where: { id: orgId as string } },
+    variables: { where: { id: (orgId as string) || undefined } },
+    // skip: !orgId,
   })
+  console.log(orgData)
   const presentationsQuery = usePresentationsQuery({
     variables: {
       where: {
@@ -159,14 +159,14 @@ const OrgControlPresentations = ({ children }: { children: ReactNode }) => {
       >
         {rows && rows.length === 0 ? (
           <Alert icon={<IconInfoCircle size={18} />} color='yellow'>
-            It appears that there aren&apos;t any available pending requests for
+            It appears that there aren&apos;t any available presentation for
             your organization at the moment
           </Alert>
         ) : rows && rows.length > 0 ? (
           <Table striped withBorder={false} verticalSpacing={'sm'}>
             <thead>
               <tr>
-                <th>Credential Type</th>
+                <th>Presentation Type</th>
                 <th>Requested by</th>
                 <th>Issued by</th>
                 <th>Holder Consent</th>

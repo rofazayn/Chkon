@@ -1,7 +1,8 @@
 import logoImage from '@/../public/assets/png/logo.png'
-import fingerPrintScanGif from '@/../public/assets/gif/fingerprint-scan.gif'
+// import fingerPrintScanGif from '@/../public/assets/gif/fingerprint-scan.gif'
 import {
   Accordion,
+  Alert,
   Box,
   Container,
   Divider,
@@ -13,12 +14,16 @@ import {
   useMantineTheme,
 } from '@mantine/core'
 import { Prism } from '@mantine/prism'
-import { IconBulb, IconCheck } from '@tabler/icons-react'
+import { IconBulb, IconCheck, IconChecks } from '@tabler/icons-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import humanizeDate from '../../utils/humanize-date'
 import { usePresentationQuery } from '../../generated/graphql'
+import Lottie from 'lottie-react'
+import scanAnimation from '../../../public/assets/json/scan.json'
+import verifiedAnimation from '../../../public/assets/json/verified.json'
+import { useEffect, useState } from 'react'
 
 const PresentationPage = () => {
   const router = useRouter()
@@ -36,7 +41,16 @@ const PresentationPage = () => {
     },
     pollInterval: 5000,
   })
-  console.log(presData)
+
+  const [verified, setVerified] = useState<boolean>(false)
+  useEffect(() => {
+    let verificationTimeout: any
+    verificationTimeout = setTimeout(() => {
+      setVerified(true)
+    }, 10000)
+
+    return () => clearTimeout(verificationTimeout)
+  }, [])
   return (
     <Box
       sx={{
@@ -117,10 +131,18 @@ const PresentationPage = () => {
               {presData && <Divider my={24} variant='dashed' />}
             </Box>
             {presData && (
-              <Grid gutter={24}>
-                <Grid.Col span={8}>
+              <Grid gutter={24} sx={{ minHeight: '100%' }}>
+                <Grid.Col span={8} sx={{ minHeight: '100%' }}>
                   {presData?.presentation && (
-                    <Box sx={{ width: '100%' }}>
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        width: '100%',
+                        minHeight: '100%',
+                        flexGrow: 1,
+                      }}
+                    >
                       <Grid gutter={16}>
                         <Grid.Col span={4}>
                           <Box sx={{ width: '100%' }}>
@@ -209,8 +231,18 @@ const PresentationPage = () => {
                         </Grid.Col>
                       </Grid>
 
-                      <Box mt={16}>
-                        <Accordion variant='contained' defaultValue={'payload'}>
+                      <Box
+                        mt={24}
+                        sx={{
+                          minHeight: '100%',
+                          // backgroundColor: verified
+                          //   ? theme.colors.green[5]
+                          //   : theme.colors.orange[5],
+                          flexGrow: 1,
+                          borderRadius: 12,
+                        }}
+                      >
+                        <Accordion variant='separated' defaultValue={'payload'}>
                           <Accordion.Item value='payload'>
                             <Accordion.Control>
                               Presentation payload
@@ -229,7 +261,7 @@ const PresentationPage = () => {
                               </Prism>
                             </Accordion.Panel>
                           </Accordion.Item>
-                          <Accordion.Item value='full-credential'>
+                          <Accordion.Item value='full-presentation'>
                             <Accordion.Control>
                               Full presentation (JSON)
                             </Accordion.Control>
@@ -253,21 +285,109 @@ const PresentationPage = () => {
                   )}
                 </Grid.Col>
                 <Grid.Col span={4}>
-                  <Box sx={{ width: '100%' }}>
-                    <Text color='gray.6' size='xs'>
-                      Signature Verification
-                    </Text>
-                    <Group spacing={8} mt={4}>
-                      <Text size='sm'>Verifying</Text>
-                      <Loader color='yellow' size={16} />
-                    </Group>
-                  </Box>
-                  {/* <Box>
-                    <Image
-                      src={fingerPrintScanGif}
-                      alt='Verifying signature...'
-                    />
-                  </Box> */}
+                  <Flex
+                    sx={{
+                      flexDirection: 'column',
+                      height: '100%',
+                    }}
+                  >
+                    <Box sx={{ width: '100%' }}>
+                      <Text color='gray.6' size='xs'>
+                        Signature Verification
+                      </Text>
+                      <Group spacing={8} mt={4}>
+                        <Text size='sm' weight='bold'>
+                          {verified ? 'Verified' : 'Verifying'}
+                        </Text>
+                        {verified ? (
+                          <IconChecks size={16} color={theme.colors.green[5]} />
+                        ) : (
+                          <Loader color='yellow' size={16} />
+                        )}
+                      </Group>
+                      <Text size='xs' color='gray.6' mt={4}>
+                        Chkon offers identity check, verifiable credentials and
+                        solutions concerning digital identity, we are proud to
+                        serve algerian citizens 🇩🇿
+                      </Text>
+                      <Divider variant='dashed' mt={16} mb={6} />
+                    </Box>
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        // alignItems: 'flex-end',
+                        height: '100%',
+                        flexGrow: 1,
+                      }}
+                    >
+                      {verified ? (
+                        <Box
+                          sx={{
+                            width: '100%',
+                            paddingTop: 16,
+                            // paddingBottom: 40,
+                          }}
+                        >
+                          <Alert color='gray' variant='light'>
+                            This presentation is provided by Chkon, it is also
+                            valid and has not been tampered with.
+                            <Box
+                              sx={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                width: '100%',
+                              }}
+                            >
+                              <Box sx={{ width: 180, paddingBlock: 24 }}>
+                                <Lottie animationData={verifiedAnimation} />
+                              </Box>
+                            </Box>
+                          </Alert>
+                          {/* <Text size='xs' color='gray.6' mt={16}>
+                            Chkon offers identity and verifiable credentials
+                            features to Algerian citizens. 🇩🇿
+                          </Text> */}
+
+                          {/* <Prism language='json'>
+                            {JSON.stringify(
+                              presData.presentation?.signature,
+                              null,
+                              4
+                            )}
+                          </Prism> */}
+                        </Box>
+                      ) : (
+                        // <Box sx={{ maxWidth: 240 }}>
+                        //   <Lottie animationData={scanAnimation} />
+                        // </Box>
+                        <Box
+                          sx={{
+                            width: '100%',
+                            paddingTop: 16,
+                            // paddingBottom: 40,
+                          }}
+                        >
+                          <Alert color='gray' variant='light'>
+                            Standby while we verify this presentation, this wont
+                            take long, so please be patient.
+                            <Box
+                              sx={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                width: '100%',
+                              }}
+                            >
+                              <Box sx={{ width: 180, paddingBlock: 24 }}>
+                                <Lottie animationData={scanAnimation} />
+                              </Box>
+                            </Box>
+                          </Alert>
+                        </Box>
+                      )}
+                    </Box>
+                  </Flex>
                 </Grid.Col>
               </Grid>
             )}
