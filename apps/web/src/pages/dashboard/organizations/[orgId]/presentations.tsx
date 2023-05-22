@@ -103,9 +103,9 @@ const OrgControlPresentations = ({ children }: { children: ReactNode }) => {
                   size='xs'
                   variant='light'
                   color='indigo'
-                  onClick={() =>
-                    router.push(`/presentation/${presentation.id}`)
-                  }
+                  component={Link}
+                  href={`/presentation/${presentation.id}`}
+                  target='_blank'
                 >
                   Access presentation
                 </Button>
@@ -167,7 +167,7 @@ const OrgControlPresentations = ({ children }: { children: ReactNode }) => {
             <thead>
               <tr>
                 <th>Presentation Type</th>
-                <th>Requested by</th>
+                <th>Presented by</th>
                 <th>Issued by</th>
                 <th>Holder Consent</th>
                 <th>Requested</th>

@@ -242,7 +242,7 @@ const PresentationPage = () => {
                           borderRadius: 12,
                         }}
                       >
-                        <Accordion variant='separated' defaultValue={'payload'}>
+                        <Accordion variant='contained' defaultValue={'payload'}>
                           <Accordion.Item value='payload'>
                             <Accordion.Control>
                               Presentation payload
