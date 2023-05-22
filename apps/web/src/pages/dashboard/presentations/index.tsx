@@ -33,22 +33,13 @@ import humanizeDate from '../../../utils/humanize-date'
 
 const DashboardUserPresentations = ({ children }: { children: ReactNode }) => {
   const { user } = useAuth()
-  const router = useRouter()
   const { bgColor } = useUI()
   const theme = useMantineTheme()
-  const { orgId } = router.query
-  const {
-    data: orgData,
-    loading: orgLoading,
-    error: orgError,
-  } = useOrganizationQuery({
-    variables: { where: { id: (user?.id as string) || undefined } },
-  })
-  console.log(orgData)
+
   const presentationsQuery = usePresentationsQuery({
     variables: {
       where: {
-        organizationId: { equals: (orgId as string) || undefined },
+        userId: { equals: user.id || undefined },
         holderConsent: { equals: true },
       },
       take: 20,
