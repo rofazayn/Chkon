@@ -13,7 +13,8 @@
     ],
     "nohoist": [
       "**/mobile/**",
-      "**/prisma-erd-generator/**"
+      "**/prisma-erd-generator/**",
+      "**/copy-webpack-plugin/**"
     ]
   },
   "scripts": {

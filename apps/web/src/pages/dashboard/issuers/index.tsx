@@ -10,7 +10,6 @@ const IssuersHome = () => {
     fetchPolicy: 'network-only',
     pollInterval: 10000,
   })
-  console.log(orgsQuery.data?.organizations)
   return (
     <DashboardLayout>
       <Flex

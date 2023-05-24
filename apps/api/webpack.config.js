@@ -1,5 +1,6 @@
 const path = require('path')
 const nodeExternals = require('webpack-node-externals')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 const { NODE_ENV = 'production' } = process.env
 
@@ -28,14 +29,14 @@ const config = {
     // new Dotenv({
     //   path: './.env',
     // }),
-    // new CopyWebpackPlugin({
-    //   patterns: [
-    //     {
-    //       from: './prisma/schema.prisma',
-    //       to: './schema.prisma',
-    //     },
-    //   ],
-    // }),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: 'src/keys',
+          to: 'keys',
+        },
+      ],
+    }),
   ],
 }
 
