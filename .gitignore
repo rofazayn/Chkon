@@ -38,6 +38,10 @@ yarn-error.log*
 # turbo
 .turbo
 
+# blockchain
+geth
+cache
+
 # other
 notes.txt
 apps/api/src/graphql/type-graphql
