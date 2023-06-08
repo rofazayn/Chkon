@@ -39,98 +39,249 @@ async function main() {
           },
         ],
       },
-      // {
-      //   name: 'Teacher Card',
-      //   typename: 'TeacherCardV1',
-      //   attributes: [
-      //     {
-      //       name: 'firstName',
-      //       label: 'First name',
-      //       inputType: 'text',
-      //     },
-      //     {
-      //       name: 'lastName',
-      //       label: 'Last name',
-      //       inputType: 'text',
-      //     },
-      //     {
-      //       name: 'dob',
-      //       label: 'Date of birth',
-      //       inputType: 'date',
-      //     },
-      //     {
-      //       name: 'field',
-      //       label: 'Field of teaching',
-      //       inputType: 'text',
-      //     },
-      //     {
-      //       name: 'speciality',
-      //       label: 'Speciality of teaching',
-      //       inputType: 'text',
-      //     },
-      //     {
-      //       name: 'expiresAt',
-      //       label: 'Expiration date',
-      //       inputType: 'date',
-      //     },
-      //   ],
-      // },
-      // {
-      //   name: 'Identity Card',
-      //   typename: 'IdentityCardV1',
-      //   attributes: [
-      //     {
-      //       name: 'issuingAuthority',
-      //       label: 'Issuing authority',
-      //       inputType: 'text',
-      //     },
-      //     {
-      //       name: 'dateOfIssuance',
-      //       label: 'Date of issuance',
-      //       inputType: 'date',
-      //     },
-      //     {
-      //       name: 'expiresAt',
-      //       label: 'Date of expiration',
-      //       inputType: 'date',
-      //     },
-      //     {
-      //       name: 'nationalIdentifyingNumber',
-      //       label: 'National identifying number',
-      //       inputType: 'text',
-      //     },
-      //     {
-      //       name: 'lastName',
-      //       label: 'Last name',
-      //       inputType: 'text',
-      //     },
-      //     {
-      //       name: 'firstName',
-      //       label: 'First name',
-      //       inputType: 'text',
-      //     },
-      //     {
-      //       name: 'dateOfBirth',
-      //       label: 'Date of birth',
-      //       inputType: 'date',
-      //     },
-      //     {
-      //       name: 'placeOfBirth',
-      //       label: 'Place of birth',
-      //       inputType: 'text',
-      //     },
-      //     {
-      //       name: 'gender',
-      //       label: 'Gender',
-      //       inputType: 'text',
-      //     },
-      //     {
-      //       name: 'bloodType',
-      //       label: 'Blood type',
-      //       inputType: 'text',
-      //     },
-      //   ],
-      // },
+      {
+        name: 'Teacher Card',
+        typename: 'TeacherCardV1',
+        attributes: [
+          {
+            name: 'firstName',
+            label: 'First name',
+            inputType: 'text',
+          },
+          {
+            name: 'lastName',
+            label: 'Last name',
+            inputType: 'text',
+          },
+          {
+            name: 'dob',
+            label: 'Date of birth',
+            inputType: 'date',
+          },
+          {
+            name: 'field',
+            label: 'Field of teaching',
+            inputType: 'text',
+          },
+          {
+            name: 'speciality',
+            label: 'Speciality of teaching',
+            inputType: 'text',
+          },
+          {
+            name: 'currentPosition',
+            label: 'Current position',
+            inputType: 'text',
+          },
+
+          {
+            name: 'expiresAt',
+            label: 'Expiration date',
+            inputType: 'date',
+          },
+        ],
+      },
+      {
+        name: 'Identity Card',
+        typename: 'IdentityCardV1',
+        attributes: [
+          {
+            name: 'issuingAuthority',
+            label: 'Issuing authority',
+            inputType: 'text',
+          },
+          {
+            name: 'dateOfIssuance',
+            label: 'Date of issuance',
+            inputType: 'date',
+          },
+          {
+            name: 'expiresAt',
+            label: 'Date of expiration',
+            inputType: 'date',
+          },
+          {
+            name: 'nationalIdentifyingNumber',
+            label: 'National identifying number',
+            inputType: 'text',
+          },
+          {
+            name: 'lastName',
+            label: 'Last name',
+            inputType: 'text',
+          },
+          {
+            name: 'firstName',
+            label: 'First name',
+            inputType: 'text',
+          },
+          {
+            name: 'dateOfBirth',
+            label: 'Date of birth',
+            inputType: 'date',
+          },
+          {
+            name: 'placeOfBirth',
+            label: 'Place of birth',
+            inputType: 'text',
+          },
+          {
+            name: 'gender',
+            label: 'Gender',
+            inputType: 'text',
+          },
+          {
+            name: 'bloodType',
+            label: 'Blood type',
+            inputType: 'text',
+          },
+        ],
+      },
+      {
+        name: "Driver's Licence",
+        typename: 'DriverLicenceV1',
+        attributes: [
+          {
+            name: 'issuingAuthority',
+            label: 'Issuing authority',
+            inputType: 'text',
+          },
+          {
+            name: 'dateOfIssuance',
+            label: 'Date of issuance',
+            inputType: 'date',
+          },
+          {
+            name: 'expiresAt',
+            label: 'Date of expiration',
+            inputType: 'date',
+          },
+          {
+            name: 'nationalIdentifyingNumber',
+            label: 'National identifying number',
+            inputType: 'text',
+          },
+          {
+            name: 'lastName',
+            label: 'Last name',
+            inputType: 'text',
+          },
+          {
+            name: 'firstName',
+            label: 'First name',
+            inputType: 'text',
+          },
+          {
+            name: 'licenceType',
+            label: 'Licence type',
+            inputType: 'text',
+          },
+          {
+            name: 'dateOfBirth',
+            label: 'Date of birth',
+            inputType: 'date',
+          },
+          {
+            name: 'placeOfBirth',
+            label: 'Place of birth',
+            inputType: 'text',
+          },
+          {
+            name: 'gender',
+            label: 'Gender',
+            inputType: 'text',
+          },
+          {
+            name: 'bloodType',
+            label: 'Blood type',
+            inputType: 'text',
+          },
+        ],
+      },
+      {
+        name: 'Diploma',
+        typename: 'DiplomaV1',
+        attributes: [
+          {
+            name: 'dateOfIssuance',
+            label: 'Date of issuance',
+            inputType: 'date',
+          },
+          {
+            name: 'expiresAt',
+            label: 'Date of expiration',
+            inputType: 'date',
+          },
+          {
+            name: 'fieldOfStudy',
+            label: 'Field of study',
+            inputType: 'text',
+          },
+          {
+            name: 'speciality',
+            label: 'Speciality of study',
+            inputType: 'text',
+          },
+          {
+            name: 'lastName',
+            label: 'Last name',
+            inputType: 'text',
+          },
+          {
+            name: 'firstName',
+            label: 'First name',
+            inputType: 'text',
+          },
+
+          {
+            name: 'dateOfBirth',
+            label: 'Date of birth',
+            inputType: 'date',
+          },
+          {
+            name: 'placeOfBirth',
+            label: 'Place of birth',
+            inputType: 'text',
+          },
+        ],
+      },
+      {
+        name: 'Membership',
+        typename: 'MembershipV1',
+        attributes: [
+          {
+            name: 'dateOfIssuance',
+            label: 'Date of issuance',
+            inputType: 'date',
+          },
+          {
+            name: 'expiresAt',
+            label: 'Date of expiration',
+            inputType: 'date',
+          },
+          {
+            name: 'position',
+            label: 'Position of membership',
+            inputType: 'text',
+          },
+          {
+            name: 'firstName',
+            label: 'First name',
+            inputType: 'text',
+          },
+
+          {
+            name: 'dateOfBirth',
+            label: 'Date of birth',
+            inputType: 'date',
+          },
+          {
+            name: 'placeOfBirth',
+            label: 'Place of birth',
+            inputType: 'text',
+          },
+        ],
+      },
     ],
   })
 
