@@ -13,12 +13,14 @@
     ],
     "nohoist": [
       "**/mobile/**",
-      "**/prisma-erd-generator/**"
+      "**/prisma-erd-generator/**",
+      "**/copy-webpack-plugin/**"
     ]
   },
   "scripts": {
     "dev": "turbo run dev",
     "build": "turbo run build",
+    "start": "turbo run start",
     "clean": "turbo run clean && rm -rf node_modules",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\" --ignore-path .gitignore"
   },

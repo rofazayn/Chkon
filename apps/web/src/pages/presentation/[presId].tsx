@@ -14,7 +14,7 @@ import {
   useMantineTheme,
 } from '@mantine/core'
 import { Prism } from '@mantine/prism'
-import { IconBulb, IconCheck, IconChecks } from '@tabler/icons-react'
+import { IconBulb, IconChecks } from '@tabler/icons-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -31,8 +31,8 @@ const PresentationPage = () => {
   const theme = useMantineTheme()
   const {
     data: presData,
-    error: presError,
-    loading: presLoading,
+    error: _presError,
+    loading: _presLoading,
   } = usePresentationQuery({
     variables: {
       where: {

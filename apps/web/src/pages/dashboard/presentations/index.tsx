@@ -19,14 +19,9 @@ import {
   IconSettings2,
 } from '@tabler/icons-react'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
 import { ReactNode } from 'react'
 import DashboardLayout from '../../../components/_layouts/dashboard-layout'
-import {
-  SortOrder,
-  useOrganizationQuery,
-  usePresentationsQuery,
-} from '../../../generated/graphql'
+import { SortOrder, usePresentationsQuery } from '../../../generated/graphql'
 import useAuth from '../../../hooks/useAuth'
 import useUI from '../../../hooks/useUI'
 import humanizeDate from '../../../utils/humanize-date'
@@ -39,7 +34,7 @@ const DashboardUserPresentations = ({ children }: { children: ReactNode }) => {
   const presentationsQuery = usePresentationsQuery({
     variables: {
       where: {
-        userId: { equals: user.id || undefined },
+        userId: { equals: (user?.id as string) || undefined },
         holderConsent: { equals: true },
       },
       take: 20,

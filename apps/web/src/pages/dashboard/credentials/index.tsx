@@ -382,7 +382,7 @@ const VerifiableCredentialsHome = () => {
                                     transition: 'all ease-out 250ms',
                                     cursor: 'pointer',
                                     '&:hover': {
-                                      color: theme.colors.indigo[5],
+                                      color: theme.colors.yellow[5],
                                     },
                                   }}
                                 >
@@ -447,7 +447,7 @@ const VerifiableCredentialsHome = () => {
                                   transition: 'all ease-out 250ms',
                                   cursor: 'pointer',
                                   '&:hover': {
-                                    color: theme.colors.indigo[5],
+                                    color: theme.colors.yellow[5],
                                   },
                                 }}
                               >
@@ -591,7 +591,7 @@ const VerifiableCredentialsHome = () => {
                                     transition: 'all ease-out 250ms',
                                     cursor: 'pointer',
                                     '&:hover': {
-                                      color: theme.colors.indigo[5],
+                                      color: theme.colors.yellow[5],
                                     },
                                   }}
                                 >
@@ -683,7 +683,7 @@ const VerifiableCredentialsHome = () => {
                                   transition: 'all ease-out 250ms',
                                   cursor: 'pointer',
                                   '&:hover': {
-                                    color: theme.colors.indigo[5],
+                                    color: theme.colors.yellow[5],
                                   },
                                 }}
                               >

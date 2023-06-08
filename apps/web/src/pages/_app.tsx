@@ -35,7 +35,7 @@ export default function App(props: AppProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [preferredColorScheme])
 
-  const [rtl, _setRtl] = useState(false)
+  const [rtl, _setRtl] = useState<boolean>(false)
   const router = useRouter()
 
   return (

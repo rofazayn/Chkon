@@ -63,13 +63,13 @@ const OrganizationCard = ({ org }: any) => {
           </Box>
         </Flex>
         {org.description && <Text size='sm'>{org.description}</Text>}
-        {org.did && (
+        {/* {org.did && (
           <Box mb={8}>
             <Badge color='green' variant='dot'>
               {org.did}
             </Badge>
           </Box>
-        )}
+        )} */}
       </Stack>
 
       <Box mt={12}>
