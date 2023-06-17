@@ -41,6 +41,7 @@ class AuthResolver {
       where: { username: username },
     })
     if (!user) throw new ApolloError('invalid_username')
+    if (user.deleted) throw new ApolloError('account_deleted')
 
     const valid = compareSync(password, user.password)
     if (!valid) throw new ApolloError('invalid_password')

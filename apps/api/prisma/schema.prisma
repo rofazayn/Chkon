@@ -32,6 +32,7 @@ model User {
   status                  String                @default("unverified")
   /// @TypeGraphQL.omit(output: true, input: true)
   password                String
+  deleted                 Boolean               @default(false)
   credentials             Credential[]
   presentations           Presentation[]
   presentationRequests    PresentationRequest[]

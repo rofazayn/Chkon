@@ -12,6 +12,7 @@ Table User {
   logoUrl String
   status String [not null, default: 'unverified']
   password String [not null, note: '@TypeGraphQL.omit(output: true, input: true)']
+  deleted Boolean [not null, default: false]
   credentials Credential [not null]
   presentations Presentation [not null]
   presentationRequests PresentationRequest [not null]

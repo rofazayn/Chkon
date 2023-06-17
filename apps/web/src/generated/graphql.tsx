@@ -5333,6 +5333,7 @@ export type User = {
   createdAt?: Maybe<Scalars['DateTime']>;
   credentialRequests: Array<CredentialRequest>;
   credentials: Array<Credential>;
+  deleted: Scalars['Boolean'];
   did?: Maybe<Scalars['String']>;
   email: Scalars['String'];
   id: Scalars['String'];
@@ -5423,6 +5424,7 @@ export type UserCountAggregate = {
   __typename?: 'UserCountAggregate';
   _all: Scalars['Int'];
   createdAt: Scalars['Int'];
+  deleted: Scalars['Int'];
   did: Scalars['Int'];
   email: Scalars['Int'];
   id: Scalars['Int'];
@@ -5438,6 +5440,7 @@ export type UserCountAggregate = {
 
 export type UserCountOrderByAggregateInput = {
   createdAt?: InputMaybe<SortOrder>;
+  deleted?: InputMaybe<SortOrder>;
   did?: InputMaybe<SortOrder>;
   email?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
@@ -5454,6 +5457,7 @@ export type UserCreateInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
   credentialRequests?: InputMaybe<CredentialRequestCreateNestedManyWithoutUserInput>;
   credentials?: InputMaybe<CredentialCreateNestedManyWithoutUserInput>;
+  deleted?: InputMaybe<Scalars['Boolean']>;
   did?: InputMaybe<Scalars['String']>;
   email: Scalars['String'];
   id?: InputMaybe<Scalars['String']>;
@@ -5472,6 +5476,7 @@ export type UserCreateInput = {
 
 export type UserCreateManyInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
+  deleted?: InputMaybe<Scalars['Boolean']>;
   did?: InputMaybe<Scalars['String']>;
   email: Scalars['String'];
   id?: InputMaybe<Scalars['String']>;
@@ -5553,6 +5558,7 @@ export type UserCreateOrConnectWithoutTrustedOrganizationsInput = {
 export type UserCreateWithoutCredentialRequestsInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
   credentials?: InputMaybe<CredentialCreateNestedManyWithoutUserInput>;
+  deleted?: InputMaybe<Scalars['Boolean']>;
   did?: InputMaybe<Scalars['String']>;
   email: Scalars['String'];
   id?: InputMaybe<Scalars['String']>;
@@ -5572,6 +5578,7 @@ export type UserCreateWithoutCredentialRequestsInput = {
 export type UserCreateWithoutCredentialsInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
   credentialRequests?: InputMaybe<CredentialRequestCreateNestedManyWithoutUserInput>;
+  deleted?: InputMaybe<Scalars['Boolean']>;
   did?: InputMaybe<Scalars['String']>;
   email: Scalars['String'];
   id?: InputMaybe<Scalars['String']>;
@@ -5592,6 +5599,7 @@ export type UserCreateWithoutMembershipsInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
   credentialRequests?: InputMaybe<CredentialRequestCreateNestedManyWithoutUserInput>;
   credentials?: InputMaybe<CredentialCreateNestedManyWithoutUserInput>;
+  deleted?: InputMaybe<Scalars['Boolean']>;
   did?: InputMaybe<Scalars['String']>;
   email: Scalars['String'];
   id?: InputMaybe<Scalars['String']>;
@@ -5611,6 +5619,7 @@ export type UserCreateWithoutPresentationRequestsInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
   credentialRequests?: InputMaybe<CredentialRequestCreateNestedManyWithoutUserInput>;
   credentials?: InputMaybe<CredentialCreateNestedManyWithoutUserInput>;
+  deleted?: InputMaybe<Scalars['Boolean']>;
   did?: InputMaybe<Scalars['String']>;
   email: Scalars['String'];
   id?: InputMaybe<Scalars['String']>;
@@ -5630,6 +5639,7 @@ export type UserCreateWithoutPresentationsInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
   credentialRequests?: InputMaybe<CredentialRequestCreateNestedManyWithoutUserInput>;
   credentials?: InputMaybe<CredentialCreateNestedManyWithoutUserInput>;
+  deleted?: InputMaybe<Scalars['Boolean']>;
   did?: InputMaybe<Scalars['String']>;
   email: Scalars['String'];
   id?: InputMaybe<Scalars['String']>;
@@ -5649,6 +5659,7 @@ export type UserCreateWithoutTrustedOrganizationsInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
   credentialRequests?: InputMaybe<CredentialRequestCreateNestedManyWithoutUserInput>;
   credentials?: InputMaybe<CredentialCreateNestedManyWithoutUserInput>;
+  deleted?: InputMaybe<Scalars['Boolean']>;
   did?: InputMaybe<Scalars['String']>;
   email: Scalars['String'];
   id?: InputMaybe<Scalars['String']>;
@@ -5674,6 +5685,7 @@ export type UserGroupBy = {
   _max?: Maybe<UserMaxAggregate>;
   _min?: Maybe<UserMinAggregate>;
   createdAt?: Maybe<Scalars['DateTime']>;
+  deleted: Scalars['Boolean'];
   did?: Maybe<Scalars['String']>;
   email: Scalars['String'];
   id: Scalars['String'];
@@ -5696,6 +5708,7 @@ export type UserListRelationFilter = {
 export type UserMaxAggregate = {
   __typename?: 'UserMaxAggregate';
   createdAt?: Maybe<Scalars['DateTime']>;
+  deleted?: Maybe<Scalars['Boolean']>;
   did?: Maybe<Scalars['String']>;
   email?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['String']>;
@@ -5710,6 +5723,7 @@ export type UserMaxAggregate = {
 
 export type UserMaxOrderByAggregateInput = {
   createdAt?: InputMaybe<SortOrder>;
+  deleted?: InputMaybe<SortOrder>;
   did?: InputMaybe<SortOrder>;
   email?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
@@ -5724,6 +5738,7 @@ export type UserMaxOrderByAggregateInput = {
 export type UserMinAggregate = {
   __typename?: 'UserMinAggregate';
   createdAt?: Maybe<Scalars['DateTime']>;
+  deleted?: Maybe<Scalars['Boolean']>;
   did?: Maybe<Scalars['String']>;
   email?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['String']>;
@@ -5738,6 +5753,7 @@ export type UserMinAggregate = {
 
 export type UserMinOrderByAggregateInput = {
   createdAt?: InputMaybe<SortOrder>;
+  deleted?: InputMaybe<SortOrder>;
   did?: InputMaybe<SortOrder>;
   email?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
@@ -5758,6 +5774,7 @@ export type UserOrderByWithAggregationInput = {
   _max?: InputMaybe<UserMaxOrderByAggregateInput>;
   _min?: InputMaybe<UserMinOrderByAggregateInput>;
   createdAt?: InputMaybe<SortOrder>;
+  deleted?: InputMaybe<SortOrder>;
   did?: InputMaybe<SortOrder>;
   email?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
@@ -5774,6 +5791,7 @@ export type UserOrderByWithRelationInput = {
   createdAt?: InputMaybe<SortOrder>;
   credentialRequests?: InputMaybe<CredentialRequestOrderByRelationAggregateInput>;
   credentials?: InputMaybe<CredentialOrderByRelationAggregateInput>;
+  deleted?: InputMaybe<SortOrder>;
   did?: InputMaybe<SortOrder>;
   email?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
@@ -5797,6 +5815,7 @@ export type UserRelationFilter = {
 
 export enum UserScalarFieldEnum {
   CreatedAt = 'createdAt',
+  Deleted = 'deleted',
   Did = 'did',
   Email = 'email',
   Id = 'id',
@@ -5815,6 +5834,7 @@ export type UserScalarWhereInput = {
   NOT?: InputMaybe<Array<UserScalarWhereInput>>;
   OR?: InputMaybe<Array<UserScalarWhereInput>>;
   createdAt?: InputMaybe<DateTimeNullableFilter>;
+  deleted?: InputMaybe<BoolFilter>;
   did?: InputMaybe<StringNullableFilter>;
   email?: InputMaybe<StringFilter>;
   id?: InputMaybe<StringFilter>;
@@ -5832,6 +5852,7 @@ export type UserScalarWhereWithAggregatesInput = {
   NOT?: InputMaybe<Array<UserScalarWhereWithAggregatesInput>>;
   OR?: InputMaybe<Array<UserScalarWhereWithAggregatesInput>>;
   createdAt?: InputMaybe<DateTimeNullableWithAggregatesFilter>;
+  deleted?: InputMaybe<BoolWithAggregatesFilter>;
   did?: InputMaybe<StringNullableWithAggregatesFilter>;
   email?: InputMaybe<StringWithAggregatesFilter>;
   id?: InputMaybe<StringWithAggregatesFilter>;
@@ -5848,6 +5869,7 @@ export type UserUpdateInput = {
   createdAt?: InputMaybe<NullableDateTimeFieldUpdateOperationsInput>;
   credentialRequests?: InputMaybe<CredentialRequestUpdateManyWithoutUserNestedInput>;
   credentials?: InputMaybe<CredentialUpdateManyWithoutUserNestedInput>;
+  deleted?: InputMaybe<BoolFieldUpdateOperationsInput>;
   did?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   email?: InputMaybe<StringFieldUpdateOperationsInput>;
   logoUrl?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
@@ -5865,6 +5887,7 @@ export type UserUpdateInput = {
 
 export type UserUpdateManyMutationInput = {
   createdAt?: InputMaybe<NullableDateTimeFieldUpdateOperationsInput>;
+  deleted?: InputMaybe<BoolFieldUpdateOperationsInput>;
   did?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   email?: InputMaybe<StringFieldUpdateOperationsInput>;
   logoUrl?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
@@ -5944,6 +5967,7 @@ export type UserUpdateWithWhereUniqueWithoutTrustedOrganizationsInput = {
 export type UserUpdateWithoutCredentialRequestsInput = {
   createdAt?: InputMaybe<NullableDateTimeFieldUpdateOperationsInput>;
   credentials?: InputMaybe<CredentialUpdateManyWithoutUserNestedInput>;
+  deleted?: InputMaybe<BoolFieldUpdateOperationsInput>;
   did?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   email?: InputMaybe<StringFieldUpdateOperationsInput>;
   logoUrl?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
@@ -5962,6 +5986,7 @@ export type UserUpdateWithoutCredentialRequestsInput = {
 export type UserUpdateWithoutCredentialsInput = {
   createdAt?: InputMaybe<NullableDateTimeFieldUpdateOperationsInput>;
   credentialRequests?: InputMaybe<CredentialRequestUpdateManyWithoutUserNestedInput>;
+  deleted?: InputMaybe<BoolFieldUpdateOperationsInput>;
   did?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   email?: InputMaybe<StringFieldUpdateOperationsInput>;
   logoUrl?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
@@ -5981,6 +6006,7 @@ export type UserUpdateWithoutMembershipsInput = {
   createdAt?: InputMaybe<NullableDateTimeFieldUpdateOperationsInput>;
   credentialRequests?: InputMaybe<CredentialRequestUpdateManyWithoutUserNestedInput>;
   credentials?: InputMaybe<CredentialUpdateManyWithoutUserNestedInput>;
+  deleted?: InputMaybe<BoolFieldUpdateOperationsInput>;
   did?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   email?: InputMaybe<StringFieldUpdateOperationsInput>;
   logoUrl?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
@@ -5999,6 +6025,7 @@ export type UserUpdateWithoutPresentationRequestsInput = {
   createdAt?: InputMaybe<NullableDateTimeFieldUpdateOperationsInput>;
   credentialRequests?: InputMaybe<CredentialRequestUpdateManyWithoutUserNestedInput>;
   credentials?: InputMaybe<CredentialUpdateManyWithoutUserNestedInput>;
+  deleted?: InputMaybe<BoolFieldUpdateOperationsInput>;
   did?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   email?: InputMaybe<StringFieldUpdateOperationsInput>;
   logoUrl?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
@@ -6017,6 +6044,7 @@ export type UserUpdateWithoutPresentationsInput = {
   createdAt?: InputMaybe<NullableDateTimeFieldUpdateOperationsInput>;
   credentialRequests?: InputMaybe<CredentialRequestUpdateManyWithoutUserNestedInput>;
   credentials?: InputMaybe<CredentialUpdateManyWithoutUserNestedInput>;
+  deleted?: InputMaybe<BoolFieldUpdateOperationsInput>;
   did?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   email?: InputMaybe<StringFieldUpdateOperationsInput>;
   logoUrl?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
@@ -6035,6 +6063,7 @@ export type UserUpdateWithoutTrustedOrganizationsInput = {
   createdAt?: InputMaybe<NullableDateTimeFieldUpdateOperationsInput>;
   credentialRequests?: InputMaybe<CredentialRequestUpdateManyWithoutUserNestedInput>;
   credentials?: InputMaybe<CredentialUpdateManyWithoutUserNestedInput>;
+  deleted?: InputMaybe<BoolFieldUpdateOperationsInput>;
   did?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   email?: InputMaybe<StringFieldUpdateOperationsInput>;
   logoUrl?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
@@ -6092,6 +6121,7 @@ export type UserWhereInput = {
   createdAt?: InputMaybe<DateTimeNullableFilter>;
   credentialRequests?: InputMaybe<CredentialRequestListRelationFilter>;
   credentials?: InputMaybe<CredentialListRelationFilter>;
+  deleted?: InputMaybe<BoolFilter>;
   did?: InputMaybe<StringNullableFilter>;
   email?: InputMaybe<StringFilter>;
   id?: InputMaybe<StringFilter>;
@@ -6191,7 +6221,7 @@ export type UpdateOneUserMutationVariables = Exact<{
 }>;
 
 
-export type UpdateOneUserMutation = { __typename?: 'Mutation', updateOneUser?: { __typename?: 'User', id: string, username: string, phoneNumber?: string | null, did?: string | null, email: string, name: string, logoUrl?: string | null, status: string, createdAt?: any | null, updatedAt?: any | null } | null };
+export type UpdateOneUserMutation = { __typename?: 'Mutation', updateOneUser?: { __typename?: 'User', id: string, username: string, phoneNumber?: string | null, did?: string | null, email: string, name: string, logoUrl?: string | null, status: string, deleted: boolean, createdAt?: any | null, updatedAt?: any | null } | null };
 
 export type AggregateCredentialRequestQueryVariables = Exact<{
   where?: InputMaybe<CredentialRequestWhereInput>;
@@ -6302,14 +6332,14 @@ export type PresentationsQuery = { __typename?: 'Query', presentations: Array<{ 
 export type ProfileQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ProfileQuery = { __typename?: 'Query', profile?: { __typename?: 'User', id: string, username: string, phoneNumber?: string | null, did?: string | null, email: string, name: string, logoUrl?: string | null, status: string, createdAt?: any | null, updatedAt?: any | null } | null };
+export type ProfileQuery = { __typename?: 'Query', profile?: { __typename?: 'User', id: string, username: string, phoneNumber?: string | null, did?: string | null, email: string, name: string, logoUrl?: string | null, status: string, deleted: boolean, createdAt?: any | null, updatedAt?: any | null } | null };
 
 export type UserQueryVariables = Exact<{
   where: UserWhereUniqueInput;
 }>;
 
 
-export type UserQuery = { __typename?: 'Query', user?: { __typename?: 'User', id: string, username: string, did?: string | null, phoneNumber?: string | null, email: string, name: string, logoUrl?: string | null, status: string, trustedOrganizationsIds: Array<string>, createdAt?: any | null, updatedAt?: any | null } | null };
+export type UserQuery = { __typename?: 'Query', user?: { __typename?: 'User', id: string, username: string, did?: string | null, phoneNumber?: string | null, email: string, name: string, logoUrl?: string | null, status: string, deleted: boolean, trustedOrganizationsIds: Array<string>, createdAt?: any | null, updatedAt?: any | null } | null };
 
 
 export const CreateOneCredentialRequestDocument = gql`
@@ -6696,6 +6726,7 @@ export const UpdateOneUserDocument = gql`
     name
     logoUrl
     status
+    deleted
     createdAt
     updatedAt
   }
@@ -7445,6 +7476,7 @@ export const ProfileDocument = gql`
     name
     logoUrl
     status
+    deleted
     createdAt
     updatedAt
   }
@@ -7488,6 +7520,7 @@ export const UserDocument = gql`
     name
     logoUrl
     status
+    deleted
     trustedOrganizationsIds
     createdAt
     updatedAt
