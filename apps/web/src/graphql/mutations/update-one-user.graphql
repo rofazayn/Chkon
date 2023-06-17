@@ -8,6 +8,7 @@ mutation UpdateOneUser($data: UserUpdateInput!, $where: UserWhereUniqueInput!) {
     name
     logoUrl
     status
+    deleted
     createdAt
     updatedAt
   }

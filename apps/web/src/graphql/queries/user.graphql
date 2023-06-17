@@ -8,6 +8,7 @@ query User($where: UserWhereUniqueInput!) {
     name
     logoUrl
     status
+    deleted
     trustedOrganizationsIds
     createdAt
     updatedAt
