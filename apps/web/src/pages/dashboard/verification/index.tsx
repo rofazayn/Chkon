@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  Divider,
   FileInput,
   Group,
   Stack,
@@ -16,15 +17,24 @@ import {
 } from '@tabler/icons-react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import Webcam from 'react-webcam'
 import DashboardLayout from '../../../components/_layouts/dashboard-layout'
 import { useUpdateOneUserMutation } from '../../../generated/graphql'
 import useAuth from '../../../hooks/useAuth'
+import { useState } from 'react'
+const WebcamComponent = () => (
+  <Webcam
+    mirrored={true}
+    style={{ position: 'relative', borderRadius: 12, overflow: 'hidden' }}
+  />
+)
 
 const UserVerification = () => {
   const { user } = useAuth()
   const router = useRouter()
   const theme = useMantineTheme()
   const [updateOneUserMutation, { loading }] = useUpdateOneUserMutation()
+  const [fileChanged, setFileChanged] = useState<boolean>(false)
 
   const handleVerifyUser = async () => {
     try {
@@ -58,7 +68,7 @@ const UserVerification = () => {
       <Stack
         spacing={6}
         sx={{
-          maxWidth: 520,
+          maxWidth: 640,
         }}
       >
         <Text size='lg' weight='bold'>
@@ -71,18 +81,35 @@ const UserVerification = () => {
               Please verify your account by providing a scanned document of your
               Passport/National-ID card
             </Text>
-            <FileInput
-              label='Identity Document'
-              placeholder='Upload your document here'
-              icon={<IconUpload size={18} />}
-              variant='filled'
-              accept='.pdf,.png,.jpeg,.jpg'
-            />
+            <Divider variant='dashed' my={8} />
+            <Stack spacing={0}>
+              <Text size='xs' color='dimmed'>
+                1 - Step One: Identity Documents
+              </Text>
+              <FileInput
+                label='Identity Document'
+                placeholder='Upload your document here'
+                icon={<IconUpload size={18} />}
+                variant='filled'
+                accept='.pdf,.png,.jpeg,.jpg'
+                onChange={() => setFileChanged(true)}
+              />
+            </Stack>
+            {fileChanged && (
+              <Box mt={12}>
+                <Text size='xs' color='dimmed' mb={6}>
+                  2 - Step Two: Biometrics Verification
+                </Text>
+
+                <WebcamComponent />
+              </Box>
+            )}
             <Box mt={12}>
               <Button
                 rightIcon={<IconCheck size={18} />}
                 onClick={handleVerifyUser}
                 loading={loading}
+                disabled={!fileChanged}
                 variant='light'
               >
                 Verify my account
